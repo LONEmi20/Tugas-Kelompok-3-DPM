@@ -128,24 +128,6 @@ class _SignInPageState extends State<SignInPage> {
               Positioned(
                 left: 41,
                 top: 338.51,
-                child: Container(
-                  width: 308.90,
-                  height: 43.52,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: const Color(0xFF224699),
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 146.37,
-                top: 347.62,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -155,18 +137,37 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     );
                   },
-                  child: SizedBox(
-                    width: 98.16,
-                    height: 26.32,
-                    child: Text(
-                      'Sign In',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: const Color(0xFF224699),
-                        fontSize: 16,
-                        fontFamily: 'League Spartan',
-                        fontWeight: FontWeight.w600,
+                  child: Container(
+                    width: 308.90,
+                    height: 43.52,
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: const Color(0xFF224699),
+                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 146.37,
+                top: 347.62,
+
+                child: SizedBox(
+                  width: 98.16,
+                  height: 26.32,
+                  child: Text(
+                    'Sign In',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xFF224699),
+                      fontSize: 16,
+                      fontFamily: 'League Spartan',
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),

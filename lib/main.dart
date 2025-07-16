@@ -526,6 +526,11 @@ class HomepagePendaftarFix extends StatelessWidget {
                       decoration: ShapeDecoration(
                         color: const Color(0xFFF2F2FF),
                         shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 2,
+                            strokeAlign: BorderSide.strokeAlignCenter,
+                            color: const Color(0xFF224699),
+                          ),
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
