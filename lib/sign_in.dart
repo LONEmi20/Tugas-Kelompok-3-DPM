@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -19,9 +20,14 @@ class FigmaToCodeApp extends StatelessWidget {
   }
 }
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,7 +47,7 @@ class SignInPage extends StatelessWidget {
                   height: 25.30,
                   child: Row(
                     children: [
-                      // Garis kiri
+                      //
                       Expanded(
                         child: Opacity(
                           opacity: 0.5,
@@ -52,9 +58,9 @@ class SignInPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Spasi horizontal
+                      //
                       SizedBox(width: 8),
-                      // Teks "atau"
+                      //
                       Opacity(
                         opacity: 0.5,
                         child: Text(
@@ -67,9 +73,9 @@ class SignInPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Spasi horizontal
+                      //
                       SizedBox(width: 8),
-                      // Garis kanan
+                      //
                       Expanded(
                         child: Opacity(
                           opacity: 0.5,
@@ -140,17 +146,27 @@ class SignInPage extends StatelessWidget {
               Positioned(
                 left: 146.37,
                 top: 347.62,
-                child: SizedBox(
-                  width: 98.16,
-                  height: 26.32,
-                  child: Text(
-                    'Sign In',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: const Color(0xFF224699),
-                      fontSize: 16,
-                      fontFamily: 'League Spartan',
-                      fontWeight: FontWeight.w600,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomepagePendaftarFix(),
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    width: 98.16,
+                    height: 26.32,
+                    child: Text(
+                      'Sign In',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: const Color(0xFF224699),
+                        fontSize: 16,
+                        fontFamily: 'League Spartan',
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
