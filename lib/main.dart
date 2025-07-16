@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'berita_1.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -781,117 +782,122 @@ class HomepagePendaftarFix extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
-                    left: 21,
-                    top: 224,
-                    child: Container(
-                      width: 349,
-                      height: 358,
-                      decoration: ShapeDecoration(
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            color: const Color(0xFFAAB7D3),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BeritaNasionalGayaHidup(),
+                        ),
+                      );
+                    },
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 21,
+                          top: 224,
+                          child: Container(
+                            width: 349,
+                            height: 358,
+                            decoration: ShapeDecoration(
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: const Color(0xFFAAB7D3),
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              shadows: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(5),
                         ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
+                        Positioned(
+                          left: 27,
+                          top: 232,
+                          child: Container(
+                            width: 337,
+                            height: 164,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              image: DecorationImage(
+                                image: AssetImage('assets/img/brt/berita1.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  Positioned(
-                    left: 26,
-                    top: 399.16,
-                    child: SizedBox(
-                      width: 340,
-                      height: 86.10,
-                      child: Text(
-                        'Film Kini Banyak di Platform Streaming, Bioskop Makin Sepi?',
-                        style: TextStyle(
-                          color: const Color(0xFF224699),
-                          fontSize: 20,
-                          fontFamily: 'Bree Serif',
-                          fontWeight: FontWeight.w400,
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 26,
-                    top: 493,
-                    child: SizedBox(
-                      width: 70,
-                      height: 17.41,
-                      child: Text(
-                        '03/10/2024',
-                        style: TextStyle(
-                          color: const Color(0xFF224699),
-                          fontSize: 15,
-                          fontFamily: 'Alumni Sans',
-                          fontWeight: FontWeight.w400,
+                        Positioned(
+                          left: 26,
+                          top: 399.16,
+                          child: SizedBox(
+                            width: 340,
+                            height: 86.10,
+                            child: Text(
+                              'Polisi Indonesia Menahan 12\nTersangka dalam Kasus Perdagangan Bayi',
+                              style: TextStyle(
+                                color: const Color(0xFF224699),
+                                fontSize: 20,
+                                fontFamily: 'Bree Serif',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 96,
-                    top: 503.64,
-                    child: Container(
-                      width: 264,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFF224699),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            strokeAlign: BorderSide.strokeAlignCenter,
+                        Positioned(
+                          left: 26,
+                          top: 493,
+                          child: SizedBox(
+                            width: 70,
+                            height: 17.41,
+                            child: Text(
+                              '16/07/25',
+                              style: TextStyle(
+                                color: const Color(0xFF224699),
+                                fontSize: 15,
+                                fontFamily: 'Alumni Sans',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 96,
+                          top: 503.64,
+                          child: Container(
+                            width: 264,
+                            height: 1, // tambahkan tinggi agar kelihatan
                             color: const Color(0xFF224699),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 26,
-                    top: 518.15,
-                    child: SizedBox(
-                      width: 334,
-                      height: 48.37,
-                      child: Text(
-                        'Para pemain Aston Villa melakukan selebrasi usai menjebol gawang Bayern Muenchen di laga Liga Champions.',
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          color: const Color(0xFF224699),
-                          fontSize: 12,
-                          fontFamily: 'AR One Sans',
-                          fontWeight: FontWeight.w400,
+                        Positioned(
+                          left: 26,
+                          top: 518.15,
+                          child: SizedBox(
+                            width: 334,
+                            height: 48.37,
+                            child: Text(
+                              'Pihak berwenang telah menahan 12 tersangka setelah mengungkap terduga sindikat perdagangan bayi.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                color: const Color(0xFF224699),
+                                fontSize: 12,
+                                fontFamily: 'AR One Sans',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    left: 27,
-                    top: 232,
-                    child: Container(
-                      width: 337,
-                      height: 164,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        image: DecorationImage(
-                          image: AssetImage('assets/img/pubgsss.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+
                   Positioned(
                     left: 21,
                     top: 180,
@@ -981,10 +987,10 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     //beranda ni
                     left: 308.86,
-                    top: 183.12,
+                    top: 173.12,
                     child: SizedBox(
                       width: 50.95,
-                      height: 20.83,
+                      height: 40.83,
                       child: Text(
                         'Gaya Hidup',
                         textAlign: TextAlign.center,
