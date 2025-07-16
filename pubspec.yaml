@@ -52,10 +52,29 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets: 
+  - assets/img/amboyoy.png
+  - assets/img/Logo-mikirluk.png
+  - assets/img/local_post_office.png
+  - assets/img/local_phone.png
+  - assets/img/FACEBOOK ICON.png
+  - assets/img/WA ICON.png
+  - assets/img/X ICON.png
+  - assets/img/IG ICON.png
+  - assets/img/search.png
+  - assets/img/3_bar.png
+  - assets/img/batere.png
+  - assets/img/wifi.png
+  - assets/img/images_wifi.png
+  - assets/img/pubgsss.png
+  - assets/img/highlight_off.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
