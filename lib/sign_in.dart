@@ -39,21 +39,52 @@ class SignInPage extends StatelessWidget {
                 child: SizedBox(
                   width: 308.90,
                   height: 25.30,
-                  child: Opacity(
-                    opacity: 0.50,
-                    child: Text(
-                      'atau ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Fredoka',
-                        fontWeight: FontWeight.w400,
+                  child: Row(
+                    children: [
+                      // Garis kiri
+                      Expanded(
+                        child: Opacity(
+                          opacity: 0.5,
+                          child: Divider(
+                            thickness: 1,
+                            color: Colors.black,
+                            height: 1,
+                          ),
+                        ),
                       ),
-                    ),
+                      // Spasi horizontal
+                      SizedBox(width: 8),
+                      // Teks "atau"
+                      Opacity(
+                        opacity: 0.5,
+                        child: Text(
+                          'atau',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'Fredoka',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      // Spasi horizontal
+                      SizedBox(width: 8),
+                      // Garis kanan
+                      Expanded(
+                        child: Opacity(
+                          opacity: 0.5,
+                          child: Divider(
+                            thickness: 1,
+                            color: Colors.black,
+                            height: 1,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+
               Positioned(
                 left: 41,
                 top: 275.75,
@@ -72,7 +103,7 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 67.61,
+                left: 60,
                 top: 284.86,
                 child: SizedBox(
                   width: 98.16,
@@ -120,24 +151,6 @@ class SignInPage extends StatelessWidget {
                       fontSize: 16,
                       fontFamily: 'League Spartan',
                       fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 46.50,
-                top: 494.19,
-                child: Opacity(
-                  opacity: 0.50,
-                  child: Container(
-                    width: 132.38,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          strokeAlign: BorderSide.strokeAlignCenter,
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -279,11 +292,11 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 111.34,
-                top: 576.18,
+                left: 111,
+                top: 578,
                 child: SizedBox(
-                  width: 171.11,
-                  height: 26.32,
+                  width: 200,
+                  height: 26,
                   child: Text.rich(
                     TextSpan(
                       children: [
@@ -326,7 +339,7 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 91,
+                left: 123,
                 top: 162,
                 child: Text(
                   'Selamat Datang!',
@@ -341,17 +354,14 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 91,
-                top: 162,
-                child: Text(
-                  'Selamat Datang!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF224699),
-                    fontSize: 20,
-                    fontFamily: 'League Spartan',
-                    fontWeight: FontWeight.w500,
-                    height: 1,
+                left: 60,
+                top: 20,
+                child: SizedBox(
+                  width: 270,
+                  height: 130,
+                  child: Image.asset(
+                    'assets/img/Logo-mikirluk.png',
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -373,11 +383,11 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 70,
-                top: 222,
+                left: 60,
+                top: 223,
                 child: SizedBox(
-                  width: 98.16,
-                  height: 26.32,
+                  width: 100,
+                  height: 28,
                   child: Text(
                     'Email',
                     style: TextStyle(

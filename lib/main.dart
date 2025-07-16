@@ -107,7 +107,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                   width: 229,
                   height: 59,
                   child: Text(
-                    'Wakili Indonesia,Tata Juliastrid Raih Gelar Miss Cosmo 2024 ',
+                    'Wakili Indonesia, Tata Juliastrid Raih Gelar Miss Cosmo 2024 ',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12,
@@ -427,6 +427,14 @@ class HomepagePendaftarFix extends StatelessWidget {
                   width: 334,
                   height: 135,
                   decoration: ShapeDecoration(
+                    shadows: [
+                      BoxShadow(
+                        color: const Color(0x3F000000),
+                        blurRadius: 4,
+                        offset: Offset(0, 4),
+                        spreadRadius: 0,
+                      ),
+                    ],
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
@@ -439,11 +447,11 @@ class HomepagePendaftarFix extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 38,
+                left: 35,
                 top: 638,
                 child: Container(
-                  width: 313,
-                  height: 101,
+                  width: 320,
+                  height: 105,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
 
@@ -466,8 +474,8 @@ class HomepagePendaftarFix extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 315,
-                top: 614,
+                left: 338,
+                top: 618,
                 child: Container(
                   width: 12,
                   height: 12,
