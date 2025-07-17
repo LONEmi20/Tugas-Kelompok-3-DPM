@@ -3,7 +3,7 @@ import 'package:tugas_kelompok_dpm/berita_2.dart';
 import 'package:tugas_kelompok_dpm/berita_3.dart';
 import 'package:tugas_kelompok_dpm/berita_4.dart';
 import 'package:tugas_kelompok_dpm/berita_5.dart';
-import 'package:tugas_kelompok_dpm/main_inter.dart';
+import 'package:tugas_kelompok_dpm/main.dart';
 import 'package:tugas_kelompok_dpm/sign_in.dart';
 import 'berita_1.dart';
 
@@ -24,8 +24,8 @@ class FigmaToCodeApp extends StatelessWidget {
   }
 }
 
-class HomepagePendaftarFix extends StatelessWidget {
-  const HomepagePendaftarFix({super.key});
+class HomepageInter extends StatelessWidget {
+  const HomepageInter({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                     left: 21,
                     top: 766,
                     child: Text(
-                      'Berita Terkini',
+                      'Breaking News',
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                         color: Colors.black,
@@ -570,7 +570,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomepageInter(),
+                            builder: (context) => HomepagePendaftarFix(),
                           ),
                         );
                       },
@@ -578,13 +578,8 @@ class HomepagePendaftarFix extends StatelessWidget {
                         width: 169,
                         height: 25,
                         decoration: ShapeDecoration(
-                          color: const Color(0xFFF2F2FF),
+                          color: const Color.fromARGB(255, 0, 0, 0),
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 2,
-                              strokeAlign: BorderSide.strokeAlignCenter,
-                              color: const Color(0xFF224699),
-                            ),
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
@@ -594,18 +589,28 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     left: 26,
                     top: 131,
-                    child: SizedBox(
-                      width: 156,
-                      height: 26,
-                      child: Text(
-                        'National',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: const Color(0xFF224699),
-                          fontSize: 16,
-                          fontFamily: 'League Spartan',
-                          fontWeight: FontWeight.w700,
-                          height: 1.78,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomepagePendaftarFix(),
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        width: 156,
+                        height: 26,
+                        child: Text(
+                          'National',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 16,
+                            fontFamily: 'League Spartan',
+                            fontWeight: FontWeight.w700,
+                            height: 1.78,
+                          ),
                         ),
                       ),
                     ),
@@ -613,23 +618,19 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     left: 203,
                     top: 133,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomepageInter(),
+
+                    child: Container(
+                      width: 167,
+                      height: 25,
+                      decoration: ShapeDecoration(
+                        color: const Color(0xFFF2F2FF),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 2,
+                            strokeAlign: BorderSide.strokeAlignCenter,
+                            color: const Color(0xFF224699),
                           ),
-                        );
-                      },
-                      child: Container(
-                        width: 167,
-                        height: 25,
-                        decoration: ShapeDecoration(
-                          color: const Color.fromARGB(255, 60, 45, 45),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
                     ),
@@ -637,28 +638,18 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     left: 208,
                     top: 131,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomepageInter(),
-                          ),
-                        );
-                      },
-                      child: SizedBox(
-                        width: 155,
-                        height: 26,
-                        child: Text(
-                          'International',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w600,
-                            height: 1.78,
-                          ),
+                    child: SizedBox(
+                      width: 155,
+                      height: 26,
+                      child: Text(
+                        'International',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: const Color(0xFF224699),
+                          fontSize: 16,
+                          fontFamily: 'League Spartan',
+                          fontWeight: FontWeight.w600,
+                          height: 1.78,
                         ),
                       ),
                     ),
@@ -982,7 +973,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                     left: 21,
                     top: 180,
                     child: Container(
-                      width: 56.04,
+                      width: 72.04,
                       height: 26.04,
                       decoration: ShapeDecoration(
                         color: const Color(0xFFF2F2FF),
@@ -993,13 +984,13 @@ class HomepagePendaftarFix extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 23.55,
+                    left: 21.55,
                     top: 182.08,
                     child: SizedBox(
-                      width: 50.95,
+                      width: 70.95,
                       height: 20.83,
                       child: Text(
-                        'Beranda',
+                        'Homepage',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -1011,13 +1002,13 @@ class HomepagePendaftarFix extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 94.88,
+                    left: 101.88,
                     top: 183.12,
                     child: SizedBox(
                       width: 50.95,
                       height: 20.83,
                       child: Text(
-                        'Olahraga',
+                        'Sport',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -1035,7 +1026,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                       width: 50.95,
                       height: 20.83,
                       child: Text(
-                        'Politik',
+                        'Political',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -1050,10 +1041,10 @@ class HomepagePendaftarFix extends StatelessWidget {
                     left: 237.53,
                     top: 183.12,
                     child: SizedBox(
-                      width: 50.95,
+                      width: 60.95,
                       height: 20.83,
                       child: Text(
-                        'Hiburan',
+                        'Entertainment',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -1072,7 +1063,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                       width: 50.95,
                       height: 40.83,
                       child: Text(
-                        'Gaya Hidup',
+                        'Life Style',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
