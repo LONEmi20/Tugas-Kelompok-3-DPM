@@ -15,13 +15,13 @@ class FigmaToCodeApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
-      home: Scaffold(body: ListView(children: [BeritaNasionalGayaHidup()])),
+      home: Scaffold(body: ListView(children: [BeritaNasionalWamenekraf()])),
     );
   }
 }
 
-class BeritaNasionalGayaHidup extends StatelessWidget {
-  const BeritaNasionalGayaHidup({super.key});
+class BeritaNasionalWamenekraf extends StatelessWidget {
+  const BeritaNasionalWamenekraf({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +30,14 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
           children: [
             Container(
               width: 390,
-              height: 2172,
+              height: 2572,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
                     left: 20,
-                    top: 260,
+                    top: 230,
                     child: Container(
                       width: 349,
                       height: 198,
@@ -51,7 +51,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                           ),
                         ],
                         image: DecorationImage(
-                          image: AssetImage('assets/img/brt/berita1.png'),
+                          image: AssetImage('assets/img/brt/berita3.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -64,7 +64,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                       width: 329,
                       height: 80,
                       child: Text(
-                        'Polisi Indonesia Menahan 12\nTersangka dalam Kasus Perdagangan Bayi',
+                        'Wamenekraf dorong Femmevolution Festival jadi panggung talenta ekraf',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -76,11 +76,11 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 20,
-                    top: 500,
+                    top: 490,
                     child: SizedBox(
                       width: 350,
                       child: Text(
-                        'BANDUNG, Indonesia — Pihak berwenang Indonesia telah menahan 12 tersangka setelah mengungkap dugaan sindikat perdagangan bayi yang mengirim lebih dari selusin bayi ke Singapura, ujar seorang pejabat kepolisian kepada AFP pada hari Selasa.\n\nKasus ini terungkap setelah seorang orang tua melaporkan dugaan penculikan bayi kepada polisi, yang kemudian mengarah kepada seorang tersangka yang mengaku telah memperdagangkan 24 bayi, kata Direktur Reserse Kriminal Umum Polda Jawa Barat, Surawan, yang hanya menggunakan satu nama.\n\nPara pelaku diduga memindahkan bayi-bayi tersebut ke Kota Pontianak di Pulau Kalimantan, kemudian mengirim lebih dari selusin dari mereka ke Singapura, ujar pejabat tersebut.\n                     “Berdasarkan dokumen, 14 (bayi) dikirim ke Singapura,” katanya.\n                     “Usia mereka jelas di bawah satu tahun, dengan beberapa berusia tiga bulan, lima bulan, dan enam bulan.”\n\nPihak berwenang berhasil menyelamatkan lima bayi di Pontianak dan satu bayi di Tangerang, sebuah kota dekat ibu kota Indonesia, Jakarta. Mereka juga menangkap 12 tersangka di Jakarta, Pontianak, dan Kota Bandung di Pulau Jawa.\n                     “Mereka ini sindikat, sindikat perdagangan bayi. Masing-masing memiliki peran,” ujar Surawan.\n\nBeberapa tersangka diduga bertugas mencari bayi-bayi tersebut, sementara yang lain merawat mereka, menampung mereka, atau menyiapkan dokumen administrasi sipil, seperti kartu keluarga dan paspor.\n                     Sindikat ini telah beroperasi sejak tahun 2023, kata Surawan berdasarkan keterangan para tersangka.\n\nPolisi mengatakan mereka menargetkan “orang tua atau ibu yang menolak merawat anak mereka” dengan imbalan uang.\n\nSurawan menyatakan bahwa orang tua yang melaporkan penculikan tersebut “sebenarnya sudah memiliki kesepakatan” dengan para penyelundup sebelum kelahiran anaknya, tetapi melapor kepada polisi karena tidak menerima pembayaran seperti yang dijanjikan.',
+                        'Jakarta - Wakil Menteri Ekonomi Kreatif (Wamenekraf), Irene Umar mendukung Femmevolution Festival 2025 menjadi panggung para pejuang ekonomi kreatif (ekraf) terutama bagi musisi dan desainer perempuan untuk tampil. \n\n"Femmevolution ialah contoh gabungan festival musik dan fesyen yang punya peran paling penting untuk memberi kesempatan atau panggung sehingga semua orang bisa melihat para pejuang ekraf tampil," kata Wamenekraf Irene Umar, dalam keterangan pers yang diterima di Jakarta, pada Rabu. \n\nDalam hal ini, Kementerian Ekonomi Kreatif (Ekraf) mendorong Femmevolution Festival 2025 sebagai wadah kolaborasi lintas sektor, khususnya fesyen dan musik, untuk memberdayakan talenta perempuan. \n\n"Banyak tempat-tempat yang ternyata memiliki panggung, tetapi tidak ada pengisi acara atau penampil," lanjut dia. \n\nFemmevolution Festival hadir dari semangat merayakan perempuan sebagai pusat kreativitas, kekuatan, dan kapabilitas transformasi. Hal ini guna mewadahi musisi perempuan lintas generasi, lintas genre, dan lintas batas.\n\nSelain festival musik yang merayakan keberanian dan kebersamaan, Femmevolution Festival juga akan menghadirkan diskusi terkait perempuan. Acara ini rencana digelar di Indonesia pada Agustus mendatang dengan konsep yang sederhana. \n\nDalam audiensi dengan penyelenggara Femmevolution Festival di Jakarta, Wamenekraf Irene juga menilai sebagai momen yang baik untuk membuka pintu kolaborasi bersama dengan pihak lain. \n\nApalagi sebelumnya Kementerian Ekraf sering berkolaborasi dengan Badan Perencanaan Pembangunan Daerah (Bappeda) Jakarta untuk memperkuat ekosistem ekonomi kreatif. \n\n"Kami bersama Bappeda Jakarta sudah menetapkan koridor-koridor kreatif menuju 500 Tahun Jakarta. Tempat-tempat seperti Kota Tua, Pos Bloc, Sarinah, Taman Ismail Marzuki, dan beberapa alternatif tempat lain bisa menjadi pilihan untuk mengadakan acaranya karena sudah pasti banyak pengunjung," ujar Irene. \n\n"Tetapi, kolaborasi yang tercipta tetap harus dibagi antara commercialization dengan partnershipnya," tambah dia. \n\nRieka Roslan sebagai penggagas Femmevolution Festival menyampaikan bahwa rencana pelaksanaan festival ini sebagai wujud visi dan misi mulia dalam memberikan tempat untuk berkarya serta wadah bagi para perempuan. \n\nAdapun tujuan acara ini bukan sekadar festival, melainkan gerakan perempuan untuk bertemu dan berdiskusi serta menonjolkan identitas maupun keberagaman Indonesia. \n\n"Femmevolution akan membuat perempuan tidak hanya bersuara, tetapi juga mereka menciptakan ruang wadah untuk berekspresi lewat musik," ujar Rieke Roslan. \n\nRieke menambahkan bahwa festival musik itu juga bisa menjadi ruang dengan menggabungkan fesyen maupun kuliner. \n\n"Akan menjadi keren saat para musisi yang hadir pakai kebaya serta wastra khas Indonesia. Kemudian, nanti tak hanya sekadar bernyanyi tapi ada tarian atau budaya Indonesia yang bisa dimunculkan sehingga makin populer," ucap Rieka.',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.black,
@@ -95,12 +95,12 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 20,
-                    top: 465,
+                    top: 440,
                     child: SizedBox(
                       width: 350,
-                      height: 17,
+                      height: 40,
                       child: Text(
-                        'Gambar ilustrasi penculik dan anak (sumber: sendiri).',
+                        'Gambar Wamenekraf Irene Umar saat menerima audiensi dengan penyelenggara Femmevolution Festival di Autograph Tower, Jakarta (sumber: Antara).',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.black,
@@ -113,32 +113,25 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 20,
-                    top: 223,
+                    top: 193,
                     child: SizedBox(
                       width: 157,
                       height: 13,
                       child: Text(
-                        '16 Juli 2025 09:19 WIB',
+                        '16 Juli 2025 18:09 WIB',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: const Color(0xFF224699),
                           fontSize: 10,
                           fontFamily: 'AR One Sans',
                           fontWeight: FontWeight.w400,
-                          shadows: [
-                            Shadow(
-                              offset: Offset(0, 4),
-                              blurRadius: 5,
-                              color: Color(0xFF000000),
-                            ),
-                          ],
                         ),
                       ),
                     ),
                   ),
                   Positioned(
                     left: 16,
-                    top: 1365,
+                    top: 1800,
                     child: Text(
                       'Editor: Fofo',
                       textAlign: TextAlign.justify,
@@ -152,24 +145,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 17,
-                    top: 1407.50,
-                    child: Container(
-                      width: 351,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFF224699),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            strokeAlign: BorderSide.strokeAlignCenter,
-                            color: const Color(0xFF224699),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 17,
-                    top: 1538,
+                    top: 1827.50,
                     child: Container(
                       width: 351,
                       decoration: ShapeDecoration(
@@ -186,7 +162,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 16,
-                    top: 1421,
+                    top: 1841,
                     child: Text(
                       'Tags:',
                       textAlign: TextAlign.center,
@@ -195,23 +171,16 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                         fontSize: 14,
                         fontFamily: 'AR One Sans',
                         fontWeight: FontWeight.w400,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(0, 4),
-                            blurRadius: 4,
-                            color: Color(0xFF000000),
-                          ),
-                        ],
                       ),
                     ),
                   ),
                   Positioned(
                     left: 61,
-                    top: 1421,
+                    top: 1841,
                     child: SizedBox(
                       width: 76,
                       child: Text(
-                        '#Polisi',
+                        '#Hiburan',
                         style: TextStyle(
                           color: const Color(0xFF224699),
                           fontSize: 14,
@@ -222,13 +191,13 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 152,
-                    top: 1421,
+                    left: 142,
+                    top: 1841,
                     child: SizedBox(
                       width: 91,
                       height: 19,
                       child: Text(
-                        '#GayaHidup',
+                        '#Festival',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -241,7 +210,21 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 61,
-                    top: 1446,
+                    top: 1866,
+                    child: Text(
+                      '#Ekraf',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: const Color(0xFF224699),
+                        fontSize: 14,
+                        fontFamily: 'AR One Sans',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 273,
+                    top: 1841,
                     child: Text(
                       '#Indonesia',
                       textAlign: TextAlign.center,
@@ -254,24 +237,10 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 273,
-                    top: 1421,
-                    child: Text(
-                      '#Penjahat',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: const Color(0xFF224699),
-                        fontSize: 14,
-                        fontFamily: 'AR One Sans',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  Positioned(
                     left: 157,
-                    top: 1446,
+                    top: 1866,
                     child: Text(
-                      '#Bayi',
+                      '#Femmevolution',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: const Color(0xFF224699),
@@ -283,7 +252,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 22,
-                    top: 1496,
+                    top: 1896,
                     child: Text(
                       'Bagikan',
                       style: TextStyle(
@@ -296,7 +265,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 152,
-                    top: 1492,
+                    top: 1892,
                     child: Container(
                       width: 30,
                       height: 30,
@@ -310,7 +279,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 107,
-                    top: 1492,
+                    top: 1892,
                     child: Container(
                       width: 30,
                       height: 30,
@@ -324,7 +293,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 242,
-                    top: 1492,
+                    top: 1892,
                     child: Container(
                       width: 30,
                       height: 30,
@@ -338,7 +307,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 197,
-                    top: 1492,
+                    top: 1892,
                     child: Container(
                       width: 30,
                       height: 30,
@@ -353,7 +322,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
 
                   Positioned(
                     left: 28,
-                    top: 2027,
+                    top: 2427,
                     child: Container(
                       width: 334,
                       height: 135,
@@ -379,7 +348,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 35,
-                    top: 2050,
+                    top: 2450,
                     child: Container(
                       width: 320,
                       height: 105,
@@ -395,7 +364,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 338,
-                    top: 2029,
+                    top: 2429,
                     child: Container(
                       width: 12,
                       height: 12,
@@ -409,7 +378,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 165,
-                    top: 2027,
+                    top: 2427,
                     child: SizedBox(
                       width: 57.10,
                       height: 13.50,
@@ -427,7 +396,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 18,
-                    top: 1566,
+                    top: 1966,
                     child: Container(
                       width: 355,
                       height: 416,
@@ -445,7 +414,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 33,
-                    top: 1777,
+                    top: 2177,
                     child: SizedBox(
                       width: 325,
                       height: 20,
@@ -466,7 +435,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 33,
-                    top: 1842,
+                    top: 2242,
                     child: SizedBox(
                       width: 325,
                       height: 20,
@@ -483,22 +452,8 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 307,
-                    top: 1800,
-                    child: Container(
-                      width: 51,
-                      height: 17,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
                     left: 42,
-                    top: 1578,
+                    top: 1978,
                     child: SizedBox(
                       width: 100,
                       height: 22.65,
@@ -516,7 +471,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 307,
-                    top: 1801,
+                    top: 2201,
                     child: SizedBox(
                       width: 51,
                       height: 15.70,
@@ -534,7 +489,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 33,
-                    top: 1610,
+                    top: 2010,
                     child: Container(
                       width: 325,
                       height: 158,
@@ -548,7 +503,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 53,
-                    top: 1632,
+                    top: 2032,
                     child: Opacity(
                       opacity: 0.50,
                       child: Text(
@@ -565,7 +520,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                   ),
                   Positioned(
                     left: 33,
-                    top: 1829,
+                    top: 2229,
                     child: Container(
                       width: 325,
                       decoration: ShapeDecoration(

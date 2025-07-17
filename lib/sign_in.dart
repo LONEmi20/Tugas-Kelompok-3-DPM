@@ -12,8 +12,8 @@ class FigmaToCodeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       home: Scaffold(body: ListView(children: [SignInPage()])),
     );
@@ -30,396 +30,412 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 390,
-          height: 844,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Stack(
-            children: [
-              Positioned(
-                left: 42,
-                top: 478,
-                child: SizedBox(
-                  width: 308.90,
-                  height: 25.30,
-                  child: Row(
-                    children: [
-                      //
-                      Expanded(
-                        child: Opacity(
-                          opacity: 0.5,
-                          child: Divider(
-                            thickness: 1,
-                            color: Colors.black,
-                            height: 1,
+    return GestureDetector(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(0),
+            child: Container(
+              width: 390,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(color: Colors.white),
+              child: Stack(
+                children: [
+                  Container(
+                    width: 390,
+                    height: 844,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 42,
+                          top: 478,
+                          child: SizedBox(
+                            width: 308.90,
+                            height: 25.30,
+                            child: Row(
+                              children: [
+                                //
+                                Expanded(
+                                  child: Opacity(
+                                    opacity: 0.5,
+                                    child: Divider(
+                                      thickness: 1,
+                                      color: Colors.black,
+                                      height: 1,
+                                    ),
+                                  ),
+                                ),
+                                //
+                                SizedBox(width: 8),
+                                //
+                                Opacity(
+                                  opacity: 0.5,
+                                  child: Text(
+                                    'atau',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontFamily: 'Fredoka',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                //
+                                SizedBox(width: 8),
+                                //
+                                Expanded(
+                                  child: Opacity(
+                                    opacity: 0.5,
+                                    child: Divider(
+                                      thickness: 1,
+                                      color: Colors.black,
+                                      height: 1,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      //
-                      SizedBox(width: 8),
-                      //
-                      Opacity(
-                        opacity: 0.5,
-                        child: Text(
-                          'atau',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontFamily: 'Fredoka',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                      //
-                      SizedBox(width: 8),
-                      //
-                      Expanded(
-                        child: Opacity(
-                          opacity: 0.5,
-                          child: Divider(
-                            thickness: 1,
-                            color: Colors.black,
-                            height: 1,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
 
-              Positioned(
-                left: 41,
-                top: 275.75,
-                child: Container(
-                  width: 308.90,
-                  height: 43.52,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: const Color(0xFF224699),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 60,
-                top: 284.86,
-                child: SizedBox(
-                  width: 98.16,
-                  height: 26.32,
-                  child: Text(
-                    'Password',
-                    style: TextStyle(
-                      color: const Color(0x7F224699),
-                      fontSize: 16,
-                      fontFamily: 'League Spartan',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 41,
-                top: 338.51,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomepagePendaftarFix(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: 308.90,
-                    height: 43.52,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: const Color(0xFF224699),
+                        Positioned(
+                          left: 41,
+                          top: 275.75,
+                          child: Container(
+                            width: 308.90,
+                            height: 43.52,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: const Color(0xFF224699),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 146.37,
-                top: 347.62,
+                        Positioned(
+                          left: 60,
+                          top: 284.86,
+                          child: SizedBox(
+                            width: 98.16,
+                            height: 26.32,
+                            child: Text(
+                              'Password',
+                              style: TextStyle(
+                                color: const Color(0x7F224699),
+                                fontSize: 16,
+                                fontFamily: 'League Spartan',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 41,
+                          top: 338.51,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HomepagePendaftarFix(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 308.90,
+                              height: 43.52,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    width: 1,
+                                    color: const Color(0xFF224699),
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 146.37,
+                          top: 347.62,
 
-                child: SizedBox(
-                  width: 98.16,
-                  height: 26.32,
-                  child: Text(
-                    'Sign In',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: const Color(0xFF224699),
-                      fontSize: 16,
-                      fontFamily: 'League Spartan',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 42,
-                top: 513.43,
-                child: Container(
-                  width: 308.90,
-                  height: 43.52,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: const Color(0xFF224699),
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 111.34,
-                top: 524.56,
-                child: SizedBox(
-                  width: 171.11,
-                  height: 25.30,
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Masuk dengan',
-                          style: TextStyle(
-                            color: const Color(0xFF224699),
-                            fontSize: 16,
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w400,
+                          child: SizedBox(
+                            width: 98.16,
+                            height: 26.32,
+                            child: Text(
+                              'Sign In',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: const Color(0xFF224699),
+                                fontSize: 16,
+                                fontFamily: 'League Spartan',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
-                        TextSpan(
-                          text: ' Google',
-                          style: TextStyle(
-                            color: const Color(0xFF224699),
-                            fontSize: 16,
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w600,
+                        Positioned(
+                          left: 42,
+                          top: 513.43,
+                          child: Container(
+                            width: 308.90,
+                            height: 43.52,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: const Color(0xFF224699),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 111.34,
+                          top: 524.56,
+                          child: SizedBox(
+                            width: 171.11,
+                            height: 25.30,
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Masuk dengan',
+                                    style: TextStyle(
+                                      color: const Color(0xFF224699),
+                                      fontSize: 16,
+                                      fontFamily: 'League Spartan',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' Google',
+                                    style: TextStyle(
+                                      color: const Color(0xFF224699),
+                                      fontSize: 16,
+                                      fontFamily: 'League Spartan',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 42,
+                          top: 618.69,
+                          child: Container(
+                            width: 308.90,
+                            height: 43.52,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: const Color(0xFF224699),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 111.34,
+                          top: 627.80,
+                          child: SizedBox(
+                            width: 171.11,
+                            height: 26.32,
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Masuk dengan',
+                                    style: TextStyle(
+                                      color: const Color(0xFF224699),
+                                      fontSize: 16,
+                                      fontFamily: 'League Spartan',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' Apple',
+                                    style: TextStyle(
+                                      color: const Color(0xFF224699),
+                                      fontSize: 16,
+                                      fontFamily: 'League Spartan',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 42,
+                          top: 567.07,
+                          child: Container(
+                            width: 308.90,
+                            height: 43.52,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: const Color(0xFF224699),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 111.34,
+                          top: 573.14,
+                          child: SizedBox(
+                            width: 171.11,
+                            height: 26.32,
+                            child: Text(
+                              'Masuk dengan Facebook',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Fredoka',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 111,
+                          top: 578,
+                          child: SizedBox(
+                            width: 200,
+                            height: 26,
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Masuk dengan',
+                                    style: TextStyle(
+                                      color: const Color(0xFF224699),
+                                      fontSize: 16,
+                                      fontFamily: 'League Spartan',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' Facebook',
+                                    style: TextStyle(
+                                      color: const Color(0xFF224699),
+                                      fontSize: 16,
+                                      fontFamily: 'League Spartan',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 140,
+                          top: 393,
+                          child: Text(
+                            'Lupa password?',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: const Color(0xFF224699),
+                              fontSize: 16,
+                              fontFamily: 'League Spartan',
+                              fontWeight: FontWeight.w400,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 123,
+                          top: 162,
+                          child: Text(
+                            'Selamat Datang!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: const Color(0xFF224699),
+                              fontSize: 20,
+                              fontFamily: 'League Spartan',
+                              fontWeight: FontWeight.w500,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 60,
+                          top: 20,
+                          child: SizedBox(
+                            width: 270,
+                            height: 130,
+                            child: Image.asset(
+                              'assets/img/Logo-mikirluk.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 41,
+                          top: 213,
+                          child: Container(
+                            width: 308.90,
+                            height: 42.51,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: const Color(0xFF224699),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 60,
+                          top: 223,
+                          child: SizedBox(
+                            width: 100,
+                            height: 28,
+                            child: Text(
+                              'Email',
+                              style: TextStyle(
+                                color: const Color(0x7F224699),
+                                fontSize: 16,
+                                fontFamily: 'League Spartan',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
+                ],
               ),
-              Positioned(
-                left: 42,
-                top: 618.69,
-                child: Container(
-                  width: 308.90,
-                  height: 43.52,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: const Color(0xFF224699),
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 111.34,
-                top: 627.80,
-                child: SizedBox(
-                  width: 171.11,
-                  height: 26.32,
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Masuk dengan',
-                          style: TextStyle(
-                            color: const Color(0xFF224699),
-                            fontSize: 16,
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        TextSpan(
-                          text: ' Apple',
-                          style: TextStyle(
-                            color: const Color(0xFF224699),
-                            fontSize: 16,
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 42,
-                top: 567.07,
-                child: Container(
-                  width: 308.90,
-                  height: 43.52,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: const Color(0xFF224699),
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 111.34,
-                top: 573.14,
-                child: SizedBox(
-                  width: 171.11,
-                  height: 26.32,
-                  child: Text(
-                    'Masuk dengan Facebook',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Fredoka',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 111,
-                top: 578,
-                child: SizedBox(
-                  width: 200,
-                  height: 26,
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Masuk dengan',
-                          style: TextStyle(
-                            color: const Color(0xFF224699),
-                            fontSize: 16,
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        TextSpan(
-                          text: ' Facebook',
-                          style: TextStyle(
-                            color: const Color(0xFF224699),
-                            fontSize: 16,
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 140,
-                top: 393,
-                child: Text(
-                  'Lupa password?',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF224699),
-                    fontSize: 16,
-                    fontFamily: 'League Spartan',
-                    fontWeight: FontWeight.w400,
-                    height: 1,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 123,
-                top: 162,
-                child: Text(
-                  'Selamat Datang!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF224699),
-                    fontSize: 20,
-                    fontFamily: 'League Spartan',
-                    fontWeight: FontWeight.w500,
-                    height: 1,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 60,
-                top: 20,
-                child: SizedBox(
-                  width: 270,
-                  height: 130,
-                  child: Image.asset(
-                    'assets/img/Logo-mikirluk.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 41,
-                top: 213,
-                child: Container(
-                  width: 308.90,
-                  height: 42.51,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        color: const Color(0xFF224699),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 60,
-                top: 223,
-                child: SizedBox(
-                  width: 100,
-                  height: 28,
-                  child: Text(
-                    'Email',
-                    style: TextStyle(
-                      color: const Color(0x7F224699),
-                      fontSize: 16,
-                      fontFamily: 'League Spartan',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_kelompok_dpm/berita_2.dart';
+import 'package:tugas_kelompok_dpm/berita_3.dart';
+import 'package:tugas_kelompok_dpm/sign_in.dart';
 import 'berita_1.dart';
 
 void main() {
@@ -11,10 +14,9 @@ class FigmaToCodeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
-      home: Scaffold(body: ListView(children: [HomepagePendaftarFix()])),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
+      home: SignInPage(),
     );
   }
 }
@@ -1038,7 +1040,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                               width: 160,
                               height: 53,
                               child: Text(
-                                'Film Animasi Deep Sea: Petualangan Fantasi di Dasar Laut',
+                                'Istana sebut Prabowo akan hadiri Sidang Umum PBB pada September',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -1068,7 +1070,7 @@ class HomepagePendaftarFix extends StatelessWidget {
                               width: 160,
                               height: 53,
                               child: Text(
-                                'Animasi Stop-Motion, Teman atau Lawan Bagi Animator?',
+                                'Wamenekraf dorong Femmevolution Festival jadi panggung talenta ekraf',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -1081,22 +1083,35 @@ class HomepagePendaftarFix extends StatelessWidget {
                           Positioned(
                             left: 25,
                             top: 18,
-                            child: Container(
-                              width: 162,
-                              height: 110,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                    spreadRadius: 0,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        BeritaNasionalPolitik(),
                                   ),
-                                ],
-                                image: DecorationImage(
-                                  image: AssetImage('assets/img/amboyoy.png'),
-                                  fit: BoxFit.cover,
+                                );
+                              },
+                              child: Container(
+                                width: 162,
+                                height: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x3F000000),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                      spreadRadius: 0,
+                                    ),
+                                  ],
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/img/brt/berita2.png',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1104,22 +1119,35 @@ class HomepagePendaftarFix extends StatelessWidget {
                           Positioned(
                             left: 227,
                             top: 18,
-                            child: Container(
-                              width: 162,
-                              height: 110,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                    spreadRadius: 0,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        BeritaNasionalWamenekraf(),
                                   ),
-                                ],
-                                image: DecorationImage(
-                                  image: AssetImage('assets/img/amboyoy.png'),
-                                  fit: BoxFit.cover,
+                                );
+                              },
+                              child: Container(
+                                width: 162,
+                                height: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x3F000000),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 4),
+                                      spreadRadius: 0,
+                                    ),
+                                  ],
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/img/brt/berita3.png',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1129,19 +1157,34 @@ class HomepagePendaftarFix extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 320,
-                    top: 8,
+                    left: 347,
+                    top: 6,
                     child: Container(
-                      width: 20,
-                      height: 20,
+                      width: 30,
+                      height: 30,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/img/wifi.png'),
+                          image: AssetImage('assets/img/batere.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
+                  Positioned(
+                    left: 307,
+                    top: 6,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/img/wifi1.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+
                   Positioned(
                     left: 10,
                     top: 62,
@@ -1186,8 +1229,8 @@ class HomepagePendaftarFix extends StatelessWidget {
                   ),
 
                   Positioned(
-                    left: 21,
-                    top: 8,
+                    left: 4,
+                    top: 7,
                     child: SizedBox(
                       width: 76,
                       height: 29,

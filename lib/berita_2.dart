@@ -15,13 +15,13 @@ class FigmaToCodeApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
-      home: Scaffold(body: ListView(children: [BeritaNasionalGayaHidup()])),
+      home: Scaffold(body: ListView(children: [BeritaNasionalPolitik()])),
     );
   }
 }
 
-class BeritaNasionalGayaHidup extends StatelessWidget {
-  const BeritaNasionalGayaHidup({super.key});
+class BeritaNasionalPolitik extends StatelessWidget {
+  const BeritaNasionalPolitik({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +51,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                           ),
                         ],
                         image: DecorationImage(
-                          image: AssetImage('assets/img/brt/berita1.png'),
+                          image: AssetImage('assets/img/brt/berita2.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -64,7 +64,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                       width: 329,
                       height: 80,
                       child: Text(
-                        'Polisi Indonesia Menahan 12\nTersangka dalam Kasus Perdagangan Bayi',
+                        'Istana sebut Prabowo akan hadiri Sidang Umum PBB pada September',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -80,7 +80,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     child: SizedBox(
                       width: 350,
                       child: Text(
-                        'BANDUNG, Indonesia — Pihak berwenang Indonesia telah menahan 12 tersangka setelah mengungkap dugaan sindikat perdagangan bayi yang mengirim lebih dari selusin bayi ke Singapura, ujar seorang pejabat kepolisian kepada AFP pada hari Selasa.\n\nKasus ini terungkap setelah seorang orang tua melaporkan dugaan penculikan bayi kepada polisi, yang kemudian mengarah kepada seorang tersangka yang mengaku telah memperdagangkan 24 bayi, kata Direktur Reserse Kriminal Umum Polda Jawa Barat, Surawan, yang hanya menggunakan satu nama.\n\nPara pelaku diduga memindahkan bayi-bayi tersebut ke Kota Pontianak di Pulau Kalimantan, kemudian mengirim lebih dari selusin dari mereka ke Singapura, ujar pejabat tersebut.\n                     “Berdasarkan dokumen, 14 (bayi) dikirim ke Singapura,” katanya.\n                     “Usia mereka jelas di bawah satu tahun, dengan beberapa berusia tiga bulan, lima bulan, dan enam bulan.”\n\nPihak berwenang berhasil menyelamatkan lima bayi di Pontianak dan satu bayi di Tangerang, sebuah kota dekat ibu kota Indonesia, Jakarta. Mereka juga menangkap 12 tersangka di Jakarta, Pontianak, dan Kota Bandung di Pulau Jawa.\n                     “Mereka ini sindikat, sindikat perdagangan bayi. Masing-masing memiliki peran,” ujar Surawan.\n\nBeberapa tersangka diduga bertugas mencari bayi-bayi tersebut, sementara yang lain merawat mereka, menampung mereka, atau menyiapkan dokumen administrasi sipil, seperti kartu keluarga dan paspor.\n                     Sindikat ini telah beroperasi sejak tahun 2023, kata Surawan berdasarkan keterangan para tersangka.\n\nPolisi mengatakan mereka menargetkan “orang tua atau ibu yang menolak merawat anak mereka” dengan imbalan uang.\n\nSurawan menyatakan bahwa orang tua yang melaporkan penculikan tersebut “sebenarnya sudah memiliki kesepakatan” dengan para penyelundup sebelum kelahiran anaknya, tetapi melapor kepada polisi karena tidak menerima pembayaran seperti yang dijanjikan.',
+                        'Jakarta - Kepala Kantor Komunikasi Kepresidenan (PCO) Hasan Nasbi menyampaikan bahwa Presiden Prabowo Subianto direncanakan menghadiri Sidang Umum Perserikatan Bangsa-Bangsa (PBB) yang akan digelar di New York, Amerika Serikat pada September tahun ini. \n\n "Nanti bulan September Sidang Umum PBB ya, di bulan September nanti dan insyaallah Presiden juga akan hadir di sana," kata Hasan saat memberikan pernyataan pers di Kantor PCO, Jakarta, Rabu. \n\nHasan mengatakan kehadiran Kepala Negara dalam forum tersebut melengkapi partisipasi aktif Indonesia dalam berbagai pertemuan multilateral sepanjang masa pemerintahannya. \n\nDia menuturkan Presiden Prabowo selama hampir sembilan bulan masa jabatannya telah hadir dalam sejumlah forum penting internasional \n\nDi antaranya adalah Konferensi Tingkat Tinggi (KTT) G20, KTT Kerja Sama Ekonomi Asia Pasifik (APEC), KTT BRICS, KTT ASEAN, KTT D-8, serta Forum Ekonomi Internasional St. Petersburg (SPIEF). \n\n"Jadi hampir seluruh forum-forum terpenting di dunia sudah dihadiri oleh Presiden dan pemerintah kita berperan aktif dan sangat mendapatkan respek yang tinggi dari dunia internasional," ucap dia. \n\nLebih lanjut Hasan menilai keikutsertaan aktif Indonesia dalam berbagai forum internasional selama masa kepemimpinan Presiden Prabowo membuahkan hasil yang positif. \n\nKeterlibatan tersebut, kata dia, tidak hanya meningkatkan posisi Indonesia di kancah global, tetapi juga diharapkan mampu memberikan manfaat konkret bagi kepentingan nasional. \n\nPartisipasi Indonesia di berbagai pertemuan multilateral disebutnya telah membuka peluang kerja sama strategis di bidang investasi dan perdagangan. \n\nDia berharap hal ini akan berdampak langsung pada peningkatan kesempatan kerja dan pertumbuhan ekonomi dalam negeri. \n\n"Kita berdoa nanti negara kita dengan kepemimpinan Bapak Presiden bisa memainkan peran yang sangat penting di kancah global, bukan hanya sekadar diperhitungkan di kancah global tapi juga membawa manfaat yang sangat besar terhadap bangsa kita," pungkas Hasan.',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.black,
@@ -100,7 +100,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                       width: 350,
                       height: 17,
                       child: Text(
-                        'Gambar ilustrasi penculik dan anak (sumber: sendiri).',
+                        'Gambar Kepala Kantor Komunikasi Kepresidenan (PCO) Hasan Nasbi (sumber: Antara)..',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.black,
@@ -118,7 +118,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                       width: 157,
                       height: 13,
                       child: Text(
-                        '16 Juli 2025 09:19 WIB',
+                        '16 Juli 2025 13:19 WIB',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -195,13 +195,6 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                         fontSize: 14,
                         fontFamily: 'AR One Sans',
                         fontWeight: FontWeight.w400,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(0, 4),
-                            blurRadius: 4,
-                            color: Color(0xFF000000),
-                          ),
-                        ],
                       ),
                     ),
                   ),
@@ -211,7 +204,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     child: SizedBox(
                       width: 76,
                       child: Text(
-                        '#Polisi',
+                        '#Pejabat',
                         style: TextStyle(
                           color: const Color(0xFF224699),
                           fontSize: 14,
@@ -222,13 +215,13 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 152,
+                    left: 142,
                     top: 1421,
                     child: SizedBox(
                       width: 91,
                       height: 19,
                       child: Text(
-                        '#GayaHidup',
+                        '#Politik',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -243,7 +236,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     left: 61,
                     top: 1446,
                     child: Text(
-                      '#Indonesia',
+                      '#Prabowo',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: const Color(0xFF224699),
@@ -257,7 +250,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     left: 273,
                     top: 1421,
                     child: Text(
-                      '#Penjahat',
+                      '#Indonesia',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: const Color(0xFF224699),
@@ -271,7 +264,7 @@ class BeritaNasionalGayaHidup extends StatelessWidget {
                     left: 157,
                     top: 1446,
                     child: Text(
-                      '#Bayi',
+                      '#PBB',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: const Color(0xFF224699),
