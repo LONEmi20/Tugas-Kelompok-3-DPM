@@ -15,13 +15,13 @@ class FigmaToCodeApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
-      home: Scaffold(body: ListView(children: [BeritaNasionalPolitik()])),
+      home: Scaffold(body: ListView(children: [BeritaNasionalAnaTiwi()])),
     );
   }
 }
 
-class BeritaNasionalPolitik extends StatelessWidget {
-  const BeritaNasionalPolitik({super.key});
+class BeritaNasionalAnaTiwi extends StatelessWidget {
+  const BeritaNasionalAnaTiwi({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                 children: [
                   Positioned(
                     left: 20,
-                    top: 260,
+                    top: 220,
                     child: Container(
                       width: 349,
                       height: 198,
@@ -51,7 +51,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                           ),
                         ],
                         image: DecorationImage(
-                          image: AssetImage('assets/img/brt/berita2.png'),
+                          image: AssetImage('assets/img/brt/berita4.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -59,12 +59,12 @@ class BeritaNasionalPolitik extends StatelessWidget {
                   ),
                   Positioned(
                     left: 20,
-                    top: 146,
+                    top: 136,
                     child: SizedBox(
                       width: 329,
                       height: 80,
                       child: Text(
-                        'Istana sebut Prabowo akan hadiri Sidang Umum PBB pada September',
+                        'Ana/Tiwi akhiri perlawanan ganda AS lewat drama rubber game',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -80,7 +80,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                     child: SizedBox(
                       width: 350,
                       child: Text(
-                        'Jakarta - Kepala Kantor Komunikasi Kepresidenan (PCO) Hasan Nasbi menyampaikan bahwa Presiden Prabowo Subianto direncanakan menghadiri Sidang Umum Perserikatan Bangsa-Bangsa (PBB) yang akan digelar di New York, Amerika Serikat pada September tahun ini. \n\n "Nanti bulan September Sidang Umum PBB ya, di bulan September nanti dan insyaallah Presiden juga akan hadir di sana," kata Hasan saat memberikan pernyataan pers di Kantor PCO, Jakarta, Rabu. \n\nHasan mengatakan kehadiran Kepala Negara dalam forum tersebut melengkapi partisipasi aktif Indonesia dalam berbagai pertemuan multilateral sepanjang masa pemerintahannya. \n\nDia menuturkan Presiden Prabowo selama hampir sembilan bulan masa jabatannya telah hadir dalam sejumlah forum penting internasional \n\nDi antaranya adalah Konferensi Tingkat Tinggi (KTT) G20, KTT Kerja Sama Ekonomi Asia Pasifik (APEC), KTT BRICS, KTT ASEAN, KTT D-8, serta Forum Ekonomi Internasional St. Petersburg (SPIEF). \n\n"Jadi hampir seluruh forum-forum terpenting di dunia sudah dihadiri oleh Presiden dan pemerintah kita berperan aktif dan sangat mendapatkan respek yang tinggi dari dunia internasional," ucap dia. \n\nLebih lanjut Hasan menilai keikutsertaan aktif Indonesia dalam berbagai forum internasional selama masa kepemimpinan Presiden Prabowo membuahkan hasil yang positif. \n\nKeterlibatan tersebut, kata dia, tidak hanya meningkatkan posisi Indonesia di kancah global, tetapi juga diharapkan mampu memberikan manfaat konkret bagi kepentingan nasional. \n\nPartisipasi Indonesia di berbagai pertemuan multilateral disebutnya telah membuka peluang kerja sama strategis di bidang investasi dan perdagangan. \n\nDia berharap hal ini akan berdampak langsung pada peningkatan kesempatan kerja dan pertumbuhan ekonomi dalam negeri. \n\n"Kita berdoa nanti negara kita dengan kepemimpinan Bapak Presiden bisa memainkan peran yang sangat penting di kancah global, bukan hanya sekadar diperhitungkan di kancah global tapi juga membawa manfaat yang sangat besar terhadap bangsa kita," pungkas Hasan.',
+                        'Jakarta - Pebulu tangkis ganda putri Indonesia Febriana Dwipuji Kusuma/Amalia Cahaya Pratiwi mengakhiri perlawanan ganda Amerika Serikat Lauren Lam/Allison Lee lewat drama rubber game pada babak 32 besar Jepang Open 2025. \n\nDalam laga yang berlangsung di Tokyo Metropolitan Gymnasium, Tokyo, Rabu malam WIB, Ana/Tiwi susah payah mengatasi Lam/Lee, dengan kemenangan 11-21, 21-14, 21-14. \n\nPada gim pertama, Ana/Tiwi bermain cukup terbuka meladeni gaya yang lebih menunggu dari Lam/Lee. Kedudukan cukup berimbang ketika kedua ganda sama-sama mendulang poin demi poin, 8-8. \n\nSelepas interval, Ana/Tiwi kehilangan konsentrasi dan kerap melakukan kesalahan. Sedangkan Lam/Lee terus mengantongi angka hingga lima poin berturut-turut untuk menutup gim pertama lewat kemenangan 21-11. \n\nPada gim kedua, Ana/Tiwi bermain lebih tenang dan menguasai tempo permainan. Meski demikian Lam/Lee tetap tampil ngotot dan mencoba untuk menguasai tempo. \n\nSkor ketat terus berlanjut hingga memasuki masa interval ketika Ana/Tiwi hanya unggul satu poin, 11-10. Selepas interval, Ana/Tiwi terus mencoba untuk mendikte permainan dan tak memberikan celah untuk Lam/Lee mengembangkan pola. \n\nDi penghujung gim kedua, Ana/Tiwi mengamankan empat poin berturut-turut lantas memaksa rubber game setelah menang lewat skor 21-14. \n\nDi gim penentuan, Ana/Tiwi bermain cukup hati-hati meladeni serangan-serangan dari Lam/Lee. Bermain lebih cerdik membuat Ana/Tiwi mampu unggul lima poin hingga memasuki masa interval, 11-6. \n\nSelepas interval, Ana/Tiwi mampu memanfaatkan setiap kesalahan yang dilakukan Liam/Lee. Servis Lam yang gagal di penghujung gim sekaligus menandai kemenangan Ana/Tiwi lewat skor serupa dengan gim kedua yakni 21-14. \n\nNantinya di babak 16 besar, Ana/Tiwi telah ditunggu oleh ganda Korea Selatan Hye Jeong Kim/Hee Yoo Kong yang sebelumnya mengandaskan perlawanan ganda tuan rumah Jepang Ririna Hiramoto/Haruna Konishi.',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.black,
@@ -95,12 +95,12 @@ class BeritaNasionalPolitik extends StatelessWidget {
                   ),
                   Positioned(
                     left: 20,
-                    top: 465,
+                    top: 425,
                     child: SizedBox(
                       width: 350,
-                      height: 17,
+                      height: 55,
                       child: Text(
-                        'Gambar Kepala Kantor Komunikasi Kepresidenan (PCO) Hasan Nasbi (sumber: Antara)..',
+                        'Gambar Pebulu tangkis ganda putri Indonesia Febriana Dwipuji Kusuma (kanan) memberikan kode kepada Amallia Cahaya Pratiwi (kiri) saat bertanding di Indonesia Open 2025 di Istora Senayan, Gelora Bung Karno, Jakarta. (sumber: Antara).',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.black,
@@ -113,7 +113,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                   ),
                   Positioned(
                     left: 20,
-                    top: 223,
+                    top: 193,
                     child: SizedBox(
                       width: 157,
                       height: 13,
@@ -138,7 +138,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                   ),
                   Positioned(
                     left: 16,
-                    top: 1365,
+                    top: 1380,
                     child: Text(
                       'Editor: Fofo',
                       textAlign: TextAlign.justify,
@@ -204,7 +204,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                     child: SizedBox(
                       width: 76,
                       child: Text(
-                        '#Pejabat',
+                        '#KitaBisa',
                         style: TextStyle(
                           color: const Color(0xFF224699),
                           fontSize: 14,
@@ -221,7 +221,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                       width: 91,
                       height: 19,
                       child: Text(
-                        '#Politik',
+                        '#Olahraga',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xFF224699),
@@ -236,7 +236,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                     left: 61,
                     top: 1446,
                     child: Text(
-                      '#Prabowo',
+                      '#DUO',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: const Color(0xFF224699),
@@ -264,7 +264,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                     left: 157,
                     top: 1446,
                     child: Text(
-                      '#PBB',
+                      '#BuluTangkis',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: const Color(0xFF224699),
@@ -380,7 +380,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
 
                         image: DecorationImage(
-                          image: AssetImage('assets/img/iklan2.png'),
+                          image: AssetImage('assets/img/iklan1.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -464,7 +464,7 @@ class BeritaNasionalPolitik extends StatelessWidget {
                       width: 325,
                       height: 20,
                       child: Text(
-                        'Belum ada komentar. Jadilah yang pertama untuk memberikan komentar!',
+                        '@Fofo-chn : Jago banget! Indonesia Bisa!!!',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.white,

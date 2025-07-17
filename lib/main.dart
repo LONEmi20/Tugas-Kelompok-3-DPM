@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_kelompok_dpm/berita_2.dart';
 import 'package:tugas_kelompok_dpm/berita_3.dart';
+import 'package:tugas_kelompok_dpm/berita_4.dart';
+import 'package:tugas_kelompok_dpm/berita_5.dart';
 import 'package:tugas_kelompok_dpm/sign_in.dart';
 import 'berita_1.dart';
 
@@ -66,16 +68,26 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     left: 132,
                     top: 1054,
-                    child: SizedBox(
-                      width: 229,
-                      height: 59,
-                      child: Text(
-                        'Pengurus MPI Jakarta Dikukuhkan untuk Siapkan Atlet Hadapi PON 2028',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Bree Serif',
-                          fontWeight: FontWeight.w400,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BeritaNasionalAnaTiwi(),
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        width: 229,
+                        height: 59,
+                        child: Text(
+                          'Ana/Tiwi akhiri perlawanan ganda AS lewat drama rubber game',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontFamily: 'Bree Serif',
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
@@ -83,22 +95,32 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     left: 17,
                     top: 1034,
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BeritaNasionalAnaTiwi(),
                           ),
-                        ],
-                        image: DecorationImage(
-                          image: AssetImage('assets/img/amboyoy.png'),
-                          fit: BoxFit.cover,
+                        );
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x3F000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                              spreadRadius: 0,
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: AssetImage('assets/img/brt/berita4.png'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -106,16 +128,26 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     left: 133,
                     top: 1193,
-                    child: SizedBox(
-                      width: 229,
-                      height: 59,
-                      child: Text(
-                        'Wakili Indonesia, Tata Juliastrid Raih Gelar Miss Cosmo 2024 ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Bree Serif',
-                          fontWeight: FontWeight.w400,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BeritaNasionalF1(),
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        width: 229,
+                        height: 59,
+                        child: Text(
+                          'Oliver Rowland kunci gelar juara dunia Formula E 2024/25 lebih awal',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontFamily: 'Bree Serif',
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
@@ -136,22 +168,32 @@ class HomepagePendaftarFix extends StatelessWidget {
                   Positioned(
                     left: 17,
                     top: 1172,
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BeritaNasionalF1(),
                           ),
-                        ],
-                        image: DecorationImage(
-                          image: AssetImage('assets/img/amboyoy.png'),
-                          fit: BoxFit.cover,
+                        );
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x3F000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                              spreadRadius: 0,
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: AssetImage('assets/img/brt/berita5.png'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
