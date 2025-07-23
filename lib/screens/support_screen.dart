@@ -4,13 +4,11 @@ import 'package:url_launcher/url_launcher.dart';
 class SupportScreen extends StatelessWidget {
   const SupportScreen({super.key});
 
-  // Fungsi untuk membuka URL di browser eksternal
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      // Sebaiknya tampilkan snackbar atau notifikasi jika gagal
       print('Tidak bisa membuka $url');
     }
   }
@@ -31,7 +29,7 @@ class SupportScreen extends StatelessWidget {
             context,
             name: 'Spring',
             message: 'Mohon bantuannya kawan',
-            imageUrl: 'assets/img/profile_evan.jpg', // Ganti dengan path gambar yang benar
+            imageUrl: 'assets/img/profile_evan.jpg',
             saweriaUrl: 'https://saweria.co/Spring',
           ),
           const SizedBox(height: 20),
@@ -39,7 +37,7 @@ class SupportScreen extends StatelessWidget {
             context,
             name: 'LONEmi',
             message: 'Mohon bantuannya kawan',
-            imageUrl: 'assets/img/profile_mic.jpg', // Ganti dengan path gambar yang benar
+            imageUrl: 'assets/img/profile_mic.jpg', 
             saweriaUrl: 'https://saweria.co/LONEmi',
           ),
           const SizedBox(height: 20),
@@ -47,7 +45,7 @@ class SupportScreen extends StatelessWidget {
             context,
             name: 'fofochn',
             message: 'Mohon bantuannya kawan',
-            imageUrl: 'assets/img/profile_fofo.jpg', // Ganti dengan path gambar yang benar
+            imageUrl: 'assets/img/profile_fofo.jpg', 
             saweriaUrl: 'https://saweria.co/fofochn',
           ),
         ],
@@ -55,7 +53,7 @@ class SupportScreen extends StatelessWidget {
     );
   }
 
-  // Widget bantuan untuk membuat kartu profil admin
+
   Widget _buildSupportCard(BuildContext context, {
     required String name,
     required String message,

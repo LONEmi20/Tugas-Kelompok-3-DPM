@@ -10,7 +10,7 @@ import 'package:tugas_kelompok_dpm/models/berita_model.dart';
 import 'package:tugas_kelompok_dpm/screens/app_drawer.dart';
 import 'package:tugas_kelompok_dpm/screens/detail_berita_screen.dart';
 import 'package:tugas_kelompok_dpm/screens/form_berita_screen.dart';
-import 'package:tugas_kelompok_dpm/screens/search_screen.dart'; // <-- IMPORT FILE BARU
+import 'package:tugas_kelompok_dpm/screens/search_screen.dart';
 import 'package:tugas_kelompok_dpm/widgets/footer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
