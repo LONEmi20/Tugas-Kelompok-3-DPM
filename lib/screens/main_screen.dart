@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,7 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Berita> _filteredBerita = [];
   bool _isLoading = true;
 
-  final List<String> _categories = ['Beranda', 'Olahraga', 'Politik', 'Hiburan', 'Gaya Hidup', 'Teknologi'];
+  final List<String> _categories = [
+    'Beranda',
+    'Olahraga',
+    'Politik',
+    'Hiburan',
+    'Gaya Hidup',
+    'Teknologi',
+  ];
   String _selectedCategory = 'Beranda';
 
   @override
@@ -36,9 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadAndFilterBerita() async {
     try {
-      final String assetJsonString = await rootBundle.loadString('assets/data/berita.json');
+      final String assetJsonString = await rootBundle.loadString(
+        'assets/data/berita.json',
+      );
       final List<dynamic> assetData = json.decode(assetJsonString);
-      List<Berita> assetBerita = assetData.map((json) => Berita.fromJson(json)).toList();
+      List<Berita> assetBerita = assetData
+          .map((json) => Berita.fromJson(json))
+          .toList();
 
       final directory = await getApplicationDocumentsDirectory();
       final localFile = File('${directory.path}/berita.json');
@@ -52,14 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       _allBerita = [...localBerita, ...assetBerita];
-      
+
       final ids = <String>{};
       _allBerita.retainWhere((berita) => ids.add(berita.id));
 
       _allBerita.sort((a, b) => b.tanggal.compareTo(a.tanggal));
-      
-      _filterBerita();
 
+      _filterBerita();
     } catch (e) {
       print("Error loading combined news: $e");
       if (mounted) {
@@ -77,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
       newFilteredList = List<Berita>.from(_allBerita);
     } else {
       newFilteredList = _allBerita.where((berita) {
-        return berita.tags.any((tag) => tag.toLowerCase() == _selectedCategory.toLowerCase());
+        return berita.tags.any(
+          (tag) => tag.toLowerCase() == _selectedCategory.toLowerCase(),
+        );
       }).toList();
     }
 
@@ -87,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
   }
-  
+
   Future<void> _refreshData() async {
     if (mounted) setState(() => _isLoading = true);
     await _loadAndFilterBerita();
@@ -97,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onCategorySelected(String category) {
     setState(() {
       _selectedCategory = category;
-      _filterBerita(); 
+      _filterBerita();
     });
   }
 
@@ -109,26 +120,43 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _navigateToDetail(Berita berita) async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBeritaScreen(berita: berita)));
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailBeritaScreen(berita: berita),
+      ),
+    );
   }
 
   void _navigateToForm() async {
-    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => const FormBeritaScreen()));
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const FormBeritaScreen()),
+    );
     if (result == true && mounted) {
       _refreshData();
     }
   }
 
-  Widget _buildImage(String imagePath, {required double height, required double width}) {
+  Widget _buildImage(
+    String imagePath, {
+    required double height,
+    required double width,
+  }) {
     bool isAsset = imagePath.startsWith('assets/');
-    
+
     if (isAsset) {
       return Image.asset(
         imagePath,
         height: height,
         width: width,
         fit: BoxFit.cover,
-        errorBuilder: (c, e, s) => Container(height: height, width: width, color: Colors.grey[200], child: const Icon(Icons.broken_image)),
+        errorBuilder: (c, e, s) => Container(
+          height: height,
+          width: width,
+          color: Colors.grey[200],
+          child: const Icon(Icons.broken_image),
+        ),
       );
     } else {
       return Image.file(
@@ -136,7 +164,12 @@ class _HomeScreenState extends State<HomeScreen> {
         height: height,
         width: width,
         fit: BoxFit.cover,
-        errorBuilder: (c, e, s) => Container(height: height, width: width, color: Colors.grey[200], child: const Icon(Icons.broken_image)),
+        errorBuilder: (c, e, s) => Container(
+          height: height,
+          width: width,
+          color: Colors.grey[200],
+          child: const Icon(Icons.broken_image),
+        ),
       );
     }
   }
@@ -161,7 +194,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 4),
               ),
-              child: const Text('National', style: TextStyle(fontFamily: 'League Spartan', fontWeight: FontWeight.w700, fontSize: 16)),
+              child: const Text(
+                'National',
+                style: TextStyle(
+                  fontFamily: 'League Spartan',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -171,10 +211,19 @@ class _HomeScreenState extends State<HomeScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: inactiveColor,
                 foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
                 padding: const EdgeInsets.symmetric(vertical: 4),
               ),
-              child: const Text('International', style: TextStyle(fontFamily: 'League Spartan', fontWeight: FontWeight.w600, fontSize: 16)),
+              child: const Text(
+                'International',
+                style: TextStyle(
+                  fontFamily: 'League Spartan',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
             ),
           ),
         ],
@@ -198,7 +247,9 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 100,
               margin: const EdgeInsets.symmetric(horizontal: 4),
               decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFFF2F2FF) : Colors.transparent,
+                color: isSelected
+                    ? const Color(0xFFF2F2FF)
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Center(
@@ -229,14 +280,26 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(color: const Color(0xFFAAB7D3)),
-          boxShadow: const [BoxShadow(color: Color(0x3F000000), blurRadius: 4, offset: Offset(0, 4))],
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x3F000000),
+              blurRadius: 4,
+              offset: Offset(0, 4),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(5)),
-              child: _buildImage(berita.gambar, height: 164, width: double.infinity),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(5),
+              ),
+              child: _buildImage(
+                berita.gambar,
+                height: 164,
+                width: double.infinity,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -245,25 +308,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     berita.judul,
-                    style: const TextStyle(color: Color(0xFF224699), fontSize: 20, fontFamily: 'Bree Serif', fontWeight: FontWeight.w400),
+                    style: const TextStyle(
+                      color: Color(0xFF224699),
+                      fontSize: 20,
+                      fontFamily: 'Bree Serif',
+                      fontWeight: FontWeight.w400,
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
-                  Text(DateFormat('dd/MM/yy', 'id_ID').format(berita.tanggal), style: const TextStyle(color: Color(0xFF224699), fontSize: 15, fontFamily: 'Alumni Sans')),
+                  Text(
+                    DateFormat('dd/MM/yy', 'id_ID').format(berita.tanggal),
+                    style: const TextStyle(
+                      color: Color(0xFF224699),
+                      fontSize: 15,
+                      fontFamily: 'Alumni Sans',
+                    ),
+                  ),
                   const SizedBox(height: 4),
                   const Divider(color: Color(0xFF224699)),
                   const SizedBox(height: 4),
                   Text(
                     berita.isi,
-                    style: const TextStyle(color: Color(0xFF224699), fontSize: 12, fontFamily: 'AR One Sans'),
+                    style: const TextStyle(
+                      color: Color(0xFF224699),
+                      fontSize: 12,
+                      fontFamily: 'AR One Sans',
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.justify,
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -278,16 +357,37 @@ class _HomeScreenState extends State<HomeScreen> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: const Color(0xFF224699)),
-        boxShadow: const [BoxShadow(color: Color(0x3F000000), blurRadius: 4, offset: Offset(0, 4))],
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x3F000000),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.asset('assets/img/iklan1.png', errorBuilder: (c, e, s) => Container(height: 105, color: Colors.grey[200], child: const Center(child: Text("Iklan")))),
+            child: Image.asset(
+              'assets/img/iklan1.png',
+              errorBuilder: (c, e, s) => Container(
+                height: 105,
+                color: Colors.grey[200],
+                child: const Center(child: Text("Iklan")),
+              ),
+            ),
           ),
-          const Text('Advertising', style: TextStyle(color: Color(0xFF224699), fontSize: 10, fontFamily: 'League Spartan', fontWeight: FontWeight.w300)),
+          const Text(
+            'Advertising',
+            style: TextStyle(
+              color: Color(0xFF224699),
+              fontSize: 10,
+              fontFamily: 'League Spartan',
+              fontWeight: FontWeight.w300,
+            ),
+          ),
         ],
       ),
     );
@@ -300,7 +400,15 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         const Padding(
           padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-          child: Text('Berita Terkini', style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'League Spartan', fontWeight: FontWeight.w400)),
+          child: Text(
+            'Berita Terkini',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontFamily: 'League Spartan',
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ),
         SizedBox(
           height: 220,
@@ -308,7 +416,8 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.horizontal,
             itemCount: beritaList.length,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemBuilder: (context, index) => _buildFeaturedTerkiniItem(beritaList[index]),
+            itemBuilder: (context, index) =>
+                _buildFeaturedTerkiniItem(beritaList[index]),
           ),
         ),
       ],
@@ -327,17 +436,32 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: _buildImage(berita.gambar, height: 110, width: double.infinity),
+              child: _buildImage(
+                berita.gambar,
+                height: 110,
+                width: double.infinity,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               berita.judul,
-              style: const TextStyle(color: Colors.black, fontSize: 12, fontFamily: 'Bree Serif'),
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontFamily: 'Bree Serif',
+              ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
-            Text(waktuRelative(berita.tanggal), style: TextStyle(color: Colors.black.withOpacity(0.34), fontSize: 12, fontFamily: 'Bree Serif')),
+            Text(
+              waktuRelative(berita.tanggal),
+              style: TextStyle(
+                color: Colors.black.withOpacity(0.34),
+                fontSize: 12,
+                fontFamily: 'Bree Serif',
+              ),
+            ),
           ],
         ),
       ),
@@ -370,11 +494,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           berita.judul,
-                          style: const TextStyle(color: Colors.black, fontSize: 12, fontFamily: 'Bree Serif'),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontFamily: 'Bree Serif',
+                          ),
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Text(waktuRelative(berita.tanggal), style: TextStyle(color: Colors.black.withOpacity(0.34), fontSize: 12, fontFamily: 'Bree Serif')),
+                        Text(
+                          waktuRelative(berita.tanggal),
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.34),
+                            fontSize: 12,
+                            fontFamily: 'Bree Serif',
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -456,25 +591,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     _buildNationalInternationalTabs(),
                     _buildCategoryTabs(),
-                    
+
                     if (heroBerita != null) _buildHeroCard(heroBerita),
                     _buildAdvertising(),
-                    
-                    if (beritaTerkini.isNotEmpty) _buildBeritaTerkiniSection(beritaTerkini),
-                    
+
+                    if (beritaTerkini.isNotEmpty)
+                      _buildBeritaTerkiniSection(beritaTerkini),
+
                     if (beritaLainnya.isNotEmpty)
                       ListView.builder(
                         itemCount: beritaLainnya.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => _buildBeritaLainnyaItem(beritaLainnya[index]),
+                        itemBuilder: (context, index) =>
+                            _buildBeritaLainnyaItem(beritaLainnya[index]),
                       ),
 
                     if (_filteredBerita.isEmpty && !_isLoading)
                       Container(
                         height: 200,
                         alignment: Alignment.center,
-                        child: Text('Tidak ada berita di kategori "$_selectedCategory".'),
+                        child: Text(
+                          'Tidak ada berita di kategori "$_selectedCategory".',
+                        ),
                       ),
 
                     const FooterWidget(),
