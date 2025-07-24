@@ -36,10 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadAndFilterBerita() async {
     try {
+      // Memuat berita dari asset JSON
       final String assetJsonString = await rootBundle.loadString('assets/data/berita.json');
       final List<dynamic> assetData = json.decode(assetJsonString);
       List<Berita> assetBerita = assetData.map((json) => Berita.fromJson(json)).toList();
 
+      // Memuat berita dari file lokal (jika ada)
       final directory = await getApplicationDocumentsDirectory();
       final localFile = File('${directory.path}/berita.json');
       List<Berita> localBerita = [];
@@ -51,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
 
+      // Menggabungkan, menghilangkan duplikat, dan mengurutkan berita
       _allBerita = [...localBerita, ...assetBerita];
       
       final ids = <String>{};
@@ -431,12 +434,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Image.asset('assets/img/Logo-mikirluk.png', height: 48),
         centerTitle: true,
-        // --- PERUBAHAN DI SINI ---
         actions: [
           IconButton(
             icon: Image.asset('assets/img/search.png', width: 30),
             onPressed: () {
-              // Navigasi ke SearchScreen saat tombol ditekan
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SearchScreen()),
@@ -477,6 +478,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text('Tidak ada berita di kategori "$_selectedCategory".'),
                       ),
 
+                    // PENAMBAHAN FOOTER WIDGET
                     const FooterWidget(),
                   ],
                 ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GoogleLoginOverlay extends StatelessWidget {
-  final VoidCallback onAccountSelected;
+  // Callback sekarang menerima email yang dipilih
+  final Function(String email) onAccountSelected;
 
   const GoogleLoginOverlay({super.key, required this.onAccountSelected});
 
@@ -28,29 +29,30 @@ class GoogleLoginOverlay extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             // Daftar Akun Dummy
+            // Aku tambahin akun dummy sesuai database awal kita
+            _buildAccountTile(
+              context,
+              name: 'Akun User',
+              email: 'akunuser@gmail.com', 
+              avatarAsset: 'assets/img/bob.png', 
+            ),
             _buildAccountTile(
               context,
               name: 'Evan Verlanma',
               email: 'everlanma@email.com',
-              avatarAsset: 'assets/img/firefly.jpg', 
+              avatarAsset: 'assets/img/profile_evan.jpg', 
             ),
             _buildAccountTile(
               context,
               name: 'Firefly',
-              email: 'HotaruAR26710@email.com', 
+              email: 'hotaru@hsr.com', 
               avatarAsset: 'assets/img/firefly.png', 
             ),
              _buildAccountTile(
               context,
               name: 'Spring',
-              email: 'spring@email.com',
-              avatarAsset: 'assets/img/brt/firefly2.png', 
-            ),
-             _buildAccountTile(
-              context,
-              name: 'Another Account',
-              email: 'another.account@email.com', 
-              avatarAsset: 'assets/img/iklan1.png', 
+              email: 'spring@example.com',
+              avatarAsset: 'assets/img/profile_mic.jpg', 
             ),
           ],
         ),
@@ -69,7 +71,8 @@ class GoogleLoginOverlay extends StatelessWidget {
       subtitle: Text(email),
       onTap: () {
         Navigator.of(context).pop(); 
-        onAccountSelected(); 
+        // Kirim email yang dipilih ke halaman login
+        onAccountSelected(email); 
       },
     );
   }

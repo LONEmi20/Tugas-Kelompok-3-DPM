@@ -24,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _localAuthService = LocalAuthService();
   
   bool _isLoading = false;
+  bool _isPasswordVisible = false; // State untuk show/hide password
 
   // Fungsi untuk daftar via email
   Future<void> _performSignUp() async {
@@ -67,19 +68,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   // Fungsi dummy untuk daftar via social media
-  Future<void> _performSocialDummyLogin() async {
+  Future<void> _performSocialDummyLogin(String email) async {
     if (_isLoading) return;
     setState(() => _isLoading = true);
-    await Future.delayed(const Duration(milliseconds: 1500));
-    if (mounted) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+    
+    final success = await _localAuthService.loginWithSocial(email);
+    if(mounted) {
+      if(success) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+         ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Akun dengan email $email tidak ditemukan.'), backgroundColor: Colors.red),
+        );
+      }
     }
+    if (mounted) setState(() => _isLoading = false);
   }
   
-    // --- OVERLAY ---
+  // --- Tampilkan overlay sosmed ---
   void _showGoogleOverlay() {
     showDialog(
       context: context,
@@ -90,14 +99,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _showFacebookOverlay() {
     showDialog(
       context: context,
-      builder: (context) => FacebookLoginOverlay(onLoginPressed: _performSocialDummyLogin),
+      builder: (context) => FacebookLoginOverlay(onLoginPressed: () => _performSocialDummyLogin("fb.user@example.com")),
     );
   }
 
   void _showAppleOverlay() {
     showDialog(
       context: context,
-      builder: (context) => AppleLoginOverlay(onLoginPressed: _performSocialDummyLogin),
+      builder: (context) => AppleLoginOverlay(onLoginPressed: () => _performSocialDummyLogin("apple.user@example.com")),
     );
   }
 
@@ -158,17 +167,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _emailController,
                   decoration: const InputDecoration(labelText: 'Email'),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
-                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) return 'Format email tidak valid';
-                    return null;
-                  },
+                  validator: (value) => (value == null || !value.contains('@')) ? 'Format email tidak valid' : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  obscureText: !_isPasswordVisible,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    // --- TOMBOL MATA ---
+                    suffixIcon: IconButton(
+                      icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
+                  ),
                   validator: (value) => value!.isEmpty ? 'Password tidak boleh kosong' : null,
                 ),
                 const SizedBox(height: 32),

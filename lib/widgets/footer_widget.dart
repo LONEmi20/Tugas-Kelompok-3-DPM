@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
+
+  // Fungsi membuka URL di aplikasi eksternal
+  void _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      print('Tidak bisa membuka $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +22,7 @@ class FooterWidget extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(20),
-      color: Colors.white, // Pastikan ada background color
+      color: Colors.white, 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -61,13 +72,25 @@ class FooterWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/img/FACEBOOK ICON.png', width: 30),
+              GestureDetector(
+                onTap: () => _launchURL('https://www.facebook.com/micgredy.micgredy.31/'),
+                child: Image.asset('assets/img/FACEBOOK ICON.png', width: 30),
+              ),
               const SizedBox(width: 12),
-              Image.asset('assets/img/WA ICON.png', width: 30),
+              GestureDetector(
+                onTap: () => _launchURL('https://wa.me/62895605091222'),
+                child: Image.asset('assets/img/WA ICON.png', width: 30),
+              ),
               const SizedBox(width: 12),
-              Image.asset('assets/img/X ICON.png', width: 30),
+              GestureDetector(
+                onTap: () => _launchURL('https://twitter.com/lonemi_/'),
+                child: Image.asset('assets/img/X ICON.png', width: 30),
+              ),
               const SizedBox(width: 12),
-              Image.asset('assets/img/IG ICON.png', width: 30),
+              GestureDetector(
+                onTap: () => _launchURL('https://instagram.com/micgredy/'),
+                child: Image.asset('assets/img/IG ICON.png', width: 30),
+              ),
             ],
           ),
           const Divider(height: 24, color: Color(0xFF6380EA)),

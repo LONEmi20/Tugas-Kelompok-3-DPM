@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tugas_kelompok_dpm/screens/login_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -33,9 +34,7 @@ class _OtpScreenState extends State<OtpScreen> {
   void startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_resendTimer > 0) {
-        setState(() {
-          _resendTimer--;
-        });
+        setState(() => _resendTimer--);
       } else {
         _timer?.cancel();
       }
@@ -69,8 +68,12 @@ class _OtpScreenState extends State<OtpScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Verifikasi berhasil! Silakan login.'), backgroundColor: Colors.green),
       );
-      // Kembali ke halaman login
-      Navigator.of(context).pop();
+      // --- PERUBAHAN NAVIGASI DI SINI ---
+      // Langsung ke halaman login dan hapus riwayat halaman sebelumnya
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+        (Route<dynamic> route) => false,
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Kode OTP salah!'), backgroundColor: Colors.red),
@@ -158,13 +161,10 @@ class _OtpScreenState extends State<OtpScreen> {
                     ? Text('Kirim ulang (${_resendTimer}s)', style: TextStyle(color: Colors.grey.shade400))
                     : InkWell(
                         onTap: () {
-                          // Logika kirim ulang OTP (dummy)
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Kode OTP baru: ${widget.correctOtp}')),
                           );
-                          setState(() {
-                            _resendTimer = 40;
-                          });
+                          setState(() => _resendTimer = 40);
                           startTimer();
                         },
                         child: const Text('Kirim ulang', style: TextStyle(color: Color(0xFF004AAD), fontWeight: FontWeight.bold)),

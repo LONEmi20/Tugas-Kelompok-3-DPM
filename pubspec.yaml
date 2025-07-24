@@ -66,6 +66,7 @@ flutter:
   - assets/data/accounts.json
   - assets/img/
   - assets/img/brt/
+  - assets/img/list/
 
 
 
