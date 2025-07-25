@@ -10,6 +10,12 @@ import 'package:tugas_kelompok_dpm/services/local_auth_service.dart';
 class AppMenuDrawer extends StatelessWidget {
   const AppMenuDrawer({super.key});
 
+  // Helper untuk navigasi biar kode lebih rapi
+  void _navigateTo(BuildContext context, Widget screen) {
+    Navigator.pop(context); // Tutup drawer
+    Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
+  }
+
   void _navigateToCategory(BuildContext context, String categoryName) {
     Navigator.pop(context);
     Navigator.push(
@@ -42,23 +48,23 @@ class AppMenuDrawer extends StatelessWidget {
         children: [
           _buildDrawerHeader(),
           _buildMenuItem(
-            icon: Icons.account_circle,
+            icon: Icons.account_circle, // Menggunakan Icon
             text: 'Akun',
             textStyle: textStyle,
             onTap: () {
               Navigator.pop(context); // Tutup drawer dulu
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AccountView()),
+                MaterialPageRoute(builder: (context) => const AccountScreen()),
               );
             },
           ),
 
           _buildMenuItem(
-            icon: Icons.monetization_on,
+            imageAsset:
+                'assets/img/list/monetization.png', // Menggunakan ImageAsset
             text: 'Support Admin',
             textStyle: textStyle,
-            // --- 2. PERUBAHAN DI SINI ---
             onTap: () {
               Navigator.pop(context); // Tutup drawer dulu
               Navigator.push(
@@ -69,7 +75,11 @@ class AppMenuDrawer extends StatelessWidget {
           ),
 
           ExpansionTile(
-            leading: const Icon(Icons.extension, color: textColor, size: 30),
+            leading: Image.asset(
+              'assets/img/list/extension.png',
+              width: 30,
+              color: textColor,
+            ),
             title: const Text('Kategori berita', style: textStyle),
             trailing: const Icon(Icons.keyboard_arrow_down, color: textColor),
             children: [
@@ -102,19 +112,19 @@ class AppMenuDrawer extends StatelessWidget {
           ),
 
           _buildMenuItem(
-            icon: Icons.card_giftcard,
+            icon: Icons.card_giftcard, // Menggunakan Icon
             text: 'Reward',
             textStyle: textStyle,
             onTap: () {
               Navigator.pop(context); // Tutup drawer dulu
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const RewardScreen()),
+                MaterialPageRoute(builder: (context) => const RewardApp()),
               );
             },
           ),
           _buildMenuItem(
-            icon: Icons.settings,
+            icon: Icons.settings, // Menggunakan Icon
             text: 'Pengaturan',
             textStyle: textStyle,
             onTap: () {
@@ -127,7 +137,7 @@ class AppMenuDrawer extends StatelessWidget {
           ),
           const Divider(height: 1, thickness: 0.5),
           _buildMenuItem(
-            icon: Icons.logout,
+            imageAsset: 'assets/img/list/logout.png', // Menggunakan ImageAsset
             text: 'Log out',
             textStyle: textStyle,
             onTap: () async {
@@ -196,14 +206,37 @@ class AppMenuDrawer extends StatelessWidget {
     );
   }
 
+  // --- FUNGSI YANG DIPERBAIKI ---
   Widget _buildMenuItem({
-    required IconData icon,
+    IconData? icon,
+    String? imageAsset,
     required String text,
     required TextStyle textStyle,
     required VoidCallback onTap,
   }) {
+    // Memastikan hanya salah satu dari icon atau imageAsset yang diberikan
+    assert(
+      icon != null || imageAsset != null,
+      'Provide either an icon or an imageAsset.',
+    );
+    assert(
+      icon == null || imageAsset == null,
+      'Cannot provide both icon and imageAsset.',
+    );
+
+    Widget leadingWidget;
+    const iconColor = Color(0xFF224699);
+
+    if (imageAsset != null) {
+      // Jika imageAsset ada, gunakan Image.asset
+      leadingWidget = Image.asset(imageAsset, width: 30, color: iconColor);
+    } else {
+      // Jika tidak, gunakan Icon
+      leadingWidget = Icon(icon, color: iconColor, size: 30);
+    }
+
     return ListTile(
-      leading: Icon(icon, color: const Color(0xFF224699), size: 30),
+      leading: leadingWidget,
       title: Text(text, style: textStyle),
       onTap: onTap,
       dense: true,

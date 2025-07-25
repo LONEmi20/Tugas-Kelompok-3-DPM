@@ -7,7 +7,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tugas_kelompok_dpm/models/berita_model.dart';
 
 class FormBeritaScreen extends StatefulWidget {
-  const FormBeritaScreen({super.key});
+  // Tambahkan parameter opsional untuk menampung berita yang akan diedit
+  final Berita? berita;
+
+  const FormBeritaScreen({super.key, this.berita});
 
   @override
   State<FormBeritaScreen> createState() => _FormBeritaScreenState();
@@ -21,9 +24,33 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
 
   File? _selectedImage;
   bool _isLoading = false;
+  bool get _isEditing => widget.berita != null; // Cek apakah ini mode edit
 
-  final List<String> _kategoriList = ['Olahraga', 'Politik', 'Hiburan', 'Gaya Hidup', 'Teknologi'];
+  final List<String> _kategoriList = [
+    'Olahraga',
+    'Politik',
+    'Hiburan',
+    'Gaya Hidup',
+    'Teknologi',
+  ];
   String? _selectedKategori;
+
+  @override
+  void initState() {
+    super.initState();
+    // Jika ini mode edit, isi semua form dengan data yang ada
+    if (_isEditing) {
+      final berita = widget.berita!;
+      _judulController.text = berita.judul;
+      _editorController.text = berita.editor;
+      _isiController.text = berita.isi;
+      _selectedKategori = berita.tags.isNotEmpty ? berita.tags.first : null;
+      // Cek apakah gambar dari aset atau file
+      if (!berita.gambar.startsWith('assets/')) {
+        _selectedImage = File(berita.gambar);
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -44,12 +71,17 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
     }
   }
 
-  // --- FUNGSI SIMPAN BERITA BARU ---
+  // --- FUNGSI SIMPAN BERITA (Bisa untuk tambah & edit) ---
   Future<void> _simpanBerita() async {
     if (_formKey.currentState!.validate()) {
-      if (_selectedImage == null || _selectedKategori == null) {
+      // Pada mode tambah, gambar & kategori wajib. Pada mode edit, gambar boleh kosong (pakai yg lama)
+      if ((!_isEditing && _selectedImage == null) ||
+          _selectedKategori == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Gambar dan Kategori wajib diisi.'), backgroundColor: Colors.orange),
+          const SnackBar(
+            content: Text('Gambar dan Kategori wajib diisi.'),
+            backgroundColor: Colors.orange,
+          ),
         );
         return;
       }
@@ -58,12 +90,20 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
 
       try {
         final appDir = await getApplicationDocumentsDirectory();
-        
-        // Simpan gambar ke direktori aplikasi
-        final fileName = path.basename(_selectedImage!.path);
-        final savedImage = await _selectedImage!.copy('${appDir.path}/$fileName');
-        
-        // Baca file berita yang sudah ada di HP
+
+        String imagePath = '';
+        if (_selectedImage != null) {
+          // Simpan gambar baru jika ada gambar yang dipilih
+          final fileName = path.basename(_selectedImage!.path);
+          final savedImage = await _selectedImage!.copy(
+            '${appDir.path}/$fileName',
+          );
+          imagePath = savedImage.path;
+        } else if (_isEditing) {
+          // Jika mode edit dan tidak ada gambar baru, pakai path gambar lama
+          imagePath = widget.berita!.gambar;
+        }
+
         final file = File('${appDir.path}/berita.json');
         List<Berita> listBerita = [];
         if (await file.exists()) {
@@ -74,54 +114,116 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
           }
         }
 
-        // --- Logic isi id ---
-        int lastIdNum = 0;
-        if (listBerita.isNotEmpty) {
-          final lastId = listBerita.map((b) => int.parse(b.id.split('-').last)).reduce((a, b) => a > b ? a : b);
-          lastIdNum = lastId;
+        if (_isEditing) {
+          // --- LOGIKA UNTUK EDIT BERITA ---
+          final beritaDiedit = Berita(
+            id: widget.berita!.id,
+            judul: _judulController.text,
+            editor: _editorController.text,
+            tanggal: DateTime.now(), // Update tanggal ke waktu sekarang
+            gambar: imagePath,
+            tags: [_selectedKategori!],
+            isi: _isiController.text,
+          );
+
+          final index = listBerita.indexWhere((b) => b.id == widget.berita!.id);
+          if (index != -1) {
+            listBerita[index] = beritaDiedit;
+          }
         } else {
-          lastIdNum = 55;
+          // --- LOGIKA UNTUK TAMBAH BERITA BARU ---
+          int lastIdNum = 0;
+          if (listBerita.isNotEmpty) {
+            final lastId = listBerita
+                .map((b) => int.parse(b.id.split('-').last))
+                .reduce((a, b) => a > b ? a : b);
+            lastIdNum = lastId;
+          } else {
+            // Jika kosong, bisa mulai dari angka tertentu, misal 55
+            lastIdNum = 55;
+          }
+          final newId = 'brt-${(lastIdNum + 1).toString().padLeft(3, '0')}';
+
+          final Berita beritaBaru = Berita(
+            id: newId,
+            judul: _judulController.text,
+            editor: _editorController.text,
+            tanggal: DateTime.now(),
+            gambar: imagePath,
+            tags: [_selectedKategori!],
+            isi: _isiController.text,
+          );
+          listBerita.insert(0, beritaBaru);
         }
-        final newId = 'brt-${(lastIdNum + 1).toString().padLeft(3, '0')}';
 
-        final Berita beritaBaru = Berita(
-          id: newId,
-          judul: _judulController.text,
-          editor: _editorController.text,
-          tanggal: DateTime.now(), 
-          gambar: savedImage.path, 
-          tags: [_selectedKategori!],
-          isi: _isiController.text,
-        );
-
-
-        listBerita.insert(0, beritaBaru);
-
-        final List<Map<String, dynamic>> jsonList = listBerita.map((b) => b.toJson()).toList();
-        
+        final List<Map<String, dynamic>> jsonList = listBerita
+            .map((b) => b.toJson())
+            .toList();
         await file.writeAsString(json.encode(jsonList));
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Berita berhasil disimpan!'), backgroundColor: Colors.green),
+          SnackBar(
+            content: Text(
+              'Berita berhasil ${_isEditing ? 'diperbarui' : 'disimpan'}!',
+            ),
+            backgroundColor: Colors.green,
+          ),
         );
-        
-        if (mounted) Navigator.pop(context, true); // Kirim sinyal 'true' bahwa ada update
 
+        if (mounted)
+          Navigator.pop(context, true); // Kirim sinyal 'true' bahwa ada update
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal menyimpan: $e'), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text('Gagal menyimpan: $e'),
+            backgroundColor: Colors.red,
+          ),
         );
       } finally {
-        if(mounted) setState(() => _isLoading = false);
+        if (mounted) setState(() => _isLoading = false);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Menentukan gambar yang akan ditampilkan di form
+    Widget imagePreview;
+    if (_selectedImage != null) {
+      imagePreview = Image.file(
+        _selectedImage!,
+        fit: BoxFit.cover,
+        width: double.infinity,
+      );
+    } else if (_isEditing && widget.berita!.gambar.startsWith('assets/')) {
+      imagePreview = Image.asset(
+        widget.berita!.gambar,
+        fit: BoxFit.cover,
+        width: double.infinity,
+      );
+    } else if (_isEditing) {
+      imagePreview = Image.file(
+        File(widget.berita!.gambar),
+        fit: BoxFit.cover,
+        width: double.infinity,
+      );
+    } else {
+      imagePreview = const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
+            SizedBox(height: 8),
+            Text('Ketuk untuk pilih gambar'),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Form Tambah Berita'),
+        // Ganti judul berdasarkan mode (tambah atau edit)
+        title: Text(_isEditing ? 'Form Edit Berita' : 'Form Tambah Berita'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -138,38 +240,37 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.grey),
                   ),
-                  child: _selectedImage != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.file(_selectedImage!, fit: BoxFit.cover, width: double.infinity),
-                        )
-                      : const Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
-                              SizedBox(height: 8),
-                              Text('Ketuk untuk pilih gambar'),
-                            ],
-                          ),
-                        ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: imagePreview,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
 
               TextFormField(
                 controller: _judulController,
-                decoration: const InputDecoration(labelText: 'Judul Berita', border: OutlineInputBorder()),
-                validator: (value) => (value == null || value.isEmpty) ? 'Judul tidak boleh kosong!' : null,
+                decoration: const InputDecoration(
+                  labelText: 'Judul Berita',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => (value == null || value.isEmpty)
+                    ? 'Judul tidak boleh kosong!'
+                    : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _editorController,
-                decoration: const InputDecoration(labelText: 'Nama Editor', border: OutlineInputBorder()),
-                validator: (value) => (value == null || value.isEmpty) ? 'Editor tidak boleh kosong!' : null,
+                decoration: const InputDecoration(
+                  labelText: 'Nama Editor',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => (value == null || value.isEmpty)
+                    ? 'Editor tidak boleh kosong!'
+                    : null,
               ),
               const SizedBox(height: 16),
-              
+
               DropdownButtonFormField<String>(
                 value: _selectedKategori,
                 hint: const Text('Pilih Kategori'),
@@ -185,15 +286,22 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                     _selectedKategori = newValue;
                   });
                 },
-                validator: (value) => value == null ? 'Kategori tidak boleh kosong' : null,
+                validator: (value) =>
+                    value == null ? 'Kategori tidak boleh kosong' : null,
               ),
               const SizedBox(height: 16),
 
               TextFormField(
                 controller: _isiController,
-                decoration: const InputDecoration(labelText: 'Isi Berita', border: OutlineInputBorder(), alignLabelWithHint: true),
+                decoration: const InputDecoration(
+                  labelText: 'Isi Berita',
+                  border: OutlineInputBorder(),
+                  alignLabelWithHint: true,
+                ),
                 maxLines: 10,
-                validator: (value) => (value == null || value.isEmpty) ? 'Isi berita tidak boleh kosong!' : null,
+                validator: (value) => (value == null || value.isEmpty)
+                    ? 'Isi berita tidak boleh kosong!'
+                    : null,
               ),
               const SizedBox(height: 24),
               ElevatedButton(
@@ -203,9 +311,16 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                   backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: Colors.white,
                 ),
-                child: _isLoading 
-                    ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
-                    : const Text('SIMPAN BERITA'),
+                child: _isLoading
+                    ? const SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 3,
+                        ),
+                      )
+                    : Text(_isEditing ? 'UPDATE BERITA' : 'SIMPAN BERITA'),
               ),
             ],
           ),

@@ -9,7 +9,7 @@ import 'package:tugas_kelompok_dpm/models/berita_model.dart';
 import 'package:tugas_kelompok_dpm/screens/app_drawer.dart';
 import 'package:tugas_kelompok_dpm/screens/detail_berita_screen.dart';
 import 'package:tugas_kelompok_dpm/screens/form_berita_screen.dart';
-import 'package:tugas_kelompok_dpm/screens/search_screen.dart'; // <-- IMPORT FILE BARU
+import 'package:tugas_kelompok_dpm/screens/search_screen.dart';
 import 'package:tugas_kelompok_dpm/widgets/footer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadAndFilterBerita() async {
     try {
+      // Memuat berita dari asset JSON
       final String assetJsonString = await rootBundle.loadString(
         'assets/data/berita.json',
       );
@@ -50,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           .map((json) => Berita.fromJson(json))
           .toList();
 
+      // Memuat berita dari file lokal (jika ada)
       final directory = await getApplicationDocumentsDirectory();
       final localFile = File('${directory.path}/berita.json');
       List<Berita> localBerita = [];
@@ -61,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
 
+      // Menggabungkan, menghilangkan duplikat, dan mengurutkan berita
       _allBerita = [...localBerita, ...assetBerita];
 
       final ids = <String>{};
@@ -566,12 +569,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Image.asset('assets/img/Logo-mikirluk.png', height: 48),
         centerTitle: true,
-        // --- PERUBAHAN DI SINI ---
         actions: [
           IconButton(
             icon: Image.asset('assets/img/search.png', width: 30),
             onPressed: () {
-              // Navigasi ke SearchScreen saat tombol ditekan
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SearchScreen()),
@@ -616,6 +617,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
+                    // PENAMBAHAN FOOTER WIDGET
                     const FooterWidget(),
                   ],
                 ),

@@ -62,7 +62,7 @@ flutter:
   uses-material-design: true
 
   assets: 
-  - assets/data/
+  - assets/data/berita.json
   - assets/data/accounts.json
   - assets/img/
   - assets/img/brt/

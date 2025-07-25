@@ -1,45 +1,45 @@
 import 'package:flutter/material.dart';
-// Pastikan path import ini sesuai dengan struktur proyek Anda
 import 'package:tugas_kelompok_dpm/models/user_model.dart';
 import 'package:tugas_kelompok_dpm/screens/user_edit_screen.dart';
 
-// Nama kelas di user_screen.dart adalah AccountView
-class AccountView extends StatefulWidget {
-  const AccountView({super.key});
+// Mengganti nama kelas agar konsisten
+class AccountScreen extends StatefulWidget {
+  const AccountScreen({super.key});
 
   @override
-  State<AccountView> createState() => _AccountViewState();
+  State<AccountScreen> createState() => _AccountScreenState();
 }
 
-class _AccountViewState extends State<AccountView> {
-  // Data user dijadikan state agar bisa diperbarui
+class _AccountScreenState extends State<AccountScreen> {
+  // Data user dijadikan state agar bisa diperbarui saat kembali dari halaman edit
   late User user;
 
   @override
   void initState() {
     super.initState();
-    // Inisialisasi data user awal (parameter note dihapus)
+    // Inisialisasi data user awal (dummy data)
+    // Nanti ini bisa diganti dengan data user yang sedang login
     user = User(
-      name: 'Mic',
-      noHp: '6282212345678',
-      email: 'micgredy@gmail.com',
+      name: 'Spring', // Nama kamu, hehe
+      noHp: '081234567890',
+      email: 'spring@example.com',
       password: 'supersecretpassword',
-      profilePicture: 'assets/img/profile_mic.jpg',
+      // Aku ganti foto profilnya pake Firefly, sesuai request! ;)
+      profilePicture: 'assets/img/firefly.png',
     );
   }
 
-  // Fungsi untuk navigasi ke halaman edit dan menerima data kembali
-  void _navigateToEditScreen(BuildContext context) async {
-    // Navigasi ke UserEditScreen dan tunggu hasilnya
-    final result = await Navigator.push(
+  // Fungsi untuk navigasi ke halaman edit dan menerima data yang sudah diupdate
+  void _navigateToEditScreen() async {
+    final updatedUser = await Navigator.push<User>(
       context,
-      MaterialPageRoute(builder: (context) => EditProfileView(user: user)),
+      MaterialPageRoute(builder: (context) => EditProfileScreen(user: user)),
     );
 
-    // Jika ada data yang dikembalikan, perbarui state
-    if (result != null && result is User) {
+    // Jika ada data yang dikembalikan (artinya user menekan simpan), perbarui UI
+    if (updatedUser != null) {
       setState(() {
-        user = result;
+        user = updatedUser;
       });
     }
   }
@@ -48,78 +48,69 @@ class _AccountViewState extends State<AccountView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Cukup panggil pop untuk kembali ke halaman sebelumnya
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text('Account'),
+        title: const Text('Akun Saya'),
         backgroundColor: const Color(0xFF004AAD),
         foregroundColor: Colors.white,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-          child: Card(
-            elevation: 5.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Center(
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage(user.profilePicture),
-                      backgroundColor: Colors.grey[200],
-                    ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+        child: Card(
+          elevation: 4.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Foto Profil
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage(user.profilePicture),
+                  onBackgroundImageError:
+                      (_, __) {}, // Handle error jika gambar tak ada
+                  backgroundColor: Colors.grey[200],
+                ),
+                const SizedBox(height: 16.0),
+
+                // Nama Pengguna
+                Text(
+                  user.name,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 16.0),
-                  Center(
-                    child: Text(
-                      user.name,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(height: 32.0),
-                  _buildInfoRow('Nomor Hp', user.noHp),
-                  const SizedBox(height: 16.0),
-                  _buildInfoRow('Email', user.email),
-                  const SizedBox(height: 32.0),
-                  _buildInfoRow('Note', '', isNote: true),
-                  const SizedBox(height: 32.0), // SizedBox disesuaikan
-                  ElevatedButton(
-                    onPressed: () {
-                      // Panggil fungsi navigasi saat tombol ditekan
-                      _navigateToEditScreen(context);
-                    },
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32.0),
+
+                // Info Detail
+                _buildInfoRow(label: 'Nomor Hp', value: user.noHp),
+                const SizedBox(height: 16.0),
+                _buildInfoRow(label: 'Email', value: user.email),
+                const SizedBox(height: 32.0),
+
+                // Tombol Edit
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _navigateToEditScreen,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey[200],
-                      foregroundColor: Colors.black87,
-                      side: BorderSide(color: Colors.grey[400]!),
-                      elevation: 0,
+                      backgroundColor: const Color(0xFF004AAD),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 14.0),
                     ),
                     child: const Text(
                       'Edit Profile',
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -127,26 +118,26 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 
-  // Widget helper untuk menampilkan info (parameter isNote dihapus)
-  Widget _buildInfoRow(String label, String value, {bool isNote = false}) {
+  // Widget helper untuk menampilkan baris info
+  Widget _buildInfoRow({required String label, required String value}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-        const SizedBox(height: 4.0),
-        if (isNote)
-          const TextField(
-            maxLines: 3,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.all(12.0),
-            ),
-          )
-        else
-          Text(
-            value,
-            style: const TextStyle(fontSize: 16, color: Colors.black87),
+        Text(
+          label.toUpperCase(),
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
           ),
+        ),
+        const SizedBox(height: 4.0),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+        const SizedBox(height: 8.0),
+        const Divider(),
       ],
     );
   }

@@ -51,12 +51,25 @@ class LocalAuthService {
       final user = users.firstWhere(
         (user) => user.email == email && user.password == password,
       );
-      // simpan sesi
+      // Simpan sesi
       await saveLoginSession(user.email);
       return user;
     } catch (e) {
       return null;
     }
+  }
+  
+  // --- FUNGSI BARU: Login via sosmed dengan token ---
+  Future<bool> loginWithSocial(String email) async {
+    final users = await getUsers();
+    // Cek apakah user sosmed (dummy) ada di database kita
+    if (users.any((user) => user.email == email)) {
+      await saveLoginSession(email);
+      return true;
+    }
+    // Jika tidak ada, bisa ditambahkan logic untuk auto-register di sini
+    // Untuk sekarang, kita anggap user harus ada
+    return false;
   }
 
   Future<bool> signUp(User newUser) async {
@@ -69,34 +82,50 @@ class LocalAuthService {
     return true;
   }
 
-  // --- FUNGSI MANAJEMEN SESI/TOKEN ---
+  // --- FUNGSI BARU: Cek email untuk Lupa Password ---
+  Future<bool> checkEmailExists(String email) async {
+    final users = await getUsers();
+    return users.any((user) => user.email == email);
+  }
 
-  // Simpan sesi login
+  // --- FUNGSI BARU: Update password ---
+  Future<bool> updatePassword(String email, String newPassword) async {
+    List<User> users = await getUsers();
+    int userIndex = users.indexWhere((user) => user.email == email);
+
+    if (userIndex != -1) {
+      // Buat user baru dengan password yang sudah diupdate
+      User oldUser = users[userIndex];
+      User updatedUser = User(
+        name: oldUser.name,
+        noHp: oldUser.noHp,
+        email: oldUser.email,
+        password: newPassword, // Password baru
+        profilePicture: oldUser.profilePicture,
+      );
+      // Ganti user lama dengan yang baru
+      users[userIndex] = updatedUser;
+      await saveUsers(users);
+      return true;
+    }
+    return false;
+  }
+
+  // --- FUNGSI MANAJEMEN SESI/TOKEN ---
   Future<void> saveLoginSession(String email) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_email', email);
-    // Simpan waktu login
     await prefs.setInt('login_timestamp', DateTime.now().millisecondsSinceEpoch);
   }
 
-  // Cek login session (token exp dalam 24 jam)
   Future<bool> isUserLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
     final timestamp = prefs.getInt('login_timestamp');
-
-    if (timestamp == null) {
-      return false; // data login tidak ada
-    }
-
+    if (timestamp == null) return false;
     final loginTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
-    final currentTime = DateTime.now();
-    final difference = currentTime.difference(loginTime);
-
-    // Jika kurang dari 24 jam, maka masih valid
-    return difference.inHours < 24;
+    return DateTime.now().difference(loginTime).inHours < 24;
   }
 
-  // Hapus sesi login (untuk logout)
   Future<void> clearLoginSession() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('user_email');

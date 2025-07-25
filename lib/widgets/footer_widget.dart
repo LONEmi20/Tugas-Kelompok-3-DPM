@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
 
+  // Fungsi membuka URL di aplikasi eksternal
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -31,7 +32,7 @@ class FooterWidget extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(20),
-      color: Colors.white, // Pastikan ada background color
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,24 +89,30 @@ class FooterWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Positioned(
-            left: 100,
-            top: 100,
-            child: GestureDetector(
-              onTap: () {
-                _launchURL('https://www.facebook.com/micgredy.micgredy.31/');
-              },
-              child: Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/img/FACEBOOK ICON.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () =>
+                    _launchURL('https://www.facebook.com/share/19ThVsbqfG/'),
+                child: Image.asset('assets/img/FACEBOOK ICON.png', width: 30),
               ),
-            ),
+              const SizedBox(width: 12),
+              GestureDetector(
+                onTap: () => _launchURL('https://wa.me/62895605091222'),
+                child: Image.asset('assets/img/WA ICON.png', width: 30),
+              ),
+              const SizedBox(width: 12),
+              GestureDetector(
+                onTap: () => _launchURL('https://twitter.com/mikirluk/'),
+                child: Image.asset('assets/img/X ICON.png', width: 30),
+              ),
+              const SizedBox(width: 12),
+              GestureDetector(
+                onTap: () => _launchURL('https://instagram.com/mikirluk/'),
+                child: Image.asset('assets/img/IG ICON.png', width: 30),
+              ),
+            ],
           ),
           const Divider(height: 24, color: Color(0xFF6380EA)),
           const Text('Informasi', style: titleStyle),
