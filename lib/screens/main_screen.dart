@@ -42,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadAndFilterBerita() async {
     try {
-      // Memuat berita dari asset JSON
       final String assetJsonString = await rootBundle.loadString(
         'assets/data/berita.json',
       );
@@ -617,17 +616,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                    // PENAMBAHAN FOOTER WIDGET
                     const FooterWidget(),
                   ],
                 ),
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _navigateToForm,
-        backgroundColor: const Color(0xFF224699),
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
     );
   }
 }

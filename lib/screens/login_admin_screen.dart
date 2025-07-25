@@ -24,7 +24,7 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
   // --- BUAT LIST AKUN ADMIN ---
   final List<Admin> _adminAccounts = [
     Admin(email: 'admin@example.com', password: 'admin123'),
-    Admin(email: 'mic@gmail.com', password: 'mic'),
+    Admin(email: 'micgredy@gmail.com', password: 'mic'),
     Admin(email: 'evan@gmail.com', password: 'evan123'),
   ];
 
