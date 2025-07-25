@@ -1,10 +1,30 @@
 [
-    {
-      "name": "Akun User",
-      "noHp": "081234567890",
-      "email": "akunuser@gmail.com",
-      "password": "user123!",
-      "profilePicture": ""
-    }
-  ]
-  
+  {
+    "name": "Akun User",
+    "noHp": "081234567890",
+    "email": "akunuser@gmail.com",
+    "password": "user123!",
+    "profilePicture": ""
+  },
+  {
+    "name": "Evan Verlanma",
+    "noHp": "081211112222",
+    "email": "everlanma@email.com",
+    "password": "",
+    "profilePicture": "assets/img/firefly2.jpg"
+  },
+  {
+    "name": "Firefly",
+    "noHp": "081233334444",
+    "email": "hotaru.ar26710@email.com",
+    "password": "",
+    "profilePicture": "assets/img/firefly.png"
+  },
+  {
+    "name": "Spring",
+    "noHp": "081255556666",
+    "email": "spring@email.com",
+    "password": "",
+    "profilePicture": "assets/img/img/firefly2.png"
+  }
+]

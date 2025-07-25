@@ -94,19 +94,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
     final List<Berita> pagedBerita = _categoryBerita.isNotEmpty ? _categoryBerita.sublist(startIndex, endIndex) : [];
     final int totalPages = _categoryBerita.isEmpty ? 1 : (_categoryBerita.length / _itemsPerPage).ceil();
 
+    // [FIX] Logika untuk memilih logo berdasarkan tema
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+
     return Scaffold(
-      // --- PERUBAHAN HEADER DI SINI ---
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        foregroundColor: Colors.black, // Untuk warna tombol back
-        title: Image.asset('assets/img/Logo-mikirluk.png', height: 48),
+        // [FIX] Menggunakan logo yang dinamis
+        title: Image.asset(logoAsset, height: 40),
         centerTitle: true,
         actions: [
           IconButton(
             icon: Image.asset('assets/img/search.png', width: 30),
             onPressed: () {
-              // Navigasi ke SearchScreen dengan membawa info kategori
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -117,7 +117,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ],
       ),
-      backgroundColor: Colors.white,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _categoryBerita.isEmpty
@@ -125,12 +124,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
               : SingleChildScrollView(
                   child: Column(
                     children: [
-                      // Menampilkan nama kategori sebagai judul halaman
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
                           widget.categoryName,
-                          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontFamily: 'Bree Serif'),
+                          // [FIX] Menggunakan style dari tema
+                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontFamily: 'Bree Serif'),
                         ),
                       ),
                       ListView.builder(
@@ -201,7 +200,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       margin: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: const Color(0xFF224699)),
         boxShadow: const [BoxShadow(color: Color(0x3F000000), blurRadius: 4, offset: Offset(0, 4))],
@@ -220,6 +219,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget _buildBeritaLainnyaItem(Berita berita) {
+    // [FIX] Mengambil text style dari tema
+    final textTheme = Theme.of(context).textTheme;
+
     return GestureDetector(
       key: ObjectKey(berita),
       onTap: () {
@@ -247,13 +249,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       children: [
                         Text(
                           berita.judul,
-                          style: const TextStyle(color: Colors.black, fontSize: 12, fontFamily: 'Bree Serif'),
+                          // [FIX] Menggunakan style dari tema
+                          style: textTheme.titleMedium,
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           waktuRelative(berita.tanggal),
-                          style: TextStyle(color: Colors.black.withOpacity(0.34), fontSize: 12, fontFamily: 'Bree Serif'),
+                          // [FIX] Menggunakan style dari tema
+                          style: textTheme.bodySmall?.copyWith(color: textTheme.bodySmall?.color?.withOpacity(0.34)),
                         ),
                       ],
                     ),

@@ -7,7 +7,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tugas_kelompok_dpm/models/berita_model.dart';
 
 class FormBeritaScreen extends StatefulWidget {
+<<<<<<< HEAD
   // Tambahkan parameter opsional untuk menampung berita yang akan diedit
+=======
+  // Parameter opsional untuk menampung berita yang akan diedit
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
   final Berita? berita;
 
   const FormBeritaScreen({super.key, this.berita});
@@ -45,7 +49,10 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
       _editorController.text = berita.editor;
       _isiController.text = berita.isi;
       _selectedKategori = berita.tags.isNotEmpty ? berita.tags.first : null;
+<<<<<<< HEAD
       // Cek apakah gambar dari aset atau file
+=======
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
       if (!berita.gambar.startsWith('assets/')) {
         _selectedImage = File(berita.gambar);
       }
@@ -63,20 +70,23 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
-      setState(() {
-        _selectedImage = File(pickedFile.path);
-      });
+      setState(() => _selectedImage = File(pickedFile.path));
     }
   }
 
+<<<<<<< HEAD
   // --- FUNGSI SIMPAN BERITA (Bisa untuk tambah & edit) ---
   Future<void> _simpanBerita() async {
     if (_formKey.currentState!.validate()) {
       // Pada mode tambah, gambar & kategori wajib. Pada mode edit, gambar boleh kosong (pakai yg lama)
       if ((!_isEditing && _selectedImage == null) ||
           _selectedKategori == null) {
+=======
+  Future<void> _simpanBerita() async {
+    if (_formKey.currentState!.validate()) {
+      if ((!_isEditing && _selectedImage == null) || _selectedKategori == null) {
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Gambar dan Kategori wajib diisi.'),
@@ -90,6 +100,7 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
 
       try {
         final appDir = await getApplicationDocumentsDirectory();
+<<<<<<< HEAD
 
         String imagePath = '';
         if (_selectedImage != null) {
@@ -101,6 +112,14 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
           imagePath = savedImage.path;
         } else if (_isEditing) {
           // Jika mode edit dan tidak ada gambar baru, pakai path gambar lama
+=======
+        String imagePath = '';
+        if (_selectedImage != null) {
+          final fileName = path.basename(_selectedImage!.path);
+          final savedImage = await _selectedImage!.copy('${appDir.path}/$fileName');
+          imagePath = savedImage.path;
+        } else if (_isEditing) {
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
           imagePath = widget.berita!.gambar;
         }
 
@@ -115,16 +134,24 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
         }
 
         if (_isEditing) {
+<<<<<<< HEAD
           // --- LOGIKA UNTUK EDIT BERITA ---
+=======
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
           final beritaDiedit = Berita(
             id: widget.berita!.id,
             judul: _judulController.text,
             editor: _editorController.text,
+<<<<<<< HEAD
             tanggal: DateTime.now(), // Update tanggal ke waktu sekarang
+=======
+            tanggal: DateTime.now(),
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
             gambar: imagePath,
             tags: [_selectedKategori!],
             isi: _isiController.text,
           );
+<<<<<<< HEAD
 
           final index = listBerita.indexWhere((b) => b.id == widget.berita!.id);
           if (index != -1) {
@@ -144,6 +171,19 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
           }
           final newId = 'brt-${(lastIdNum + 1).toString().padLeft(3, '0')}';
 
+=======
+          final index = listBerita.indexWhere((b) => b.id == widget.berita!.id);
+          if (index != -1) listBerita[index] = beritaDiedit;
+        } else {
+          int lastIdNum = 0;
+          if (listBerita.isNotEmpty) {
+            final ids = listBerita.map((b) => int.tryParse(b.id.split('-').last) ?? 0);
+            if (ids.isNotEmpty) lastIdNum = ids.reduce((a, b) => a > b ? a : b);
+          } else {
+            lastIdNum = 55;
+          }
+          final newId = 'brt-${(lastIdNum + 1).toString().padLeft(3, '0')}';
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
           final Berita beritaBaru = Berita(
             id: newId,
             judul: _judulController.text,
@@ -156,6 +196,7 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
           listBerita.insert(0, beritaBaru);
         }
 
+<<<<<<< HEAD
         final List<Map<String, dynamic>> jsonList = listBerita
             .map((b) => b.toJson())
             .toList();
@@ -179,6 +220,21 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
             backgroundColor: Colors.red,
           ),
         );
+=======
+        final List<Map<String, dynamic>> jsonList = listBerita.map((b) => b.toJson()).toList();
+        await file.writeAsString(json.encode(jsonList));
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Berita berhasil ${_isEditing ? 'diperbarui' : 'disimpan'}!'), backgroundColor: Colors.green),
+          );
+          Navigator.pop(context, true);
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Gagal menyimpan: $e'), backgroundColor: Colors.red));
+        }
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
       } finally {
         if (mounted) setState(() => _isLoading = false);
       }
@@ -187,6 +243,7 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     // Menentukan gambar yang akan ditampilkan di form
     Widget imagePreview;
     if (_selectedImage != null) {
@@ -207,22 +264,38 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
         fit: BoxFit.cover,
         width: double.infinity,
       );
+=======
+    Widget imagePreview;
+    if (_selectedImage != null) {
+      imagePreview = Image.file(_selectedImage!, fit: BoxFit.cover, width: double.infinity);
+    } else if (_isEditing && widget.berita!.gambar.startsWith('assets/')) {
+      imagePreview = Image.asset(widget.berita!.gambar, fit: BoxFit.cover, width: double.infinity);
+    } else if (_isEditing && widget.berita!.gambar.isNotEmpty) {
+      imagePreview = Image.file(File(widget.berita!.gambar), fit: BoxFit.cover, width: double.infinity);
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
     } else {
       imagePreview = const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+<<<<<<< HEAD
           children: [
             Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
             SizedBox(height: 8),
             Text('Ketuk untuk pilih gambar'),
           ],
+=======
+          children: [Icon(Icons.add_a_photo, size: 40, color: Colors.grey), SizedBox(height: 8), Text('Ketuk untuk pilih gambar')],
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
         // Ganti judul berdasarkan mode (tambah atau edit)
+=======
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
         title: Text(_isEditing ? 'Form Edit Berita' : 'Form Tambah Berita'),
       ),
       body: Padding(
@@ -240,14 +313,17 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.grey),
                   ),
+<<<<<<< HEAD
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: imagePreview,
                   ),
+=======
+                  child: ClipRRect(borderRadius: BorderRadius.circular(12), child: imagePreview),
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                 ),
               ),
               const SizedBox(height: 24),
-
               TextFormField(
                 controller: _judulController,
                 decoration: const InputDecoration(
@@ -270,11 +346,15 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                     : null,
               ),
               const SizedBox(height: 16),
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
               DropdownButtonFormField<String>(
                 value: _selectedKategori,
                 hint: const Text('Pilih Kategori'),
                 decoration: const InputDecoration(border: OutlineInputBorder()),
+<<<<<<< HEAD
                 items: _kategoriList.map((String kategori) {
                   return DropdownMenuItem<String>(
                     value: kategori,
@@ -288,9 +368,13 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                 },
                 validator: (value) =>
                     value == null ? 'Kategori tidak boleh kosong' : null,
+=======
+                items: _kategoriList.map((String kategori) => DropdownMenuItem<String>(value: kategori, child: Text(kategori))).toList(),
+                onChanged: (newValue) => setState(() => _selectedKategori = newValue),
+                validator: (value) => value == null ? 'Kategori tidak boleh kosong' : null,
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 controller: _isiController,
                 decoration: const InputDecoration(
@@ -308,10 +392,11 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                 onPressed: _isLoading ? null : _simpanBerita,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: Theme.of(context).primaryColor,
-                  foregroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                 ),
                 child: _isLoading
+<<<<<<< HEAD
                     ? const SizedBox(
                         height: 24,
                         width: 24,
@@ -320,6 +405,9 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
                           strokeWidth: 3,
                         ),
                       )
+=======
+                    ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                     : Text(_isEditing ? 'UPDATE BERITA' : 'SIMPAN BERITA'),
               ),
             ],

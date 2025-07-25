@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tugas_kelompok_dpm/models/berita_model.dart';
+import 'package:tugas_kelompok_dpm/models/user_model.dart';
 import 'package:tugas_kelompok_dpm/screens/app_drawer.dart';
 import 'package:tugas_kelompok_dpm/screens/detail_berita_screen.dart';
 import 'package:tugas_kelompok_dpm/screens/form_berita_screen.dart';
@@ -13,13 +14,16 @@ import 'package:tugas_kelompok_dpm/screens/search_screen.dart';
 import 'package:tugas_kelompok_dpm/widgets/footer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final User currentUser;
+  const HomeScreen({super.key, required this.currentUser});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late User _user;
+  
   List<Berita> _allBerita = [];
   List<Berita> _filteredBerita = [];
   bool _isLoading = true;
@@ -37,20 +41,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _user = widget.currentUser;
     _refreshData();
+  }
+  
+  void _updateUser(User newUser) {
+    setState(() {
+      _user = newUser;
+    });
   }
 
   Future<void> _loadAndFilterBerita() async {
     try {
+<<<<<<< HEAD
       final String assetJsonString = await rootBundle.loadString(
         'assets/data/berita.json',
       );
+=======
+      final String assetJsonString = await rootBundle.loadString('assets/data/berita.json');
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
       final List<dynamic> assetData = json.decode(assetJsonString);
       List<Berita> assetBerita = assetData
           .map((json) => Berita.fromJson(json))
           .toList();
 
-      // Memuat berita dari file lokal (jika ada)
       final directory = await getApplicationDocumentsDirectory();
       final localFile = File('${directory.path}/berita.json');
       List<Berita> localBerita = [];
@@ -62,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
 
-      // Menggabungkan, menghilangkan duplikat, dan mengurutkan berita
       _allBerita = [...localBerita, ...assetBerita];
 
       final ids = <String>{};
@@ -273,13 +286,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHeroCard(Berita berita) {
+    // [FIX] Mengambil text style dari tema
+    final textTheme = Theme.of(context).textTheme;
+
     return GestureDetector(
       key: ObjectKey(berita),
       onTap: () => _navigateToDetail(berita),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(color: const Color(0xFFAAB7D3)),
           boxShadow: const [
@@ -310,34 +326,49 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     berita.judul,
+<<<<<<< HEAD
                     style: const TextStyle(
                       color: Color(0xFF224699),
                       fontSize: 20,
                       fontFamily: 'Bree Serif',
                       fontWeight: FontWeight.w400,
                     ),
+=======
+                    // [FIX] Menggunakan style dari tema
+                    style: textTheme.headlineSmall?.copyWith(color: const Color(0xFF224699)),
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
                   Text(
                     DateFormat('dd/MM/yy', 'id_ID').format(berita.tanggal),
+<<<<<<< HEAD
                     style: const TextStyle(
                       color: Color(0xFF224699),
                       fontSize: 15,
                       fontFamily: 'Alumni Sans',
                     ),
+=======
+                    // [FIX] Menggunakan style dari tema
+                    style: textTheme.bodySmall?.copyWith(color: const Color(0xFF224699), fontFamily: 'Alumni Sans')
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                   ),
                   const SizedBox(height: 4),
                   const Divider(color: Color(0xFF224699)),
                   const SizedBox(height: 4),
                   Text(
                     berita.isi,
+<<<<<<< HEAD
                     style: const TextStyle(
                       color: Color(0xFF224699),
                       fontSize: 12,
                       fontFamily: 'AR One Sans',
                     ),
+=======
+                    // [FIX] Menggunakan style dari tema
+                    style: textTheme.bodyMedium,
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.justify,
@@ -356,7 +387,7 @@ class _HomeScreenState extends State<HomeScreen> {
       margin: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: const Color(0xFF224699)),
         boxShadow: const [
@@ -400,6 +431,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+<<<<<<< HEAD
         const Padding(
           padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
           child: Text(
@@ -410,6 +442,17 @@ class _HomeScreenState extends State<HomeScreen> {
               fontFamily: 'League Spartan',
               fontWeight: FontWeight.w400,
             ),
+=======
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+          child: Text(
+            'Berita Terkini', 
+            // [FIX] Menggunakan style dari tema
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontFamily: 'League Spartan', 
+              fontWeight: FontWeight.w400
+            )
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
           ),
         ),
         SizedBox(
@@ -427,6 +470,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildFeaturedTerkiniItem(Berita berita) {
+    // [FIX] Mengambil text style dari tema
+    final textTheme = Theme.of(context).textTheme;
+
     return GestureDetector(
       key: ObjectKey(berita),
       onTap: () => _navigateToDetail(berita),
@@ -447,22 +493,33 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 8),
             Text(
               berita.judul,
+<<<<<<< HEAD
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,
                 fontFamily: 'Bree Serif',
               ),
+=======
+              // [FIX] Menggunakan style dari tema
+              style: textTheme.titleMedium,
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
             Text(
+<<<<<<< HEAD
               waktuRelative(berita.tanggal),
               style: TextStyle(
                 color: Colors.black.withOpacity(0.34),
                 fontSize: 12,
                 fontFamily: 'Bree Serif',
               ),
+=======
+              waktuRelative(berita.tanggal), 
+              // [FIX] Menggunakan style dari tema
+              style: textTheme.bodySmall?.copyWith(color: textTheme.bodySmall?.color?.withOpacity(0.5))
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
             ),
           ],
         ),
@@ -471,6 +528,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildBeritaLainnyaItem(Berita berita) {
+    // [FIX] Mengambil text style dari tema
+    final textTheme = Theme.of(context).textTheme;
+
     return GestureDetector(
       key: ObjectKey(berita),
       onTap: () => _navigateToDetail(berita),
@@ -496,21 +556,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           berita.judul,
+<<<<<<< HEAD
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 12,
                             fontFamily: 'Bree Serif',
                           ),
+=======
+                          // [FIX] Menggunakan style dari tema
+                          style: textTheme.titleMedium,
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
+<<<<<<< HEAD
                           waktuRelative(berita.tanggal),
                           style: TextStyle(
                             color: Colors.black.withOpacity(0.34),
                             fontSize: 12,
                             fontFamily: 'Bree Serif',
                           ),
+=======
+                          waktuRelative(berita.tanggal), 
+                          // [FIX] Menggunakan style dari tema
+                          style: textTheme.bodySmall?.copyWith(color: textTheme.bodySmall?.color?.withOpacity(0.5))
+>>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                         ),
                       ],
                     ),
@@ -555,18 +626,21 @@ class _HomeScreenState extends State<HomeScreen> {
       beritaLainnya = _filteredBerita.sublist(verticalStartIndex, endIndex);
     }
 
+    // [FIX] Logika untuk memilih logo berdasarkan tema
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+
     return Scaffold(
-      drawer: const AppMenuDrawer(),
+      drawer: AppMenuDrawer(currentUser: _user, onProfileUpdated: _updateUser),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: Builder(
           builder: (context) => IconButton(
             icon: Image.asset('assets/img/3_bar.png', width: 30),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: Image.asset('assets/img/Logo-mikirluk.png', height: 48),
+        // [FIX] Menggunakan logo yang dinamis
+        title: Image.asset(logoAsset, height: 40),
         centerTitle: true,
         actions: [
           IconButton(
@@ -580,7 +654,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      backgroundColor: Colors.white,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(

@@ -92,7 +92,6 @@ class _SearchScreenState extends State<SearchScreen> {
       combinedBerita.retainWhere((berita) => ids.add(berita.id));
       combinedBerita.sort((a, b) => b.tanggal.compareTo(a.tanggal));
 
-      // --- PERUBAHAN: Filter berita jika ada kategori yang dikirim ---
       if (widget.categoryName != null) {
         _allBerita = combinedBerita.where((berita) {
           return berita.tags.any((tag) => tag.toLowerCase() == widget.categoryName!.toLowerCase());
@@ -196,7 +195,6 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 1,
-        // Tombol back
       ),
       backgroundColor: Colors.white,
       body: _isLoading

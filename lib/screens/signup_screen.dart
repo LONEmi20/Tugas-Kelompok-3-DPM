@@ -24,9 +24,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _localAuthService = LocalAuthService();
   
   bool _isLoading = false;
-  bool _isPasswordVisible = false; // State untuk show/hide password
+  bool _isPasswordVisible = false;
 
-  // Fungsi untuk daftar via email
   Future<void> _performSignUp() async {
     if (!_formKey.currentState!.validate()) return;
     
@@ -67,28 +66,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (mounted) setState(() => _isLoading = false);
   }
 
-  // Fungsi dummy untuk daftar via social media
-  Future<void> _performSocialDummyLogin(String email) async {
+  Future<void> _performSocialDummyLogin() async {
     if (_isLoading) return;
     setState(() => _isLoading = true);
-    
-    final success = await _localAuthService.loginWithSocial(email);
-    if(mounted) {
-      if(success) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      } else {
-         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Akun dengan email $email tidak ditemukan.'), backgroundColor: Colors.red),
-        );
-      }
+    await Future.delayed(const Duration(milliseconds: 1500));
+
+    final dummyUser = User(
+      name: "Social Media User", 
+      noHp: "081234567890", 
+      email: "social.user@example.com", 
+      password: "",
+      profilePicture: ""
+    );
+
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen(currentUser: dummyUser)),
+      );
     }
-    if (mounted) setState(() => _isLoading = false);
   }
   
-  // --- Tampilkan overlay sosmed ---
   void _showGoogleOverlay() {
     showDialog(
       context: context,
@@ -99,14 +97,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _showFacebookOverlay() {
     showDialog(
       context: context,
-      builder: (context) => FacebookLoginOverlay(onLoginPressed: () => _performSocialDummyLogin("fb.user@example.com")),
+      builder: (context) => FacebookLoginOverlay(onLoginPressed: _performSocialDummyLogin),
     );
   }
 
   void _showAppleOverlay() {
     showDialog(
       context: context,
-      builder: (context) => AppleLoginOverlay(onLoginPressed: () => _performSocialDummyLogin("apple.user@example.com")),
+      builder: (context) => AppleLoginOverlay(onLoginPressed: _performSocialDummyLogin),
     );
   }
 
@@ -125,16 +123,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
       padding: const EdgeInsets.symmetric(vertical: 14),
       side: BorderSide(color: Colors.grey.shade400),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      foregroundColor: Colors.black,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
     );
 
+    // [FIX] Logika untuk memilih logo berdasarkan tema
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -146,7 +145,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Image.asset('assets/img/Logo-mikirluk.png', height: 50),
+                // [FIX] Menggunakan logo yang dinamis
+                Image.asset(logoAsset, height: 50),
                 const SizedBox(height: 48),
                 const Text('Selamat Datang!', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 40),
@@ -167,7 +167,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _emailController,
                   decoration: const InputDecoration(labelText: 'Email'),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => (value == null || !value.contains('@')) ? 'Format email tidak valid' : null,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) return 'Format email tidak valid';
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
@@ -175,9 +179,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    // --- TOMBOL MATA ---
                     suffixIcon: IconButton(
-                      icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                      icon: Icon(
+                        _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                      ),
                       onPressed: () {
                         setState(() {
                           _isPasswordVisible = !_isPasswordVisible;
@@ -195,10 +200,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onPressed: _performSignUp,
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      side: const BorderSide(color: Color(0xFF224699), width: 1.5),
+                      side: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1.5),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                     ),
-                    child: const Text('Sign Up', style: TextStyle(fontSize: 16, color: Color(0xFF224699))),
+                    child: Text('Sign Up', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary)),
                   ),
                 const SizedBox(height: 32),
                 Row(

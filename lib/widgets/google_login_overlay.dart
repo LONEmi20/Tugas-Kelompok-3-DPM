@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GoogleLoginOverlay extends StatelessWidget {
-  // Callback sekarang menerima email yang dipilih
-  final Function(String email) onAccountSelected;
+  final VoidCallback onAccountSelected;
 
   const GoogleLoginOverlay({super.key, required this.onAccountSelected});
 
@@ -29,30 +28,29 @@ class GoogleLoginOverlay extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             // Daftar Akun Dummy
-            // Aku tambahin akun dummy sesuai database awal kita
-            _buildAccountTile(
-              context,
-              name: 'Akun User',
-              email: 'akunuser@gmail.com', 
-              avatarAsset: 'assets/img/bob.png', 
-            ),
             _buildAccountTile(
               context,
               name: 'Evan Verlanma',
               email: 'everlanma@email.com',
-              avatarAsset: 'assets/img/profile_evan.jpg', 
+              avatarAsset: 'assets/img/firefly2.jpg', 
             ),
             _buildAccountTile(
               context,
               name: 'Firefly',
-              email: 'hotaru@hsr.com', 
+              email: 'HotaruAR26710@email.com', 
               avatarAsset: 'assets/img/firefly.png', 
             ),
              _buildAccountTile(
               context,
               name: 'Spring',
-              email: 'spring@example.com',
-              avatarAsset: 'assets/img/profile_mic.jpg', 
+              email: 'spring@email.com',
+              avatarAsset: 'assets/img/firefly2.png', 
+            ),
+             _buildAccountTile(
+              context,
+              name: 'Another Account',
+              email: 'another.account@email.com', 
+              avatarAsset: 'assets/img/iklan1.png', 
             ),
           ],
         ),
@@ -60,7 +58,6 @@ class GoogleLoginOverlay extends StatelessWidget {
     );
   }
 
-  // Widget untuk satu baris akun
   Widget _buildAccountTile(BuildContext context, {required String name, required String email, required String avatarAsset}) {
     return ListTile(
       leading: CircleAvatar(
@@ -71,8 +68,7 @@ class GoogleLoginOverlay extends StatelessWidget {
       subtitle: Text(email),
       onTap: () {
         Navigator.of(context).pop(); 
-        // Kirim email yang dipilih ke halaman login
-        onAccountSelected(email); 
+        onAccountSelected(); 
       },
     );
   }

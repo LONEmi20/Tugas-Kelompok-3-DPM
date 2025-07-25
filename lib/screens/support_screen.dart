@@ -21,7 +21,8 @@ class SupportScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF004AAD),
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.white,
+      // [FIX] Hapus backgroundColor manual agar mengikuti tema
+      // backgroundColor: Colors.white,
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -60,14 +61,21 @@ class SupportScreen extends StatelessWidget {
     required String imageUrl,
     required String saweriaUrl,
   }) {
+    // [FIX] Mengambil warna dari tema yang aktif
+    final cardColor = Theme.of(context).cardColor;
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
+    final buttonTextColor = Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;
+    final buttonBackgroundColor = Theme.of(context).colorScheme.surface;
+
+
     return Card(
       elevation: 4,
       shadowColor: Colors.black.withOpacity(0.25),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
-        side: const BorderSide(width: 1, color: Colors.black),
+        side: BorderSide(width: 1, color: textColor.withOpacity(0.5)),
       ),
-      color: const Color(0xFFF2F7F5),
+      color: cardColor, // [FIX] Menggunakan warna Card dari tema
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Row(
@@ -84,8 +92,8 @@ class SupportScreen extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: const TextStyle(
-                      color: Colors.black,
+                    style: TextStyle(
+                      color: textColor, // [FIX] Menggunakan warna teks dari tema
                       fontSize: 24,
                       fontFamily: 'League Spartan',
                       fontWeight: FontWeight.w500,
@@ -94,8 +102,8 @@ class SupportScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     message,
-                    style: const TextStyle(
-                      color: Colors.black,
+                    style: TextStyle(
+                      color: textColor, // [FIX] Menggunakan warna teks dari tema
                       fontSize: 14,
                       fontFamily: 'League Spartan',
                       fontWeight: FontWeight.w500,
@@ -105,8 +113,8 @@ class SupportScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () => _launchURL(saweriaUrl),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
+                      backgroundColor: buttonBackgroundColor, // [FIX] Menggunakan warna dari tema
+                      foregroundColor: buttonTextColor, // [FIX] Menggunakan warna dari tema
                       minimumSize: const Size(176, 44),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),

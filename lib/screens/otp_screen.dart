@@ -68,8 +68,6 @@ class _OtpScreenState extends State<OtpScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Verifikasi berhasil! Silakan login.'), backgroundColor: Colors.green),
       );
-      // --- PERUBAHAN NAVIGASI DI SINI ---
-      // Langsung ke halaman login dan hapus riwayat halaman sebelumnya
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const LoginScreen()),
         (Route<dynamic> route) => false,

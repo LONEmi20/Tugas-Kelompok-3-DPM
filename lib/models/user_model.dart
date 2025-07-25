@@ -1,9 +1,9 @@
 class User {
-  final String name;
-  final String noHp;
-  final String email;
-  final String password;
+  String name;
+  String noHp;
+  String email;
   String profilePicture; 
+  final String password;
 
   User({
     required this.name,
@@ -13,7 +13,6 @@ class User {
     this.profilePicture = '', 
   });
 
-  // ngubah dari JSON ke object User
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       name: json['name'],
@@ -24,7 +23,6 @@ class User {
     );
   }
 
-  // ngubah data user baru ke JSON 
   Map<String, dynamic> toJson() {
     return {
       'name': name,

@@ -27,9 +27,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
-  // Fungsi untuk mengirim kode OTP
+  void _handleMainButtonAction() {
+    if (!_isOtpSent) {
+      _sendOtp();
+    } else if (!_isOtpVerified) {
+      _verifyOtp();
+    } else {
+      _updatePassword();
+    }
+  }
+
   Future<void> _sendOtp() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) {
+       final email = _emailController.text;
+       if (email.isEmpty || !email.contains('@')) {
+         ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Masukkan format email yang benar.'), backgroundColor: Colors.red),
+        );
+         return;
+       }
+    }
 
     setState(() => _isLoading = true);
     final emailExists = await _authService.checkEmailExists(_emailController.text.trim());
@@ -55,10 +72,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         );
       }
     }
-    setState(() => _isLoading = false);
+    if (mounted) setState(() => _isLoading = false);
   }
 
-  // Fungsi untuk verifikasi OTP dan mengaktifkan field password
   void _verifyOtp() {
     if (_otpController.text == _generatedOtp) {
       setState(() {
@@ -73,9 +89,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       );
     }
   }
-  
-  // Fungsi untuk update password
-  Future<void> _updatePassword() async {
+    Future<void> _updatePassword() async {
     if (!_formKey.currentState!.validate()) return;
     if (_passwordController.text != _confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -95,7 +109,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Password berhasil diperbarui! Silakan login.'), backgroundColor: Colors.blue),
         );
-        // Lempar ke halaman login
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const LoginScreen()),
           (Route<dynamic> route) => false,
@@ -106,7 +119,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         );
       }
     }
-    setState(() => _isLoading = false);
+    if (mounted) setState(() => _isLoading = false);
   }
 
 
@@ -121,13 +134,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String buttonText = !_isOtpSent 
+        ? 'Kirim Kode OTP' 
+        : !_isOtpVerified 
+          ? 'Verifikasi OTP' 
+          : 'Update Password';
+
+    // [FIX] Logika untuk memilih logo berdasarkan tema
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -138,81 +158,92 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset('assets/img/Logo-mikirluk.png', height: 50),
+              // [FIX] Menggunakan logo yang dinamis
+              Image.asset(logoAsset, height: 50),
               const SizedBox(height: 48),
               const Text('Lupa Password', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
               const SizedBox(height: 40),
 
-              // 1. Email
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(labelText: 'Email'),
-                enabled: !_isOtpSent, // Nonaktifkan setelah OTP dikirim
+                enabled: !_isOtpSent, 
                 validator: (value) => (value == null || !value.contains('@')) ? 'Format email tidak valid' : null,
               ),
               const SizedBox(height: 16),
 
-              // 2. OTP
-              TextFormField(
-                controller: _otpController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Kode OTP',
-                  enabled: _isOtpSent && !_isOtpVerified,
-                  suffixIcon: TextButton(
-                    onPressed: _isOtpSent ? _verifyOtp : _sendOtp,
-                    child: Text(_isOtpSent ? 'Verifikasi' : 'Kirim'),
-                  ),
+              Visibility(
+                visible: _isOtpSent,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _otpController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Kode OTP',
+                        enabled: !_isOtpVerified,
+                      ),
+                      validator: (value) => (_isOtpSent && !_isOtpVerified && (value == null || value.isEmpty)) ? 'Kode OTP harus diisi' : null,
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                 ),
-                validator: (value) => (_isOtpSent && (value == null || value.isEmpty)) ? 'Kode OTP harus diisi' : null,
               ),
-              const SizedBox(height: 16),
 
-              // 3. Password Baru
-              TextFormField(
-                controller: _passwordController,
-                obscureText: !_isPasswordVisible,
-                decoration: InputDecoration(
-                  labelText: 'Password Baru',
-                  enabled: _isOtpVerified,
-                   suffixIcon: IconButton(
-                    icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
-                  ),
+              Visibility(
+                visible: _isOtpVerified,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _passwordController,
+                      obscureText: !_isPasswordVisible,
+                      decoration: InputDecoration(
+                        labelText: 'Password Baru',
+                        suffixIcon: IconButton(
+                          icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                          onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                        ),
+                      ),
+                      validator: (value) => (_isOtpVerified && (value == null || value.isEmpty)) ? 'Password baru harus diisi' : null,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _confirmPasswordController,
+                      obscureText: !_isConfirmPasswordVisible,
+                      decoration: InputDecoration(
+                        labelText: 'Konfirmasi Password Baru',
+                        suffixIcon: IconButton(
+                          icon: Icon(_isConfirmPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                          onPressed: () => setState(() => _isConfirmPasswordVisible = !_isConfirmPasswordVisible),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (_isOtpVerified && (value == null || value.isEmpty)) {
+                          return 'Konfirmasi password harus diisi';
+                        }
+                        if (_isOtpVerified && value != _passwordController.text) {
+                          return 'Password tidak cocok';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
                 ),
-                validator: (value) => (_isOtpVerified && (value == null || value.isEmpty)) ? 'Password baru harus diisi' : null,
-              ),
-              const SizedBox(height: 16),
-
-              // 4. Konfirmasi Password Baru
-              TextFormField(
-                controller: _confirmPasswordController,
-                obscureText: !_isConfirmPasswordVisible,
-                decoration: InputDecoration(
-                  labelText: 'Konfirmasi Password Baru',
-                  enabled: _isOtpVerified,
-                  suffixIcon: IconButton(
-                    icon: Icon(_isConfirmPasswordVisible ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () => setState(() => _isConfirmPasswordVisible = !_isConfirmPasswordVisible),
-                  ),
-                ),
-                validator: (value) => (_isOtpVerified && (value == null || value.isEmpty)) ? 'Konfirmasi password harus diisi' : null,
               ),
               const SizedBox(height: 32),
 
-              // Tombol Konfirmasi Akhir
               if (_isLoading)
                 const Center(child: CircularProgressIndicator())
               else
                 OutlinedButton(
-                  onPressed: _isOtpVerified ? _updatePassword : null, // Hanya aktif jika OTP sudah diverifikasi
+                  onPressed: _handleMainButtonAction,
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
-                    side: BorderSide(color: _isOtpVerified ? const Color(0xFF224699) : Colors.grey, width: 1.5),
+                    side: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1.5),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                   ),
-                  child: Text('Konfirmasi', style: TextStyle(fontSize: 16, color: _isOtpVerified ? const Color(0xFF224699) : Colors.grey)),
+                  child: Text(buttonText, style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary)),
                 ),
             ],
           ),
