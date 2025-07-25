@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tugas_kelompok_dpm/models/berita_model.dart';
 import 'package:tugas_kelompok_dpm/screens/detail_berita_screen.dart';
-import 'package:tugas_kelompok_dpm/screens/search_screen.dart'; 
+import 'package:tugas_kelompok_dpm/screens/search_screen.dart';
 import 'package:tugas_kelompok_dpm/widgets/footer_widget.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -34,11 +34,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Future<void> _loadBerita() async {
     if (!mounted) return;
     setState(() => _isLoading = true);
-    
+
     try {
-      final String assetJsonString = await rootBundle.loadString('assets/data/berita.json');
+      final String assetJsonString = await rootBundle.loadString(
+        'assets/data/berita.json',
+      );
       final List<dynamic> assetData = json.decode(assetJsonString);
-      List<Berita> assetBerita = assetData.map((json) => Berita.fromJson(json)).toList();
+      List<Berita> assetBerita = assetData
+          .map((json) => Berita.fromJson(json))
+          .toList();
 
       final directory = await getApplicationDocumentsDirectory();
       final localFile = File('${directory.path}/berita.json');
@@ -57,14 +61,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
       _allBerita.sort((a, b) => b.tanggal.compareTo(a.tanggal));
 
       _categoryBerita = _allBerita.where((berita) {
-        return berita.tags.any((tag) => tag.toLowerCase() == widget.categoryName.toLowerCase());
+        return berita.tags.any(
+          (tag) => tag.toLowerCase() == widget.categoryName.toLowerCase(),
+        );
       }).toList();
-
     } catch (e) {
       print("Error loading category news: $e");
       _categoryBerita = [];
     }
-    
+
     if (mounted) setState(() => _isLoading = false);
   }
 
@@ -84,23 +89,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
       });
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final int startIndex = _currentPage * _itemsPerPage;
     final int endIndex = (startIndex + _itemsPerPage > _categoryBerita.length)
         ? _categoryBerita.length
         : (startIndex + _itemsPerPage);
-    final List<Berita> pagedBerita = _categoryBerita.isNotEmpty ? _categoryBerita.sublist(startIndex, endIndex) : [];
-    final int totalPages = _categoryBerita.isEmpty ? 1 : (_categoryBerita.length / _itemsPerPage).ceil();
+    final List<Berita> pagedBerita = _categoryBerita.isNotEmpty
+        ? _categoryBerita.sublist(startIndex, endIndex)
+        : [];
+    final int totalPages = _categoryBerita.isEmpty
+        ? 1
+        : (_categoryBerita.length / _itemsPerPage).ceil();
 
-    // [FIX] Logika untuk memilih logo berdasarkan tema
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+    final logoAsset = isDarkMode
+        ? 'assets/img/logo_white.png'
+        : 'assets/img/Logo-mikirluk.png';
 
     return Scaffold(
       appBar: AppBar(
-        // [FIX] Menggunakan logo yang dinamis
         title: Image.asset(logoAsset, height: 40),
         centerTitle: true,
         actions: [
@@ -110,7 +119,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchScreen(categoryName: widget.categoryName),
+                  builder: (context) =>
+                      SearchScreen(categoryName: widget.categoryName),
                 ),
               );
             },
@@ -120,60 +130,70 @@ class _CategoryScreenState extends State<CategoryScreen> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _categoryBerita.isEmpty
-              ? Center(child: Text('Tidak ada berita di kategori "${widget.categoryName}".'))
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          widget.categoryName,
-                          // [FIX] Menggunakan style dari tema
-                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontFamily: 'Bree Serif'),
-                        ),
-                      ),
-                      ListView.builder(
-                        itemCount: pagedBerita.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final beritaItem = pagedBerita[index];
-                          if (index == 4 && _currentPage == 0) {
-                            return Column(
-                              children: [
-                                _buildBeritaLainnyaItem(beritaItem),
-                                _buildAdvertising(),
-                              ],
-                            );
-                          }
-                          return _buildBeritaLainnyaItem(beritaItem);
-                        },
-                      ),
-                      if (_categoryBerita.length > _itemsPerPage)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 24.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: _currentPage == 0 ? null : _previousPage,
-                                child: const Text('<< Prev'),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                child: Text('Hal ${_currentPage + 1} / $totalPages'),
-                              ),
-                              ElevatedButton(
-                                onPressed: _currentPage >= totalPages - 1 ? null : _nextPage,
-                                child: const Text('Next >>'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      const FooterWidget(),
-                    ],
+          ? Center(
+              child: Text(
+                'Tidak ada berita di kategori "${widget.categoryName}".',
+              ),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      widget.categoryName,
+                      style: Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(fontFamily: 'Bree Serif'),
+                    ),
                   ),
-                ),
+                  ListView.builder(
+                    itemCount: pagedBerita.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final beritaItem = pagedBerita[index];
+                      if (index == 4 && _currentPage == 0) {
+                        return Column(
+                          children: [
+                            _buildBeritaLainnyaItem(beritaItem),
+                            _buildAdvertising(),
+                          ],
+                        );
+                      }
+                      return _buildBeritaLainnyaItem(beritaItem);
+                    },
+                  ),
+                  if (_categoryBerita.length > _itemsPerPage)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: _currentPage == 0 ? null : _previousPage,
+                            child: const Text('<< Prev'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: Text(
+                              'Hal ${_currentPage + 1} / $totalPages',
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: _currentPage >= totalPages - 1
+                                ? null
+                                : _nextPage,
+                            child: const Text('Next >>'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  const FooterWidget(),
+                ],
+              ),
+            ),
     );
   }
 
@@ -184,14 +204,38 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return DateFormat('dd/MM/yyyy', 'id_ID').format(date);
   }
 
-  Widget _buildImage(String imagePath, {required double height, required double width}) {
+  Widget _buildImage(
+    String imagePath, {
+    required double height,
+    required double width,
+  }) {
     bool isAsset = imagePath.startsWith('assets/');
     if (isAsset) {
-      return Image.asset(imagePath, height: height, width: width, fit: BoxFit.cover,
-        errorBuilder: (c, e, s) => Container(height: height, width: width, color: Colors.grey[200], child: const Icon(Icons.broken_image)));
+      return Image.asset(
+        imagePath,
+        height: height,
+        width: width,
+        fit: BoxFit.cover,
+        errorBuilder: (c, e, s) => Container(
+          height: height,
+          width: width,
+          color: Colors.grey[200],
+          child: const Icon(Icons.broken_image),
+        ),
+      );
     } else {
-      return Image.file(File(imagePath), height: height, width: width, fit: BoxFit.cover,
-        errorBuilder: (c, e, s) => Container(height: height, width: width, color: Colors.grey[200], child: const Icon(Icons.broken_image)));
+      return Image.file(
+        File(imagePath),
+        height: height,
+        width: width,
+        fit: BoxFit.cover,
+        errorBuilder: (c, e, s) => Container(
+          height: height,
+          width: width,
+          color: Colors.grey[200],
+          child: const Icon(Icons.broken_image),
+        ),
+      );
     }
   }
 
@@ -203,29 +247,54 @@ class _CategoryScreenState extends State<CategoryScreen> {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: const Color(0xFF224699)),
-        boxShadow: const [BoxShadow(color: Color(0x3F000000), blurRadius: 4, offset: Offset(0, 4))],
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x3F000000),
+            blurRadius: 4,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.asset('assets/img/iklan1.png', errorBuilder: (c, e, s) => Container(height: 105, color: Colors.grey[200], child: const Center(child: Text("Iklan")))),
+            child: Image.asset(
+              'assets/img/iklan1.png',
+              errorBuilder: (c, e, s) => Container(
+                height: 105,
+                color: Colors.grey[200],
+                child: const Center(child: Text("Iklan")),
+              ),
+            ),
           ),
-          const Text('Advertising', style: TextStyle(color: Color(0xFF224699), fontSize: 10, fontFamily: 'League Spartan', fontWeight: FontWeight.w300)),
+          const Text(
+            'Advertising',
+            style: TextStyle(
+              color: Color(0xFF224699),
+              fontSize: 10,
+              fontFamily: 'League Spartan',
+              fontWeight: FontWeight.w300,
+            ),
+          ),
         ],
       ),
     );
   }
 
   Widget _buildBeritaLainnyaItem(Berita berita) {
-    // [FIX] Mengambil text style dari tema
     final textTheme = Theme.of(context).textTheme;
 
     return GestureDetector(
       key: ObjectKey(berita),
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBeritaScreen(berita: berita)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailBeritaScreen(berita: berita),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -249,15 +318,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       children: [
                         Text(
                           berita.judul,
-                          // [FIX] Menggunakan style dari tema
                           style: textTheme.titleMedium,
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           waktuRelative(berita.tanggal),
-                          // [FIX] Menggunakan style dari tema
-                          style: textTheme.bodySmall?.copyWith(color: textTheme.bodySmall?.color?.withOpacity(0.34)),
+                          style: textTheme.bodySmall?.copyWith(
+                            color: textTheme.bodySmall?.color?.withOpacity(
+                              0.34,
+                            ),
+                          ),
                         ),
                       ],
                     ),

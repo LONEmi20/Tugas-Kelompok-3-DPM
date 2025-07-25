@@ -225,7 +225,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHeroCard(Berita berita) {
-    // [FIX] Mengambil text style dari tema
     final textTheme = Theme.of(context).textTheme;
 
     return GestureDetector(
@@ -265,7 +264,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     berita.judul,
-                    // [FIX] Menggunakan style dari tema
                     style: textTheme.headlineSmall?.copyWith(
                       color: const Color(0xFF224699),
                     ),
@@ -275,7 +273,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 12),
                   Text(
                     DateFormat('dd/MM/yy', 'id_ID').format(berita.tanggal),
-                    // [FIX] Menggunakan style dari tema
                     style: textTheme.bodySmall?.copyWith(
                       color: const Color(0xFF224699),
                       fontFamily: 'Alumni Sans',
@@ -286,7 +283,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 4),
                   Text(
                     berita.isi,
-                    // [FIX] Menggunakan style dari tema
                     style: textTheme.bodyMedium,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -354,7 +350,6 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
           child: Text(
             'Berita Terkini',
-            // [FIX] Menggunakan style dari tema
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontFamily: 'League Spartan',
               fontWeight: FontWeight.w400,
@@ -376,7 +371,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildFeaturedTerkiniItem(Berita berita) {
-    // [FIX] Mengambil text style dari tema
     final textTheme = Theme.of(context).textTheme;
 
     return GestureDetector(
@@ -399,7 +393,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 8),
             Text(
               berita.judul,
-              // [FIX] Menggunakan style dari tema
               style: textTheme.titleMedium,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
@@ -407,7 +400,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 4),
             Text(
               waktuRelative(berita.tanggal),
-              // [FIX] Menggunakan style dari tema
               style: textTheme.bodySmall?.copyWith(
                 color: textTheme.bodySmall?.color?.withOpacity(0.5),
               ),
@@ -419,7 +411,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildBeritaLainnyaItem(Berita berita) {
-    // [FIX] Mengambil text style dari tema
     final textTheme = Theme.of(context).textTheme;
 
     return GestureDetector(
@@ -447,14 +438,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           berita.judul,
-                          // [FIX] Menggunakan style dari tema
                           style: textTheme.titleMedium,
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           waktuRelative(berita.tanggal),
-                          // [FIX] Menggunakan style dari tema
                           style: textTheme.bodySmall?.copyWith(
                             color: textTheme.bodySmall?.color?.withOpacity(0.5),
                           ),
@@ -502,7 +491,6 @@ class _HomeScreenState extends State<HomeScreen> {
       beritaLainnya = _filteredBerita.sublist(verticalStartIndex, endIndex);
     }
 
-    // [FIX] Logika untuk memilih logo berdasarkan tema
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final logoAsset = isDarkMode
         ? 'assets/img/logo_white.png'
@@ -517,7 +505,6 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        // [FIX] Menggunakan logo yang dinamis
         title: Image.asset(logoAsset, height: 40),
         centerTitle: true,
         actions: [

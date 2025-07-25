@@ -9,14 +9,12 @@ class FooterWidget extends StatelessWidget {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      // Di aplikasi nyata, lebih baik tampilkan Snackbar atau dialog
       print('Tidak bisa membuka $url');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Mengambil warna dari tema yang sedang aktif untuk mendukung Dark Mode
     final Color textColor = Theme.of(context).colorScheme.primary;
     final Color linkColor =
         Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
@@ -36,7 +34,6 @@ class FooterWidget extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(20),
-      // Hapus warna background manual agar mengikuti tema Scaffold
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

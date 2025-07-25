@@ -19,9 +19,8 @@ class AppMenuDrawer extends StatelessWidget {
     required this.onProfileUpdated,
   });
 
-  // Helper untuk navigasi biar kode lebih rapi
   void _navigateTo(BuildContext context, Widget screen) {
-    Navigator.pop(context); // Tutup drawer
+    Navigator.pop(context);
     Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
   }
 

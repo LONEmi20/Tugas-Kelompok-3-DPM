@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _performLogin() async {
     if (!_formKey.currentState!.validate()) return;
-    
+
     setState(() => _isLoading = true);
 
     final user = await _localAuthService.login(
@@ -38,15 +38,20 @@ class _LoginScreenState extends State<LoginScreen> {
       if (user != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen(currentUser: user)),
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(currentUser: user),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email atau password salah!'), backgroundColor: Colors.red),
+          const SnackBar(
+            content: Text('Email atau password salah!'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
-    
+
     if (mounted) setState(() => _isLoading = false);
   }
 
@@ -54,19 +59,21 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_isLoading) return;
     setState(() => _isLoading = true);
     await Future.delayed(const Duration(milliseconds: 1500));
-    
+
     final dummyUser = User(
-      name: "Social Media User", 
-      noHp: "081234567890", 
-      email: "social.user@example.com", 
+      name: "Social Media User",
+      noHp: "081234567890",
+      email: "social.user@example.com",
       password: "",
-      profilePicture: ""
+      profilePicture: "",
     );
 
     if (mounted) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen(currentUser: dummyUser)),
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(currentUser: dummyUser),
+        ),
       );
     }
   }
@@ -74,21 +81,24 @@ class _LoginScreenState extends State<LoginScreen> {
   void _showGoogleOverlay() {
     showDialog(
       context: context,
-      builder: (context) => GoogleLoginOverlay(onAccountSelected: _performSocialDummyLogin),
+      builder: (context) =>
+          GoogleLoginOverlay(onAccountSelected: _performSocialDummyLogin),
     );
   }
 
   void _showFacebookOverlay() {
     showDialog(
       context: context,
-      builder: (context) => FacebookLoginOverlay(onLoginPressed: _performSocialDummyLogin),
+      builder: (context) =>
+          FacebookLoginOverlay(onLoginPressed: _performSocialDummyLogin),
     );
   }
 
   void _showAppleOverlay() {
     showDialog(
       context: context,
-      builder: (context) => AppleLoginOverlay(onLoginPressed: _performSocialDummyLogin),
+      builder: (context) =>
+          AppleLoginOverlay(onLoginPressed: _performSocialDummyLogin),
     );
   }
 
@@ -108,9 +118,10 @@ class _LoginScreenState extends State<LoginScreen> {
       foregroundColor: Theme.of(context).colorScheme.onSurface,
     );
 
-    // [FIX] Logika untuk memilih logo berdasarkan tema
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+    final logoAsset = isDarkMode
+        ? 'assets/img/logo_white.png'
+        : 'assets/img/Logo-mikirluk.png';
 
     return Scaffold(
       appBar: AppBar(
@@ -127,18 +138,23 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                // [FIX] Menggunakan logo yang dinamis
                 Image.asset(logoAsset, height: 50),
                 const SizedBox(height: 48),
-                const Text('Selamat Datang kembali!', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                const Text(
+                  'Selamat Datang kembali!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                ),
                 const SizedBox(height: 40),
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(label: Text('Email')),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
-                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) return 'Format email tidak valid';
+                    if (value == null || value.isEmpty)
+                      return 'Email tidak boleh kosong';
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value))
+                      return 'Format email tidak valid';
                     return null;
                   },
                 ),
@@ -150,7 +166,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: const Text('Password'),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                        _isPasswordVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                       ),
                       onPressed: () {
                         setState(() {
@@ -159,7 +177,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
-                  validator: (value) => value!.isEmpty ? 'Password tidak boleh kosong' : null,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Password tidak boleh kosong' : null,
                 ),
                 const SizedBox(height: 32),
                 if (_isLoading)
@@ -169,10 +188,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: _performLogin,
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      side: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1.5),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                      side: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 1.5,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
-                    child: Text('Sign In', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary)),
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                   ),
                 const SizedBox(height: 16),
                 Row(
@@ -181,9 +211,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text('Belum punya akun?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpScreen(),
+                          ),
+                        );
                       },
-                      child: Text('Daftar', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
+                      child: Text(
+                        'Daftar',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -193,10 +234,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen(),
+                        ),
                       );
                     },
-                    child: Text('Lupa password?', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                    child: Text(
+                      'Lupa password?',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -205,7 +253,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Expanded(child: Divider()),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text('atau', style: TextStyle(color: Colors.grey.shade600)),
+                      child: Text(
+                        'atau',
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
                     ),
                     const Expanded(child: Divider()),
                   ],
@@ -220,7 +271,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 OutlinedButton.icon(
                   onPressed: _showFacebookOverlay,
-                  icon: const Icon(Icons.facebook, color: Colors.blue, size: 24),
+                  icon: const Icon(
+                    Icons.facebook,
+                    color: Colors.blue,
+                    size: 24,
+                  ),
                   label: const Text('Masuk dengan Facebook'),
                   style: socialButtonStyle,
                 ),

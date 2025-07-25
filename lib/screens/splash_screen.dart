@@ -28,7 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
       if (loggedInUser != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen(currentUser: loggedInUser)),
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(currentUser: loggedInUser),
+          ),
         );
       } else {
         Navigator.pushReplacement(
@@ -41,18 +43,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-      // [FIX] Logika untuk memilih logo DAN background berdasarkan tema sistem
-      final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
-      final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
-      // [FIX] Warna background sekarang mengikuti tema sistem
-      final backgroundColor = isDarkMode ? const Color(0xFF121212) : Colors.white;
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final logoAsset = isDarkMode
+        ? 'assets/img/logo_white.png'
+        : 'assets/img/Logo-mikirluk.png';
+    final backgroundColor = isDarkMode ? const Color(0xFF121212) : Colors.white;
 
-      return Scaffold(
-        // [FIX] Menggunakan warna dinamis yang sudah ditentukan
-        backgroundColor: backgroundColor,
-        body: Center(
-          child: Image.asset(logoAsset, width: 280),
-        ),
-      );
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      body: Center(child: Image.asset(logoAsset, width: 280)),
+    );
   }
 }

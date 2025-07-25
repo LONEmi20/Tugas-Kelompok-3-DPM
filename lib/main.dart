@@ -7,7 +7,7 @@ import 'package:tugas_kelompok_dpm/screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('id_ID', null);
-  
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => SettingsProvider(),
@@ -21,19 +21,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // [FIX] Mendefinisikan TextTheme dasar agar ukuran font konsisten
     const baseTextTheme = TextTheme(
-      // Untuk judul berita di Hero Card
-      headlineSmall: TextStyle(fontFamily: 'Bree Serif', fontWeight: FontWeight.w400, fontSize: 20),
-      // Untuk judul berita di list biasa
+      headlineSmall: TextStyle(
+        fontFamily: 'Bree Serif',
+        fontWeight: FontWeight.w400,
+        fontSize: 20,
+      ),
+
       titleMedium: TextStyle(fontFamily: 'Bree Serif', fontSize: 12),
-      // Untuk isi berita di Hero Card
+
       bodyMedium: TextStyle(fontFamily: 'AR One Sans', fontSize: 12),
-      // Untuk teks kecil seperti tanggal
+
       bodySmall: TextStyle(fontFamily: 'Bree Serif', fontSize: 12),
-      // Untuk judul di halaman detail
+
       headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      // Untuk isi di halaman detail
+
       bodyLarge: TextStyle(fontSize: 16, height: 1.5),
     );
 
@@ -42,8 +44,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'MikirLUK News',
           themeMode: settingsProvider.themeMode,
-          
-          // Definisi tema untuk mode terang (Light Mode)
+
           theme: ThemeData(
             brightness: Brightness.light,
             primarySwatch: Colors.blue,
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
             ),
             cardColor: Colors.white,
             useMaterial3: true,
-            // [FIX] Menggunakan TextTheme dasar dan menerapkan skala font
+
             textTheme: baseTextTheme.apply(
               fontSizeFactor: settingsProvider.fontScale,
               bodyColor: Colors.black87,
@@ -68,8 +69,7 @@ class MyApp extends StatelessWidget {
               onSurface: Colors.black,
             ),
           ),
-          
-          // Definisi tema untuk mode gelap (Dark Mode)
+
           darkTheme: ThemeData(
             brightness: Brightness.dark,
             primarySwatch: Colors.blue,
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
             ),
             cardColor: const Color(0xFF1E1E1E),
             useMaterial3: true,
-            // [FIX] Menggunakan TextTheme dasar dan menerapkan skala font
+
             textTheme: baseTextTheme.apply(
               fontSizeFactor: settingsProvider.fontScale,
               bodyColor: Colors.white70,
@@ -94,9 +94,9 @@ class MyApp extends StatelessWidget {
               onSurface: Colors.white,
             ),
           ),
-          
+
           debugShowCheckedModeBanner: false,
-          home: const SplashScreen(), 
+          home: const SplashScreen(),
         );
       },
     );

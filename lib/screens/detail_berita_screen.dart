@@ -9,7 +9,6 @@ class DetailBeritaScreen extends StatelessWidget {
 
   const DetailBeritaScreen({super.key, required this.berita});
 
-  // Widget helper untuk menampilkan gambar dari assets atau file lokal
   Widget _buildImage(String imagePath) {
     bool isAsset = imagePath.startsWith('assets/');
 
@@ -17,12 +16,10 @@ class DetailBeritaScreen extends StatelessWidget {
     if (isAsset) {
       imageProvider = AssetImage(imagePath);
     } else {
-      // Pastikan file ada sebelum mencoba menampilkannya
       final file = File(imagePath);
       if (file.existsSync()) {
         imageProvider = FileImage(file);
       } else {
-        // Fallback jika file tidak ditemukan
         return Container(
           height: 250,
           color: Colors.grey[300],
@@ -52,26 +49,20 @@ class DetailBeritaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Mengambil text style dan color scheme dari tema yang aktif
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        // AppBar dibuat standar agar sesuai dengan halaman lain
-        title: const Text("Detail Berita"),
-      ),
+      appBar: AppBar(title: const Text("Detail Berita")),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- KONTEN UTAMA BERITA ---
             Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1. Kategori Berita
                   if (berita.tags.isNotEmpty)
                     Chip(
                       label: Text(berita.tags.first),
@@ -84,7 +75,6 @@ class DetailBeritaScreen extends StatelessWidget {
                     ),
                   const SizedBox(height: 12),
 
-                  // 2. Judul Berita
                   Text(
                     berita.judul,
                     style: textTheme.headlineMedium?.copyWith(
@@ -93,14 +83,12 @@ class DetailBeritaScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  // 3. Gambar Berita
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: _buildImage(berita.gambar),
                   ),
                   const SizedBox(height: 16),
 
-                  // 4. Info Editor dan Tanggal
                   Row(
                     children: [
                       Text(
@@ -119,7 +107,6 @@ class DetailBeritaScreen extends StatelessWidget {
                   ),
                   const Divider(height: 32),
 
-                  // 5. Isi Berita
                   Text(
                     berita.isi,
                     style: textTheme.bodyLarge?.copyWith(height: 1.6),
@@ -128,7 +115,6 @@ class DetailBeritaScreen extends StatelessWidget {
               ),
             ),
 
-            // --- FOOTER WIDGET ---
             const SizedBox(height: 24),
             const Divider(height: 1),
             const FooterWidget(),

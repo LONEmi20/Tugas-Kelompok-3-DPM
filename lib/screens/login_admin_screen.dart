@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_kelompok_dpm/screens/manage_berita_screen.dart';
 
-// Class sederhana untuk merepresentasikan akun admin
 class Admin {
   final String email;
   final String password;
@@ -21,7 +20,6 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // Daftar akun admin (disimpan di dalam kode untuk sementara)
   final List<Admin> _adminAccounts = [
     Admin(email: 'admin@example.com', password: 'admin123'),
     Admin(email: 'mic@gmail.com', password: 'mic'),
@@ -42,7 +40,6 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    // Cek apakah email dan password cocok dengan salah satu akun admin
     final bool isValidAdmin = _adminAccounts.any(
       (acc) =>
           acc.email.toLowerCase() == email.toLowerCase() &&
@@ -81,7 +78,6 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Logika untuk memilih logo berdasarkan tema
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final logoAsset = isDarkMode
         ? 'assets/img/logo_white.png'
@@ -89,7 +85,6 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        // AppBar dibuat transparan agar menyatu dengan container di bawahnya
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(

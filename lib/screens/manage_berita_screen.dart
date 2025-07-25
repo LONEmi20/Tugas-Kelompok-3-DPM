@@ -43,13 +43,11 @@ class _ManageBeritaScreenState extends State<ManageBeritaScreen> {
     });
   }
 
-  // --- [REVISI UTAMA] Logika untuk memuat berita dari DUA sumber ---
   Future<void> _loadBerita() async {
     if (!mounted) return;
     setState(() => _isLoading = true);
 
     try {
-      // 1. Muat berita bawaan dari assets
       final String assetJsonString = await rootBundle.loadString(
         'assets/data/berita.json',
       );
@@ -58,7 +56,6 @@ class _ManageBeritaScreenState extends State<ManageBeritaScreen> {
           .map((json) => Berita.fromJson(json))
           .toList();
 
-      // 2. Muat berita buatan pengguna dari local storage
       final directory = await getApplicationDocumentsDirectory();
       final localFile = File('${directory.path}/berita.json');
       List<Berita> localBerita = [];
@@ -70,18 +67,14 @@ class _ManageBeritaScreenState extends State<ManageBeritaScreen> {
         }
       }
 
-      // 3. Gabungkan keduanya dan hilangkan duplikat (prioritaskan data lokal)
       final Map<String, Berita> combinedBeritaMap = {};
-      // Masukkan berita aset dulu
       for (var berita in assetBerita) {
         combinedBeritaMap[berita.id] = berita;
       }
-      // Timpa dengan berita lokal jika ada ID yang sama (hasil editan)
       for (var berita in localBerita) {
         combinedBeritaMap[berita.id] = berita;
       }
 
-      // Jadikan list kembali dan urutkan berdasarkan tanggal terbaru
       _listBerita = combinedBeritaMap.values.toList();
       _listBerita.sort((a, b) => b.tanggal.compareTo(a.tanggal));
 
@@ -126,7 +119,6 @@ class _ManageBeritaScreenState extends State<ManageBeritaScreen> {
         final appDir = await getApplicationDocumentsDirectory();
         final file = File('${appDir.path}/berita.json');
 
-        // Baca berita lokal yang sudah ada
         List<Berita> localBerita = [];
         if (await file.exists()) {
           final contents = await file.readAsString();
@@ -136,7 +128,6 @@ class _ManageBeritaScreenState extends State<ManageBeritaScreen> {
           }
         }
 
-        // Hapus berita dari list lokal
         localBerita.removeWhere((b) => b.id == id);
 
         final List<Map<String, dynamic>> jsonList = localBerita
@@ -152,7 +143,7 @@ class _ManageBeritaScreenState extends State<ManageBeritaScreen> {
             ),
           );
         }
-        await _loadBerita(); // Muat ulang semua berita
+        await _loadBerita();
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(

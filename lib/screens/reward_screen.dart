@@ -4,7 +4,6 @@ void main() {
   runApp(const RewardApp());
 }
 
-// Kelas utama aplikasi
 class RewardApp extends StatelessWidget {
   const RewardApp({super.key});
 
@@ -14,14 +13,13 @@ class RewardApp extends StatelessWidget {
       title: 'Info Koin',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        // Atur tema AppBar agar sesuai dengan desain
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF0D47A1), // Warna biru tua
-          foregroundColor: Colors.white, // Warna ikon dan teks putih
+          backgroundColor: Color(0xFF0D47A1),
+          foregroundColor: Colors.white,
           elevation: 0,
         ),
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'League Spartan', // Anda bisa mengganti font jika perlu
+        fontFamily: 'League Spartan',
       ),
       home: const RewardScreen(),
       debugShowCheckedModeBanner: false,
@@ -29,7 +27,6 @@ class RewardApp extends StatelessWidget {
   }
 }
 
-// Widget untuk halaman Info Koin
 class RewardScreen extends StatelessWidget {
   const RewardScreen({super.key});
 
@@ -40,7 +37,6 @@ class RewardScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Cukup panggil pop untuk kembali ke halaman sebelumnya
             Navigator.pop(context);
           },
         ),
@@ -55,7 +51,7 @@ class RewardScreen extends StatelessWidget {
           children: [
             _buildCoinBalance(),
             const SizedBox(height: 24),
-            const Divider(), // Garis pemisah
+            const Divider(),
             const SizedBox(height: 24),
             _buildCoinInfo(),
           ],
@@ -159,7 +155,6 @@ class RewardScreen extends StatelessWidget {
     );
   }
 
-  // Widget helper untuk membuat baris sub-poin informasi
   Widget _buildSubInfoPoint(String text) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tugas_kelompok_dpm/models/berita_model.dart';
 
 class FormBeritaScreen extends StatefulWidget {
-  // Parameter opsional untuk menampung berita yang akan diedit
   final Berita? berita;
 
   const FormBeritaScreen({super.key, this.berita});
@@ -24,7 +23,7 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
 
   File? _selectedImage;
   bool _isLoading = false;
-  bool get _isEditing => widget.berita != null; // Cek apakah ini mode edit
+  bool get _isEditing => widget.berita != null;
 
   final List<String> _kategoriList = [
     'Olahraga',
@@ -38,7 +37,6 @@ class _FormBeritaScreenState extends State<FormBeritaScreen> {
   @override
   void initState() {
     super.initState();
-    // Jika ini mode edit, isi semua form dengan data yang ada
     if (_isEditing) {
       final berita = widget.berita!;
       _judulController.text = berita.judul;
