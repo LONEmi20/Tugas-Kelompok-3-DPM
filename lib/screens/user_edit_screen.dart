@@ -18,11 +18,11 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   final _authService = LocalAuthService();
-  
+
   late final TextEditingController _nameController;
   late final TextEditingController _noHpController;
   late final TextEditingController _emailController;
-  
+
   late String _originalNoHp;
   late String _originalEmail;
 
@@ -50,12 +50,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
     if (pickedFile != null) {
       setState(() => _selectedImage = File(pickedFile.path));
     }
   }
-  
+
   Future<void> _handleSave() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -63,10 +66,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final bool emailChanged = _emailController.text != _originalEmail;
 
     if (noHpChanged && emailChanged) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Harap ubah email dan nomor HP satu per satu.'),
-        backgroundColor: Colors.orange,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Harap ubah email dan nomor HP satu per satu.'),
+          backgroundColor: Colors.orange,
+        ),
+      );
       return;
     }
 
@@ -85,14 +90,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  Future<void> _showVerificationDialog({required String verificationType, required String target}) async {
+  Future<void> _showVerificationDialog({
+    required String verificationType,
+    required String target,
+  }) async {
     final otp = (Random().nextInt(9000) + 1000).toString();
     final otpController = TextEditingController();
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Kode OTP (simulasi) dikirim ke $target: $otp'),
-      duration: const Duration(seconds: 6),
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Kode OTP (simulasi) dikirim ke $target: $otp'),
+        duration: const Duration(seconds: 6),
+      ),
+    );
 
     showDialog(
       context: context,
@@ -105,17 +115,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             decoration: const InputDecoration(labelText: 'Masukkan Kode OTP'),
           ),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(context), child: const Text('Batal')),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Batal'),
+            ),
             TextButton(
               onPressed: () {
                 if (otpController.text == otp) {
                   Navigator.pop(context);
                   _performUpdate();
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Kode OTP salah!'),
-                    backgroundColor: Colors.red,
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Kode OTP salah!'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               },
               child: const Text('Verifikasi'),
@@ -134,10 +149,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       try {
         final appDir = await getApplicationDocumentsDirectory();
         final fileName = path.basename(_selectedImage!.path);
-        final savedImage = await _selectedImage!.copy('${appDir.path}/$fileName');
+        final savedImage = await _selectedImage!.copy(
+          '${appDir.path}/$fileName',
+        );
         newImagePath = savedImage.path;
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Gagal menyimpan gambar.'), backgroundColor: Colors.red));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Gagal menyimpan gambar.'),
+            backgroundColor: Colors.red,
+          ),
+        );
         setState(() => _isLoading = false);
         return;
       }
@@ -151,18 +173,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       password: widget.user.password,
     );
 
-
     final success = await _authService.updateUser(updatedUser, _originalEmail);
 
     if (mounted) {
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profil berhasil diperbarui!'), backgroundColor: Colors.green));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profil berhasil diperbarui!'),
+            backgroundColor: Colors.green,
+          ),
+        );
         Navigator.pop(context, updatedUser);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Gagal memperbarui profil.'), backgroundColor: Colors.red));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Gagal memperbarui profil.'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
-    
+
     if (mounted) setState(() => _isLoading = false);
   }
 
@@ -190,10 +221,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     backgroundImage: _selectedImage != null
                         ? FileImage(_selectedImage!)
                         : (widget.user.profilePicture.isNotEmpty
-                            ? FileImage(File(widget.user.profilePicture))
-                            : null) as ImageProvider?,
-                    child: widget.user.profilePicture.isEmpty && _selectedImage == null
-                        ? Icon(Icons.camera_alt, color: Colors.grey[800], size: 30)
+                                  ? FileImage(File(widget.user.profilePicture))
+                                  : null)
+                              as ImageProvider?,
+                    child:
+                        widget.user.profilePicture.isEmpty &&
+                            _selectedImage == null
+                        ? Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey[800],
+                            size: 30,
+                          )
                         : null,
                   ),
                 ),
@@ -203,7 +241,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 32.0),
               TextFormField(
                 controller: _nameController,
-<<<<<<< HEAD
                 decoration: const InputDecoration(
                   labelText: 'Nama',
                   border: OutlineInputBorder(),
@@ -212,40 +249,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 validator: (value) => (value == null || value.isEmpty)
                     ? 'Nama tidak boleh kosong'
                     : null,
-=======
-                decoration: const InputDecoration(labelText: 'Nama', border: OutlineInputBorder(), prefixIcon: Icon(Icons.person_outline)),
-                validator: (value) => (value == null || value.isEmpty) ? 'Nama tidak boleh kosong' : null,
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
               ),
               const SizedBox(height: 16.0),
               TextFormField(
                 controller: _emailController,
-<<<<<<< HEAD
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.email_outlined),
                 ),
-                keyboardType: TextInputType.emailAddress,
                 validator: (value) => (value == null || !value.contains('@'))
-                    ? 'Masukkan email yang valid'
+                    ? 'Email tidak valid'
                     : null,
-=======
-                decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder(), prefixIcon: Icon(Icons.email_outlined)),
-                validator: (value) => (value == null || !value.contains('@')) ? 'Email tidak valid' : null,
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
               ),
               const SizedBox(height: 16.0),
               TextFormField(
                 controller: _noHpController,
-                decoration: const InputDecoration(labelText: 'Nomor HP', border: OutlineInputBorder(), prefixIcon: Icon(Icons.phone_outlined)),
+                decoration: const InputDecoration(
+                  labelText: 'Nomor HP',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.phone_outlined),
+                ),
                 keyboardType: TextInputType.phone,
-<<<<<<< HEAD
-                validator: (value) => (value == null || value.isEmpty)
-                    ? 'Nomor Hp tidak boleh kosong'
-                    : null,
-=======
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
               ),
               const SizedBox(height: 32.0),
               ElevatedButton(
@@ -254,17 +279,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   minimumSize: const Size(double.infinity, 50),
                   backgroundColor: const Color(0xFF004AAD),
                   foregroundColor: Colors.white,
-<<<<<<< HEAD
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-=======
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                 ),
-                child: _isLoading 
-                    ? const CircularProgressIndicator(color: Colors.white) 
+                child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
                     : const Text('Simpan Perubahan'),
               ),
             ],

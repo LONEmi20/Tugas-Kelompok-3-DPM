@@ -23,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late User _user;
-  
+
   List<Berita> _allBerita = [];
   List<Berita> _filteredBerita = [];
   bool _isLoading = true;
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _user = widget.currentUser;
     _refreshData();
   }
-  
+
   void _updateUser(User newUser) {
     setState(() {
       _user = newUser;
@@ -53,13 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadAndFilterBerita() async {
     try {
-<<<<<<< HEAD
       final String assetJsonString = await rootBundle.loadString(
         'assets/data/berita.json',
       );
-=======
-      final String assetJsonString = await rootBundle.loadString('assets/data/berita.json');
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
       final List<dynamic> assetData = json.decode(assetJsonString);
       List<Berita> assetBerita = assetData
           .map((json) => Berita.fromJson(json))
@@ -189,63 +185,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Widget _buildNationalInternationalTabs() {
-    const activeColor = Color(0xFF224699);
-    const inactiveColor = Color.fromARGB(255, 60, 45, 45);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      child: Row(
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFF2F2FF),
-                foregroundColor: activeColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  side: const BorderSide(color: activeColor, width: 2),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 4),
-              ),
-              child: const Text(
-                'National',
-                style: TextStyle(
-                  fontFamily: 'League Spartan',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: inactiveColor,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 4),
-              ),
-              child: const Text(
-                'International',
-                style: TextStyle(
-                  fontFamily: 'League Spartan',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildCategoryTabs() {
     return SizedBox(
       height: 45,
@@ -326,49 +265,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     berita.judul,
-<<<<<<< HEAD
-                    style: const TextStyle(
-                      color: Color(0xFF224699),
-                      fontSize: 20,
-                      fontFamily: 'Bree Serif',
-                      fontWeight: FontWeight.w400,
-                    ),
-=======
                     // [FIX] Menggunakan style dari tema
-                    style: textTheme.headlineSmall?.copyWith(color: const Color(0xFF224699)),
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
+                    style: textTheme.headlineSmall?.copyWith(
+                      color: const Color(0xFF224699),
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
                   Text(
                     DateFormat('dd/MM/yy', 'id_ID').format(berita.tanggal),
-<<<<<<< HEAD
-                    style: const TextStyle(
-                      color: Color(0xFF224699),
-                      fontSize: 15,
+                    // [FIX] Menggunakan style dari tema
+                    style: textTheme.bodySmall?.copyWith(
+                      color: const Color(0xFF224699),
                       fontFamily: 'Alumni Sans',
                     ),
-=======
-                    // [FIX] Menggunakan style dari tema
-                    style: textTheme.bodySmall?.copyWith(color: const Color(0xFF224699), fontFamily: 'Alumni Sans')
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                   ),
                   const SizedBox(height: 4),
                   const Divider(color: Color(0xFF224699)),
                   const SizedBox(height: 4),
                   Text(
                     berita.isi,
-<<<<<<< HEAD
-                    style: const TextStyle(
-                      color: Color(0xFF224699),
-                      fontSize: 12,
-                      fontFamily: 'AR One Sans',
-                    ),
-=======
                     // [FIX] Menggunakan style dari tema
                     style: textTheme.bodyMedium,
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.justify,
@@ -431,28 +350,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-<<<<<<< HEAD
-        const Padding(
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-          child: Text(
-            'Berita Terkini',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontFamily: 'League Spartan',
-              fontWeight: FontWeight.w400,
-            ),
-=======
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
           child: Text(
-            'Berita Terkini', 
+            'Berita Terkini',
             // [FIX] Menggunakan style dari tema
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontFamily: 'League Spartan', 
-              fontWeight: FontWeight.w400
-            )
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
+              fontFamily: 'League Spartan',
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
         SizedBox(
@@ -493,33 +399,18 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 8),
             Text(
               berita.judul,
-<<<<<<< HEAD
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-                fontFamily: 'Bree Serif',
-              ),
-=======
               // [FIX] Menggunakan style dari tema
               style: textTheme.titleMedium,
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
             Text(
-<<<<<<< HEAD
               waktuRelative(berita.tanggal),
-              style: TextStyle(
-                color: Colors.black.withOpacity(0.34),
-                fontSize: 12,
-                fontFamily: 'Bree Serif',
-              ),
-=======
-              waktuRelative(berita.tanggal), 
               // [FIX] Menggunakan style dari tema
-              style: textTheme.bodySmall?.copyWith(color: textTheme.bodySmall?.color?.withOpacity(0.5))
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
+              style: textTheme.bodySmall?.copyWith(
+                color: textTheme.bodySmall?.color?.withOpacity(0.5),
+              ),
             ),
           ],
         ),
@@ -556,32 +447,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           berita.judul,
-<<<<<<< HEAD
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Bree Serif',
-                          ),
-=======
                           // [FIX] Menggunakan style dari tema
                           style: textTheme.titleMedium,
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-<<<<<<< HEAD
                           waktuRelative(berita.tanggal),
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.34),
-                            fontSize: 12,
-                            fontFamily: 'Bree Serif',
-                          ),
-=======
-                          waktuRelative(berita.tanggal), 
                           // [FIX] Menggunakan style dari tema
-                          style: textTheme.bodySmall?.copyWith(color: textTheme.bodySmall?.color?.withOpacity(0.5))
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
+                          style: textTheme.bodySmall?.copyWith(
+                            color: textTheme.bodySmall?.color?.withOpacity(0.5),
+                          ),
                         ),
                       ],
                     ),
@@ -628,7 +504,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // [FIX] Logika untuk memilih logo berdasarkan tema
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+    final logoAsset = isDarkMode
+        ? 'assets/img/logo_white.png'
+        : 'assets/img/Logo-mikirluk.png';
 
     return Scaffold(
       drawer: AppMenuDrawer(currentUser: _user, onProfileUpdated: _updateUser),
@@ -662,7 +540,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildNationalInternationalTabs(),
                     _buildCategoryTabs(),
 
                     if (heroBerita != null) _buildHeroCard(heroBerita),

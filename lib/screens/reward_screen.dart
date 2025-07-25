@@ -53,113 +53,17 @@ class RewardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-<<<<<<< HEAD
-            // Bagian Jumlah Koin
-            Row(
-              children: [
-                // Ganti 'star_icon.png' dengan nama file ikon bintang Anda
-                Image.asset(
-                  'assets/img/list/star_icon.png',
-                  width: 32,
-                  height: 32,
-                  // Tambahkan error builder jika gambar tidak ditemukan
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(
-                      Icons.star,
-                      size: 32,
-                      color: Colors.amber,
-                    );
-                  },
-                ),
-                const SizedBox(width: 12),
-                const Text(
-                  '0 Koin',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-=======
             _buildCoinBalance(),
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
             const SizedBox(height: 24),
             const Divider(), // Garis pemisah
             const SizedBox(height: 24),
-<<<<<<< HEAD
-
-            // Bagian Informasi Koin
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Ganti 'info_icon.png' dengan nama file ikon info Anda
-                Padding(
-                  padding: const EdgeInsets.only(top: 2.0),
-                  child: Image.asset(
-                    'assets/img/list/info_icon.png',
-                    width: 20,
-                    height: 20,
-                    color: Colors.blue.shade700,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Icon(
-                        Icons.info_outline,
-                        color: Colors.blue.shade700,
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Koin didapatkan dengan cara membaca berita dengan syarat dan ketentuan dan berikut:',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black54,
-                          height: 1.5,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      _buildInfoPoint(
-                        'Membaca selama 2 menit mendapatkan mendapatkan 20 koin.',
-                      ),
-                      const SizedBox(height: 8),
-                      _buildInfoPoint(
-                        'Kemudian, koin bisa ditukar dengan jumlah betikut:',
-                      ),
-                      const SizedBox(height: 8),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildSubInfoPoint('Satu hari: 50 koin'),
-                            _buildSubInfoPoint('Tiga hari: 150 koin'),
-                            _buildSubInfoPoint('Tujuh hari: 340 koin'),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-=======
             _buildCoinInfo(),
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
           ],
         ),
       ),
     );
   }
 
-<<<<<<< HEAD
-  // Widget helper untuk membuat baris poin informasi
-=======
   Widget _buildCoinBalance() {
     return Row(
       children: [
@@ -167,12 +71,17 @@ class RewardScreen extends StatelessWidget {
           'assets/img/list/star_icon.png',
           width: 32,
           height: 32,
-          errorBuilder: (context, error, stackTrace) => const Icon(Icons.star, size: 32, color: Colors.amber),
+          errorBuilder: (context, error, stackTrace) =>
+              const Icon(Icons.star, size: 32, color: Colors.amber),
         ),
         const SizedBox(width: 12),
         const Text(
-          '0 Koin', 
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+          '0 Koin',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
         ),
       ],
     );
@@ -189,7 +98,8 @@ class RewardScreen extends StatelessWidget {
             width: 20,
             height: 20,
             color: Colors.blue.shade700,
-            errorBuilder: (context, error, stackTrace) => Icon(Icons.info_outline, color: Colors.blue.shade700),
+            errorBuilder: (context, error, stackTrace) =>
+                Icon(Icons.info_outline, color: Colors.blue.shade700),
           ),
         ),
         const SizedBox(width: 12),
@@ -199,12 +109,18 @@ class RewardScreen extends StatelessWidget {
             children: [
               const Text(
                 'Koin didapatkan dengan cara membaca berita dengan syarat dan ketentuan dan berikut:',
-                style: TextStyle(fontSize: 15, color: Colors.black54, height: 1.5),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.black54,
+                  height: 1.5,
+                ),
               ),
               const SizedBox(height: 12),
               _buildInfoPoint('Membaca selama 2 menit mendapatkan 20 koin.'),
               const SizedBox(height: 8),
-              _buildInfoPoint('Kemudian, koin bisa ditukar dengan jumlah berikut:'),
+              _buildInfoPoint(
+                'Kemudian, koin bisa ditukar dengan jumlah berikut:',
+              ),
               const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
@@ -224,7 +140,6 @@ class RewardScreen extends StatelessWidget {
     );
   }
 
->>>>>>> 8da38e30eaff57305e73c3c4ba10cfd1578d8129
   Widget _buildInfoPoint(String text) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -26,5 +26,12 @@
     "email": "spring@email.com",
     "password": "",
     "profilePicture": "assets/img/img/firefly2.png"
+  },
+  {
+    "name": "Mic",
+    "noHp": "082281975767",
+    "email": "micgredy@gmail.com",
+    "password": "",
+    "profilePicture": "assets/img/bob.png"
   }
 ]

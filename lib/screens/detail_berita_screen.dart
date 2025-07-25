@@ -2,33 +2,49 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tugas_kelompok_dpm/models/berita_model.dart';
+import 'package:tugas_kelompok_dpm/widgets/footer_widget.dart';
 
 class DetailBeritaScreen extends StatelessWidget {
   final Berita berita;
 
   const DetailBeritaScreen({super.key, required this.berita});
 
+  // Widget helper untuk menampilkan gambar dari assets atau file lokal
   Widget _buildImage(String imagePath) {
     bool isAsset = imagePath.startsWith('assets/');
-    
+
     ImageProvider imageProvider;
     if (isAsset) {
       imageProvider = AssetImage(imagePath);
     } else {
-      imageProvider = FileImage(File(imagePath));
+      // Pastikan file ada sebelum mencoba menampilkannya
+      final file = File(imagePath);
+      if (file.existsSync()) {
+        imageProvider = FileImage(file);
+      } else {
+        // Fallback jika file tidak ditemukan
+        return Container(
+          height: 250,
+          color: Colors.grey[300],
+          child: const Center(
+            child: Icon(Icons.broken_image, color: Colors.grey),
+          ),
+        );
+      }
     }
 
     return Image(
       image: imageProvider,
       width: double.infinity,
       height: 250,
-      fit: BoxFit.cover, 
+      fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
-        print("Error loading image: $error"); 
         return Container(
           height: 250,
           color: Colors.grey[300],
-          child: const Center(child: Icon(Icons.image_not_supported, color: Colors.grey)),
+          child: const Center(
+            child: Icon(Icons.image_not_supported, color: Colors.grey),
+          ),
         );
       },
     );
@@ -36,63 +52,86 @@ class DetailBeritaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // [FIX] Mengambil text style dari tema
+    // Mengambil text style dan color scheme dari tema yang aktif
     final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
+        // AppBar dibuat standar agar sesuai dengan halaman lain
         title: const Text("Detail Berita"),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildImage(berita.gambar), 
+            // --- KONTEN UTAMA BERITA ---
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 1. Kategori Berita
+                  if (berita.tags.isNotEmpty)
+                    Chip(
+                      label: Text(berita.tags.first),
+                      backgroundColor: colorScheme.primary.withOpacity(0.1),
+                      labelStyle: TextStyle(
+                        color: colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      side: BorderSide.none,
+                    ),
+                  const SizedBox(height: 12),
+
+                  // 2. Judul Berita
                   Text(
                     berita.judul,
-                    // [FIX] Menggunakan style dari tema
-                    style: textTheme.headlineLarge,
+                    style: textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
+
+                  // 3. Gambar Berita
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: _buildImage(berita.gambar),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // 4. Info Editor dan Tanggal
                   Row(
                     children: [
-                      const Icon(Icons.person, size: 16, color: Colors.grey),
-                      const SizedBox(width: 4),
                       Text(
-                        'Editor: ${berita.editor}', 
-                        // [FIX] Menggunakan style dari tema
-                        style: textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic)
+                        'Oleh: ${berita.editor}',
+                        style: textTheme.bodySmall,
                       ),
-                      const SizedBox(width: 16),
-                      const Icon(Icons.calendar_today, size: 16, color: Colors.grey),
-                      const SizedBox(width: 4),
+                      const Spacer(),
                       Text(
-                        DateFormat('d MMM yyyy', 'id_ID').format(berita.tanggal),
-                        // [FIX] Menggunakan style dari tema
-                        style: textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+                        DateFormat(
+                          'd MMMM yyyy, HH:mm',
+                          'id_ID',
+                        ).format(berita.tanggal),
+                        style: textTheme.bodySmall,
                       ),
                     ],
                   ),
                   const Divider(height: 32),
+
+                  // 5. Isi Berita
                   Text(
                     berita.isi,
-                    // [FIX] Menggunakan style dari tema
-                    style: textTheme.bodyLarge,
+                    style: textTheme.bodyLarge?.copyWith(height: 1.6),
                   ),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 4.0,
-                    children: berita.tags.map((tag) => Chip(label: Text(tag))).toList(),
-                  )
                 ],
               ),
             ),
+
+            // --- FOOTER WIDGET ---
+            const SizedBox(height: 24),
+            const Divider(height: 1),
+            const FooterWidget(),
           ],
         ),
       ),

@@ -18,7 +18,7 @@ class SettingsProvider with ChangeNotifier {
   void setTheme(ThemeMode themeMode) async {
     _themeMode = themeMode;
     notifyListeners(); // Kasih tau semua halaman buat ganti tampilan
-    
+
     // Simpen pilihan tema
     final prefs = await SharedPreferences.getInstance();
     prefs.setInt('theme', themeMode.index);
@@ -28,7 +28,7 @@ class SettingsProvider with ChangeNotifier {
   void setFontScale(double scale) async {
     _fontScale = scale;
     notifyListeners(); // Kasih tau semua halaman buat ganti ukuran font
-    
+
     // Simpen pilihan ukuran font
     final prefs = await SharedPreferences.getInstance();
     prefs.setDouble('fontScale', scale);
@@ -37,14 +37,14 @@ class SettingsProvider with ChangeNotifier {
   // Fungsi buat ngambil settingan yang tersimpan
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    
+
     // Ambil tema, kalo gak ada pake default (terang)
     final themeIndex = prefs.getInt('theme') ?? 0;
     _themeMode = ThemeMode.values[themeIndex];
-    
+
     // Ambil ukuran font, kalo gak ada pake default (normal)
     _fontScale = prefs.getDouble('fontScale') ?? 1.0;
-    
+
     notifyListeners();
   }
 }
