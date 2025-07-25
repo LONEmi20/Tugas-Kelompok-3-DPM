@@ -16,12 +16,10 @@ class RewardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Bagian Jumlah Koin
             _buildCoinBalance(),
             const SizedBox(height: 24),
             const Divider(),
             const SizedBox(height: 24),
-            // Bagian Informasi Koin
             _buildCoinInfo(),
           ],
         ),
@@ -40,7 +38,7 @@ class RewardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 12),
         const Text(
-          '0 Koin', // Nanti bisa diganti dengan data asli
+          '0 Koin', 
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
         ),
       ],

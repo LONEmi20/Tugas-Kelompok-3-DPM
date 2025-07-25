@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tugas_kelompok_dpm/providers/settings_provider.dart';
+import 'package:tugas_kelompok_dpm/screens/login_admin_screen.dart'; 
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  // Variabel untuk mengelola state dari setiap pengaturan
-  bool _isDarkMode = false;
-  bool _notificationsEnabled = true;
-  double _fontSize = 16.0;
-
-  @override
   Widget build(BuildContext context) {
+    final settingsProvider = Provider.of<SettingsProvider>(context);
     final iconColor = Theme.of(context).brightness == Brightness.dark
         ? Colors.white70
         : const Color(0xFF224699);
@@ -27,53 +21,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: ListView(
         children: [
-          // Pengaturan Mode Gelap/Terang
           SwitchListTile(
-            secondary: Image.asset('assets/img/list/brightness.png', width: 24, color: iconColor),
+            secondary: Icon(settingsProvider.themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode, color: iconColor),
             title: const Text('Mode Gelap'),
-            value: _isDarkMode,
+            value: settingsProvider.themeMode == ThemeMode.dark,
             onChanged: (value) {
-              setState(() {
-                _isDarkMode = value;
-                // Di aplikasi nyata, di sini kita akan mengubah tema aplikasi
-              });
+              final newTheme = value ? ThemeMode.dark : ThemeMode.light;
+              settingsProvider.setTheme(newTheme);
             },
           ),
-
-          // Pengaturan Notifikasi
           SwitchListTile(
-            secondary: Image.asset('assets/img/list/notifications_active.png', width: 24, color: iconColor),
+            secondary: Icon(Icons.notifications, color: iconColor),
             title: const Text('Notifikasi'),
-            value: _notificationsEnabled,
+            value: true, 
             onChanged: (value) {
-              setState(() {
-                _notificationsEnabled = value;
-              });
             },
           ),
-
-          // Pengaturan Ukuran Font
-          ExpansionTile(
-            leading: Image.asset('assets/img/list/zoom_in.png', width: 24, color: iconColor),
+          ListTile(
+            leading: Icon(Icons.font_download, color: iconColor),
             title: const Text('Ukuran Font'),
-            subtitle: Text('Sekarang: ${_fontSize.round()}'),
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Slider(
-                  value: _fontSize,
-                  min: 12.0,
-                  max: 24.0,
-                  divisions: 4,
-                  label: _fontSize.round().toString(),
-                  onChanged: (value) {
-                    setState(() {
-                      _fontSize = value;
-                    });
-                  },
-                ),
-              ),
-            ],
+            subtitle: Slider(
+              value: settingsProvider.fontScale,
+              min: 0.8,
+              max: 1.4,
+              divisions: 3,
+              label: settingsProvider.fontScale == 0.8 ? 'Kecil' : settingsProvider.fontScale == 1.0 ? 'Normal' : settingsProvider.fontScale == 1.2 ? 'Besar' : 'Sangat Besar',
+              onChanged: (value) {
+                double newScale;
+                if (value < 0.9) newScale = 0.8;
+                else if (value < 1.1) newScale = 1.0;
+                else if (value < 1.3) newScale = 1.2;
+                else newScale = 1.4;
+                settingsProvider.setFontScale(newScale);
+              },
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            leading: Image.asset(
+              'assets/img/list/report_problem.png',
+              width: 30, 
+              color: iconColor,
+            ),
+            title: const Text('Manajemen Berita'),
+            subtitle: const Text('Tambah atau edit berita (Khusus Admin)'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginAdminScreen()),
+              );
+            },
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_kelompok_dpm/models/user_model.dart';
 import 'package:tugas_kelompok_dpm/screens/main_screen.dart';
 import 'package:tugas_kelompok_dpm/screens/login_screen.dart';
 import 'package:tugas_kelompok_dpm/services/local_auth_service.dart';
@@ -21,13 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
     final authService = LocalAuthService();
     await Future.delayed(const Duration(seconds: 2));
 
-    final isLoggedIn = await authService.isUserLoggedIn();
+    final User? loggedInUser = await authService.getLoggedInUser();
 
     if (mounted) {
-      if (isLoggedIn) {
+      if (loggedInUser != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => HomeScreen(currentUser: loggedInUser)),
         );
       } else {
         Navigator.pushReplacement(
@@ -40,10 +41,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+      // [FIX] Logika untuk memilih logo DAN background berdasarkan tema sistem
+      final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+      final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+      // [FIX] Warna background sekarang mengikuti tema sistem
+      final backgroundColor = isDarkMode ? const Color(0xFF121212) : Colors.white;
+
       return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 200, 212, 234),
+        // [FIX] Menggunakan warna dinamis yang sudah ditentukan
+        backgroundColor: backgroundColor,
         body: Center(
-          child: Image.asset('assets/img/Logo-mikirluk.png', width: 280),
+          child: Image.asset(logoAsset, width: 280),
         ),
       );
   }

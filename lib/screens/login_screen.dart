@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_kelompok_dpm/models/user_model.dart';
 import 'package:tugas_kelompok_dpm/screens/forgot_password_screen.dart';
 import 'package:tugas_kelompok_dpm/screens/main_screen.dart';
 import 'package:tugas_kelompok_dpm/screens/signup_screen.dart';
@@ -21,9 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _localAuthService = LocalAuthService();
 
   bool _isLoading = false;
-  bool _isPasswordVisible = false; // State untuk show/hide password
+  bool _isPasswordVisible = false;
 
-  // --- LOGIN UTAMA (via Email/pw) ---
   Future<void> _performLogin() async {
     if (!_formKey.currentState!.validate()) return;
     
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (user != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => HomeScreen(currentUser: user)),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -50,51 +50,45 @@ class _LoginScreenState extends State<LoginScreen> {
     if (mounted) setState(() => _isLoading = false);
   }
 
-  // --- Login Dummy Sosmed dengan TOKEN ---
-  Future<void> _performSocialLogin(String email) async {
+  Future<void> _performSocialDummyLogin() async {
     if (_isLoading) return;
     setState(() => _isLoading = true);
-
-    final success = await _localAuthService.loginWithSocial(email);
+    await Future.delayed(const Duration(milliseconds: 1500));
+    
+    final dummyUser = User(
+      name: "Social Media User", 
+      noHp: "081234567890", 
+      email: "social.user@example.com", 
+      password: "",
+      profilePicture: ""
+    );
 
     if (mounted) {
-      if(success) {
-         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Akun dengan email $email tidak ditemukan.'), backgroundColor: Colors.red),
-        );
-      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen(currentUser: dummyUser)),
+      );
     }
-     if (mounted) setState(() => _isLoading = false);
   }
 
-  // --- Tampilkan overlay sosmed ---
   void _showGoogleOverlay() {
     showDialog(
       context: context,
-      builder: (context) => GoogleLoginOverlay(onAccountSelected: _performSocialLogin),
+      builder: (context) => GoogleLoginOverlay(onAccountSelected: _performSocialDummyLogin),
     );
   }
 
   void _showFacebookOverlay() {
-    // Note: Facebook overlay masih dummy, perlu email asli untuk token
-    // Untuk contoh, kita pakai email dummy
     showDialog(
       context: context,
-      builder: (context) => FacebookLoginOverlay(onLoginPressed: () => _performSocialLogin("fb.user@example.com")),
+      builder: (context) => FacebookLoginOverlay(onLoginPressed: _performSocialDummyLogin),
     );
   }
 
   void _showAppleOverlay() {
-    // Note: Apple overlay masih dummy, perlu email asli untuk token
-    // Untuk contoh, kita pakai email dummy
     showDialog(
       context: context,
-      builder: (context) => AppleLoginOverlay(onLoginPressed: () => _performSocialLogin("apple.user@example.com")),
+      builder: (context) => AppleLoginOverlay(onLoginPressed: _performSocialDummyLogin),
     );
   }
 
@@ -111,16 +105,17 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.symmetric(vertical: 14),
       side: BorderSide(color: Colors.grey.shade400),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      foregroundColor: Colors.black,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
     );
 
+    // [FIX] Logika untuk memilih logo berdasarkan tema
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final logoAsset = isDarkMode ? 'assets/img/logo_white.png' : 'assets/img/Logo-mikirluk.png';
+
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {},
         ),
       ),
@@ -132,7 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Image.asset('assets/img/Logo-mikirluk.png', height: 50),
+                // [FIX] Menggunakan logo yang dinamis
+                Image.asset(logoAsset, height: 50),
                 const SizedBox(height: 48),
                 const Text('Selamat Datang kembali!', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 40),
@@ -140,17 +136,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   decoration: const InputDecoration(label: Text('Email')),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => (value == null || !value.contains('@')) ? 'Format email tidak valid' : null,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) return 'Format email tidak valid';
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
-                  obscureText: !_isPasswordVisible, // Terapkan state di sini
+                  obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     label: const Text('Password'),
-                    // --- TOMBOL MATA ---
                     suffixIcon: IconButton(
-                      icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                      icon: Icon(
+                        _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                      ),
                       onPressed: () {
                         setState(() {
                           _isPasswordVisible = !_isPasswordVisible;
@@ -168,10 +169,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: _performLogin,
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      side: const BorderSide(color: Color(0xFF224699), width: 1.5),
+                      side: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1.5),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                     ),
-                    child: const Text('Sign In', style: TextStyle(fontSize: 16, color: Color(0xFF224699))),
+                    child: Text('Sign In', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary)),
                   ),
                 const SizedBox(height: 16),
                 Row(
@@ -179,17 +180,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text('Belum punya akun?'),
                     TextButton(
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen())),
-                      child: const Text('Daftar', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF224699))),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                      },
+                      child: Text('Daftar', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
                     ),
                   ],
                 ),
                 Align(
                   alignment: Alignment.center,
                   child: TextButton(
-                    // --- NAVIGASI KE LUPA PASSWORD ---
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPasswordScreen())),
-                    child: const Text('Lupa password?', style: TextStyle(color: Color(0xFF224699))),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                      );
+                    },
+                    child: Text('Lupa password?', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
                   ),
                 ),
                 const SizedBox(height: 24),

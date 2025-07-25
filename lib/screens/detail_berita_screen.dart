@@ -8,9 +8,7 @@ class DetailBeritaScreen extends StatelessWidget {
 
   const DetailBeritaScreen({super.key, required this.berita});
 
-  // cek sumber gambar dari asset atau dari file lokal
   Widget _buildImage(String imagePath) {
-    // Cek path asset atau bukan
     bool isAsset = imagePath.startsWith('assets/');
     
     ImageProvider imageProvider;
@@ -38,11 +36,12 @@ class DetailBeritaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // [FIX] Mengambil text style dari tema
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detail Berita"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -56,27 +55,34 @@ class DetailBeritaScreen extends StatelessWidget {
                 children: [
                   Text(
                     berita.judul,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    // [FIX] Menggunakan style dari tema
+                    style: textTheme.headlineLarge,
                   ),
                   const SizedBox(height: 12),
                   Row(
                     children: [
                       const Icon(Icons.person, size: 16, color: Colors.grey),
                       const SizedBox(width: 4),
-                      Text('Editor: ${berita.editor}', style: const TextStyle(fontSize: 14, fontStyle: FontStyle.italic)),
+                      Text(
+                        'Editor: ${berita.editor}', 
+                        // [FIX] Menggunakan style dari tema
+                        style: textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic)
+                      ),
                       const SizedBox(width: 16),
                       const Icon(Icons.calendar_today, size: 16, color: Colors.grey),
                       const SizedBox(width: 4),
                       Text(
                         DateFormat('d MMM yyyy', 'id_ID').format(berita.tanggal),
-                        style: const TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+                        // [FIX] Menggunakan style dari tema
+                        style: textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
                       ),
                     ],
                   ),
                   const Divider(height: 32),
                   Text(
                     berita.isi,
-                    style: const TextStyle(fontSize: 16, height: 1.5),
+                    // [FIX] Menggunakan style dari tema
+                    style: textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 16),
                   Wrap(
